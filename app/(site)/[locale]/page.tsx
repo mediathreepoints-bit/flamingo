@@ -7,10 +7,14 @@ import ServicesGrid from '@/components/site/ServicesGrid';
 import TransformationsSection from '@/components/site/TransformationsSection';
 import AtelierGallery from '@/components/site/AtelierGallery';
 import ValuesSection from '@/components/site/ValuesSection';
+import ReopeningSection from '@/components/site/ReopeningSection';
 import WhatsAppSection from '@/components/site/WhatsAppSection';
 import { repo } from '@/lib/repo';
 import { DEFAULT_SETTINGS } from '@/lib/site';
 import { getDict, isLocale } from '@/lib/i18n';
+import { getServices8 } from '@/lib/services8';
+import { activePromotion } from '@/lib/promo';
+import type { Promotion } from '@/lib/types';
 import { localeMetadata } from '@/lib/seo';
 import { ArrowRight } from 'lucide-react';
 import { withLocale } from '@/lib/i18n';
@@ -29,6 +33,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const t = getDict(raw);
   const s = { ...DEFAULT_SETTINGS, ...(await repo.settings()) };
   const gallery = (await repo.list<GalleryItem>('gallery')).filter((g) => g.featured !== false);
+  const services8 = await getServices8(raw, t);
+  let promo: Promotion | null = null;
+  try {
+    promo = activePromotion(await repo.list<Promotion>('promotions'));
+  } catch {
+    promo = null;
+  }
 
   return (
     <>
@@ -70,12 +81,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </Link>
           </div>
 
-          <ServicesGrid locale={raw} t={t} />
+          <ServicesGrid locale={raw} t={t} items={services8} />
         </div>
       </section>
 
       <TransformationsSection items={gallery} whatsapp={s.whatsapp} t={t} />
       <AtelierGallery t={t} variant="strip" />
+      <ReopeningSection t={t} whatsapp={s.whatsapp} promo={promo} />
       <ValuesSection t={t} />
       <WhatsAppSection
         whatsapp={s.whatsapp}

@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Users, Settings, Gem, Handshake } from 'lucide-react';
+import { Users, Settings, Gem, Handshake, Timer } from 'lucide-react';
 import type { Dict } from '@/lib/i18n';
 
-const ICONS = [Users, Settings, Gem, Handshake];
+const ICONS = [Users, Gem, Settings, Timer, Handshake];
 
 /** « NOS VALEURS, VOTRE SÉRÉNITÉ » — 4 colonnes séparées, icônes rouges (maquette). */
 export default function ValuesSection({ t }: { t: Dict }) {
@@ -32,7 +32,7 @@ export default function ValuesSection({ t }: { t: Dict }) {
           </motion.h2>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-white/10 lg:rtl:divide-x-reverse">
+        <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-0 lg:divide-x lg:divide-white/10 lg:rtl:divide-x-reverse">
           {t.why.items.map((v, i) => {
             const Icon = ICONS[i];
             return (

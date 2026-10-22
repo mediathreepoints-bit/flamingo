@@ -6,6 +6,7 @@ import { repo, type Entity } from '@/lib/repo';
 const ALLOWED: Entity[] = [
   'customers', 'vehicles', 'repairs', 'quotes', 'invoices',
   'payments', 'appointments', 'gallery', 'quoteRequests', 'messages',
+  'promotions', 'services',
 ];
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ entity: string }> }) {

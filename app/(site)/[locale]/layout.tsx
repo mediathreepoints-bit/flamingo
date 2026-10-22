@@ -6,6 +6,8 @@ import LocaleHtmlAttrs from '@/components/site/LocaleHtmlAttrs';
 import { repo } from '@/lib/repo';
 import { DEFAULT_SETTINGS } from '@/lib/site';
 import { getDict, isLocale, LOCALE_META } from '@/lib/i18n';
+import { activePromotion } from '@/lib/promo';
+import type { Promotion } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,6 +23,12 @@ export default async function SiteLayout({
   const t = getDict(raw);
   const s = { ...DEFAULT_SETTINGS, ...(await repo.settings()) };
   const dir = LOCALE_META[raw].dir;
+  let promo: Promotion | null = null;
+  try {
+    promo = activePromotion(await repo.list<Promotion>('promotions'));
+  } catch {
+    promo = null;
+  }
 
   return (
     <div dir={dir} className="relative min-h-screen bg-ink text-steel-200">
@@ -34,6 +42,7 @@ export default async function SiteLayout({
         phone={s.phone}
         phoneRaw={s.phoneRaw}
         whatsapp={s.whatsapp}
+        promo={promo}
       />
       <main>{children}</main>
       <Footer

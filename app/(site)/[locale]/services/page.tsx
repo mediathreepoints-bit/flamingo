@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight, Hammer, SprayCan, Sparkles, Car } from 'lucide-react';
+import { ArrowRight, Hammer, SprayCan, Sparkles, Car, Users, Gem, Settings, Timer, Handshake, Flame, Wrench, GlassWater, Package, Armchair } from 'lucide-react';
 import HeroSlides from '@/components/site/HeroSlides';
 import { WhatsAppIcon } from '@/components/site/WhatsAppFab';
 import { repo } from '@/lib/repo';
 import { DEFAULT_SETTINGS, waLink } from '@/lib/site';
 import { getDict, isLocale, withLocale } from '@/lib/i18n';
 import { localeMetadata } from '@/lib/seo';
-import { SERVICE_IMAGES } from '@/lib/atelier';
+import { getServices8, SERVICES8_META } from '@/lib/services8';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,40 +18,25 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return localeMetadata(isLocale(locale) ? locale : 'fr', '/services', 'services');
 }
 
-const ICONS = [Hammer, SprayCan, Sparkles, Car];
-const IMAGES = [
-  SERVICE_IMAGES.carrosserie,
-  SERVICE_IMAGES.peinture,
-  SERVICE_IMAGES.polissage,
-  SERVICE_IMAGES.renovation,
-];
-const IDS = ['carrosserie', 'peinture', 'polissage', 'renovation'];
-const ALTS = [
-  'Chantier de carrosserie : masquage d’un véhicule avant traitement',
-  'Cabine de peinture Flamingo Auto, cuisson en cours',
-  'Finition livrée : Clio blanche brillante',
-  'Hall de l’atelier Flamingo Auto Kénitra, véhicule en rénovation',
-];
+const ICON_MAP: Record<string, typeof Car> = { Car, SprayCan, Sparkles, Flame, GlassWater, Package, Armchair, Wrench };
+const ENG_ICONS = [Users, Gem, Settings, Timer, Handshake];
+const LEGACY_ICONS = [Hammer, SprayCan, Sparkles, Car];
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const t = getDict(raw);
   const s = { ...DEFAULT_SETTINGS, ...(await repo.settings()) };
+  const services = await getServices8(raw, t);
 
   return (
     <div className="bg-ink-950">
       {/* en-tête */}
-      <section className="relative overflow-hidden border-b border-white/5 pt-36 pb-20">
+      <section className="relative overflow-hidden border-b border-white/5 pt-40 pb-20">
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-25" aria-hidden />
         <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[52rem] -translate-x-1/2 rounded-full bg-flame-500/10 blur-[120px]" aria-hidden />
         <HeroSlides
-          items={[
-            { src: IMAGES[0], label: t.servicesPage.sections[0].title },
-            { src: IMAGES[1], label: t.servicesPage.sections[1].title },
-            { src: IMAGES[2], label: t.servicesPage.sections[2].title },
-            { src: IMAGES[3], label: t.servicesPage.sections[3].title },
-          ]}
+          items={services.slice(0, 4).map((sv) => ({ src: sv.image, label: sv.title }))}
           className="absolute bottom-8 end-8 hidden w-[38%] max-w-lg lg:block"
         />
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
@@ -73,33 +58,51 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
-      {/* détail des services */}
-      {t.servicesPage.sections.map((sec, i) => {
-        const Icon = ICONS[i];
+      {/* ——— engagements (affiche officielle) ——— */}
+      <section className="border-b border-white/5 bg-ink-900">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-8 px-5 py-10 sm:grid-cols-3 lg:grid-cols-5 lg:divide-x lg:divide-white/10 lg:rtl:divide-x-reverse lg:px-8">
+          {t.engagements.map((label, i) => {
+            const Icon = ENG_ICONS[i];
+            return (
+              <div key={label} className="flex flex-col items-center gap-3 px-4 text-center">
+                <Icon className="h-6 w-6 text-flame-500" strokeWidth={1.8} aria-hidden />
+                <p className="text-[11px] font-black uppercase leading-snug tracking-mega text-steel-200">{label}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ——— 8 prestations détaillées ——— */}
+      {services.map((sv, i) => {
+        const Icon = ICON_MAP[sv.icon] || LEGACY_ICONS[i % 4];
         return (
-          <section key={IDS[i]} id={IDS[i]} className={`border-b border-white/5 py-20 ${i % 2 ? 'bg-ink-900' : 'bg-ink-950'}`}>
+          <section key={sv.id} id={sv.id} className={`border-b border-white/5 py-20 ${i % 2 ? 'bg-ink-900' : 'bg-ink-950'}`}>
             <div className={`mx-auto grid max-w-7xl items-center gap-12 px-5 lg:grid-cols-2 lg:px-8 ${i % 2 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
               <div className="card-glass relative aspect-[4/3] overflow-hidden !rounded-2xl">
-                <Image src={IMAGES[i]} alt={ALTS[i]} fill sizes="(max-width: 1024px) 100vw, 600px" className="object-cover" />
+                <Image src={sv.image} alt={sv.title} fill sizes="(max-width: 1024px) 100vw, 600px" className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink-950/45 to-transparent" aria-hidden />
                 <span className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-b from-flame-500 to-flame-600 text-white shadow-red">
                   <Icon className="h-5 w-5" />
                 </span>
               </div>
               <div>
-                <h2 className="font-display text-3xl font-black uppercase tracking-tight text-white md:text-4xl">{sec.title}</h2>
-                <p className="mt-4 text-base leading-relaxed text-steel-400">{sec.text}</p>
-                <ul className="mt-6 space-y-3">
-                  {sec.points.map((p) => (
-                    <li key={p} className="flex items-start gap-3 text-sm text-steel-300">
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-flame-500 shadow-[0_0_8px_rgba(240,68,56,0.8)]" aria-hidden />
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-                <Link href={withLocale(raw, '/devis')} className="mt-8 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-mega text-flame-400 transition-colors hover:text-flame-500">
-                  {t.servicesPage.cta} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
-                </Link>
+                <p className="text-xs font-bold uppercase tracking-mega text-flame-500">{String(i + 1).padStart(2, '0')}</p>
+                <h2 className="font-display mt-2 text-3xl font-black uppercase tracking-tight text-white md:text-4xl">{sv.title}</h2>
+                <p className="mt-4 text-base leading-relaxed text-steel-400">{sv.desc}</p>
+                <div className="mt-8 flex flex-wrap items-center gap-3">
+                  <Link href={withLocale(raw, '/devis')} className="btn-primary !px-5 !py-3">
+                    {t.common.freeQuote} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+                  </Link>
+                  <a
+                    href={waLink(s.whatsapp, `Bonjour Flamingo Auto Kénitra, je souhaite un devis : ${sv.title}.`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-ghost !border-white/15 !bg-white/5 backdrop-blur-md"
+                  >
+                    <WhatsAppIcon className="h-4 w-4 text-[#25D366]" /> {t.common.whatsapp}
+                  </a>
+                </div>
               </div>
             </div>
           </section>

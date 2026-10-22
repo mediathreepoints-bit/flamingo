@@ -33,6 +33,8 @@ create table if not exists public.appointments  (id text primary key, data jsonb
 create table if not exists public.gallery_items (id text primary key, data jsonb not null, updated_at timestamptz not null default now());
 create table if not exists public.quote_requests(id text primary key, data jsonb not null, updated_at timestamptz not null default now());
 create table if not exists public.messages      (id text primary key, data jsonb not null, updated_at timestamptz not null default now());
+create table if not exists public.promotions     (id text primary key, data jsonb not null, updated_at timestamptz not null default now());
+create table if not exists public.services_content(id text primary key, data jsonb not null, updated_at timestamptz not null default now());
 create table if not exists public.settings      (id text primary key default 'site', data jsonb not null, updated_at timestamptz not null default now());
 
 -- ——— Row Level Security ———
@@ -47,6 +49,8 @@ alter table public.appointments  enable row level security;
 alter table public.gallery_items enable row level security;
 alter table public.quote_requests enable row level security;
 alter table public.messages      enable row level security;
+alter table public.promotions    enable row level security;
+alter table public.services_content enable row level security;
 alter table public.settings      enable row level security;
 
 -- profil : lecture de soi-même
@@ -56,7 +60,7 @@ create policy "profiles self read" on public.profiles for select using (id = aut
 do $$
 declare t text;
 begin
-  foreach t in array array['customers','vehicles','repair_jobs','quotes','invoices','payments','appointments','messages']
+  foreach t in array array['customers','vehicles','repair_jobs','quotes','invoices','payments','appointments','messages','promotions','services_content']
   loop
     execute format('create policy "admin all on %I" on public.%I for all using (public.is_admin()) with check (public.is_admin());', t, t);
   end loop;

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { DB, emptyDB, GalleryItem } from './types';
+import { DB, emptyDB, GalleryItem, Promotion } from './types';
 import { DEFAULT_SETTINGS } from './site';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -45,8 +45,24 @@ const placeholderGallery = (): GalleryItem[] => [
   },
 ];
 
+/** Campagne extraite de l'affiche de réouverture : INACTIVE tant que l'administrateur
+ *  n'a pas confirmé validité, services applicables, conditions et dates. */
+const seedPromotions = (): Promotion[] => [
+  {
+    id: 'promo-reouverture',
+    title: 'Grande réouverture',
+    percent: 30,
+    services: ['carrosserie', 'peinture', 'polissage', 'plastiques', 'vitrage', 'pieces', 'interieur', 'petites'],
+    start: '',
+    end: '',
+    terms: 'Offre relevée sur l’affiche promotionnelle : à confirmer par l’administrateur (validité, services applicables, conditions, dates).',
+    active: false,
+    createdAt: new Date().toISOString(),
+  },
+];
+
 export function seedDB(): DB {
-  return { ...emptyDB(), settings: { ...DEFAULT_SETTINGS }, gallery: placeholderGallery() };
+  return { ...emptyDB(), settings: { ...DEFAULT_SETTINGS }, gallery: placeholderGallery(), promotions: seedPromotions() };
 }
 
 function ensureDir() {

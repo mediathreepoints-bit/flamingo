@@ -114,6 +114,7 @@ export default function Footer({
           <p className={`mt-2 text-lg font-bold text-flame-400 ${locale === 'ar' ? 'font-ar' : 'font-hand'}`} lang={locale === 'ar' ? 'fr' : 'ar'} dir={locale === 'ar' ? 'ltr' : 'rtl'}>
             {secondary}
           </p>
+          <p className={`mt-3 text-xl text-white/80 ${locale === 'ar' ? 'font-ar text-lg font-bold' : 'font-hand'}`}>{t.tagline}</p>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} viewport={{ once: true }}>

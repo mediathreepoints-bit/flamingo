@@ -46,4 +46,6 @@ export const TABLES: Record<string, string> = {
   gallery: 'gallery_items',
   quoteRequests: 'quote_requests',
   messages: 'messages',
+  promotions: 'promotions',
+  services: 'services_content',
 };

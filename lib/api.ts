@@ -58,6 +58,15 @@ export async function apiCreate(entity: Entity, body: Record<string, unknown>): 
     case 'appointments':
       base.status = base.status || 'confirme';
       break;
+    case 'promotions':
+      base.services = base.services || [];
+      base.percent = Number(base.percent) || 0;
+      base.active = base.active === true;
+      base.start = base.start || '';
+      base.end = base.end || '';
+      base.terms = base.terms || '';
+      base.createdAt = base.createdAt || now();
+      break;
     case 'gallery':
       base.year = base.year || new Date().getFullYear();
       break;

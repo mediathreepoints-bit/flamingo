@@ -73,6 +73,26 @@ export interface GalleryItem { id: ID; title: string; vehicle: string; category:
 export interface QuoteRequest { id: ID; name: string; phone: string; brand: string; model: string; year: string; repairType: string; message?: string; photos: string[]; createdAt: string; status: 'nouveau' | 'traite' | 'converti'; }
 export interface ContactMessage { id: ID; name: string; email?: string; phone?: string; message: string; createdAt: string; status: 'nouveau' | 'traite'; }
 
+export interface Promotion {
+  id: string;
+  title: string;
+  percent: number;
+  services: string[];
+  start: string; // ISO (YYYY-MM-DD) ou ''
+  end: string;
+  terms: string;
+  active: boolean;
+  createdAt?: string;
+}
+
+export interface ServiceContent {
+  id: string;
+  image?: string;
+  fr?: { title?: string; desc?: string };
+  en?: { title?: string; desc?: string };
+  ar?: { title?: string; desc?: string };
+}
+
 export interface DB {
   customers: Customer[];
   vehicles: Vehicle[];
@@ -84,11 +104,14 @@ export interface DB {
   gallery: GalleryItem[];
   quoteRequests: QuoteRequest[];
   messages: ContactMessage[];
+  promotions: Promotion[];
+  services: ServiceContent[];
   settings: Record<string, string>;
 }
 
 export const emptyDB = (): DB => ({
   customers: [], vehicles: [], repairs: [], quotes: [], invoices: [],
   payments: [], appointments: [], gallery: [], quoteRequests: [], messages: [],
+  promotions: [], services: [],
   settings: {},
 });

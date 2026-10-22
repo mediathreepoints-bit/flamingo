@@ -10,6 +10,8 @@ import { stripLocale, withLocale, type Dict, type Locale } from '@/lib/i18n';
 import { cx } from '@/lib/format';
 import { Logo } from './Logo';
 import LocaleSwitcher from './LocaleSwitcher';
+import PromoBar from './PromoBar';
+import type { Promotion } from '@/lib/types';
 
 export default function Header({
   locale,
@@ -19,6 +21,7 @@ export default function Header({
   phone,
   phoneRaw,
   whatsapp,
+  promo,
 }: {
   locale: Locale;
   t: Dict;
@@ -27,6 +30,7 @@ export default function Header({
   phone: string;
   phoneRaw: string;
   whatsapp: string;
+  promo: Promotion | null;
 }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -58,6 +62,7 @@ export default function Header({
       )}
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-flame-500/60 to-transparent" aria-hidden />
+      <PromoBar t={t} locale={locale} promo={promo} />
       <div className="mx-auto flex h-20 max-w-7xl items-center gap-6 px-5 lg:px-8">
         <Link href={withLocale(locale, '/')} aria-label={`${brand} ${city}`} className="shrink-0">
           <Logo brand={brand} city={city} />
