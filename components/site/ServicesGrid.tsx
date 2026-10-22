@@ -5,13 +5,14 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, Hammer, SprayCan, Sparkles, Car } from 'lucide-react';
 import { withLocale, type Dict, type Locale } from '@/lib/i18n';
+import { SERVICE_IMAGES } from '@/lib/atelier';
 
 const ICONS = [Hammer, SprayCan, Sparkles, Car];
 const IMAGES = [
-  '/images/service-carrosserie.jpg',
-  '/images/service-peinture.jpg',
-  '/images/service-polissage.jpg',
-  '/images/service-renovation.jpg',
+  SERVICE_IMAGES.carrosserie,
+  SERVICE_IMAGES.peinture,
+  SERVICE_IMAGES.polissage,
+  SERVICE_IMAGES.renovation,
 ];
 const ANCHORS = ['carrosserie', 'peinture', 'polissage', 'renovation'];
 

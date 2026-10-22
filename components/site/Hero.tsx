@@ -10,6 +10,7 @@ import { WhatsAppIcon } from './WhatsAppFab';
 import { waLink } from '@/lib/site';
 import { LogoMark } from './Logo';
 import type { Dict, Locale } from '@/lib/i18n';
+import { SERVICE_IMAGES } from '@/lib/atelier';
 
 export default function Hero({
   locale,
@@ -38,10 +39,10 @@ export default function Hero({
   const secondary = locale === 'ar' ? settings.sloganFr : settings.sloganAr;
 
   const slides = [
-    { src: '/images/service-carrosserie.jpg', label: t.servicesBlock.items[0].title },
-    { src: '/images/service-peinture.jpg', label: t.servicesBlock.items[1].title },
-    { src: '/images/service-polissage.jpg', label: t.servicesBlock.items[2].title },
-    { src: '/images/service-renovation.jpg', label: t.servicesBlock.items[3].title },
+    { src: SERVICE_IMAGES.carrosserie, label: t.servicesBlock.items[0].title },
+    { src: SERVICE_IMAGES.peinture, label: t.servicesBlock.items[1].title },
+    { src: SERVICE_IMAGES.polissage, label: t.servicesBlock.items[2].title },
+    { src: SERVICE_IMAGES.renovation, label: t.servicesBlock.items[3].title },
   ];
 
   return (

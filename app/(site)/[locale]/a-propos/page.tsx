@@ -45,9 +45,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </section>
 
       <section className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-2 lg:px-8">
-        <div className="card-glass relative aspect-[4/3] overflow-hidden !rounded-2xl">
-          <Image src="/images/hero-garage-bg.jpg" alt="Atelier Flamingo Auto Kénitra" fill sizes="(max-width: 1024px) 100vw, 600px" className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink-950/55 to-transparent" aria-hidden />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="card-glass relative aspect-[3/4] overflow-hidden !rounded-2xl sm:aspect-auto sm:h-full">
+            <Image src="/images/atelier/facade-atelier.jpg" alt="Façade de l’atelier Flamingo Auto Kénitra" fill sizes="(max-width: 1024px) 50vw, 300px" className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink-950/55 to-transparent" aria-hidden />
+          </div>
+          <div className="card-glass relative aspect-[3/4] overflow-hidden !rounded-2xl sm:aspect-auto sm:h-full">
+            <Image src="/images/atelier/atelier-hall.webp" alt="Hall de l’atelier Flamingo Auto Kénitra" fill sizes="(max-width: 1024px) 50vw, 300px" className="object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink-950/55 to-transparent" aria-hidden />
+          </div>
         </div>
         <div>
           <h2 className="font-display text-3xl font-black uppercase tracking-tight text-white">

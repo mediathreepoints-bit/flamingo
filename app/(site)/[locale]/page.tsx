@@ -4,6 +4,7 @@ import Hero from '@/components/site/Hero';
 import Marquee from '@/components/site/Marquee';
 import ServicesGrid from '@/components/site/ServicesGrid';
 import TransformationsSection from '@/components/site/TransformationsSection';
+import AtelierGallery from '@/components/site/AtelierGallery';
 import ValuesSection from '@/components/site/ValuesSection';
 import WhatsAppSection from '@/components/site/WhatsAppSection';
 import { repo } from '@/lib/repo';
@@ -66,6 +67,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </section>
 
       <TransformationsSection items={gallery} whatsapp={s.whatsapp} t={t} />
+      <AtelierGallery t={t} variant="strip" />
       <ValuesSection t={t} />
       <WhatsAppSection
         whatsapp={s.whatsapp}

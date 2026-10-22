@@ -10,6 +10,7 @@ import { CATEGORIES, type GalleryItem } from '@/lib/types';
 import { waLink } from '@/lib/site';
 import { cx } from '@/lib/format';
 import { withLocale, type Dict, type Locale } from '@/lib/i18n';
+import AtelierGallery from './AtelierGallery';
 
 export default function RealisationsGallery({ items, whatsapp, t, locale }: { items: GalleryItem[]; whatsapp: string; t: Dict; locale: Locale }) {
   const [filter, setFilter] = useState('tous');
@@ -89,6 +90,8 @@ export default function RealisationsGallery({ items, whatsapp, t, locale }: { it
             ))}
           </div>
         )}
+
+        <AtelierGallery t={t} />
 
         <div className="card-glass mt-14 flex flex-col items-center justify-between gap-6 !rounded-2xl border-flame-500/25 bg-gradient-to-r from-flame-500/10 via-ink-800 to-ink-800 px-8 py-8 md:flex-row">
           <div>

@@ -9,6 +9,7 @@ import { repo } from '@/lib/repo';
 import { DEFAULT_SETTINGS, waLink } from '@/lib/site';
 import { getDict, isLocale, withLocale } from '@/lib/i18n';
 import { localeMetadata } from '@/lib/seo';
+import { SERVICE_IMAGES } from '@/lib/atelier';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,17 +20,17 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 const ICONS = [Hammer, SprayCan, Sparkles, Car];
 const IMAGES = [
-  '/images/service-carrosserie.jpg',
-  '/images/service-peinture.jpg',
-  '/images/service-polissage.jpg',
-  '/images/service-renovation.jpg',
+  SERVICE_IMAGES.carrosserie,
+  SERVICE_IMAGES.peinture,
+  SERVICE_IMAGES.polissage,
+  SERVICE_IMAGES.renovation,
 ];
 const IDS = ['carrosserie', 'peinture', 'polissage', 'renovation'];
 const ALTS = [
-  'Travaux de carrosserie — meulage d’un panneau',
-  'Peinture au four d’un panneau de carrosserie',
-  'Polissage d’une peinture noire',
-  'Véhicule rénové, finition brillante',
+  'Chantier de carrosserie : masquage d’un véhicule avant traitement',
+  'Cabine de peinture Flamingo Auto, cuisson en cours',
+  'Finition livrée : Clio blanche brillante',
+  'Hall de l’atelier Flamingo Auto Kénitra, véhicule en rénovation',
 ];
 
 export default async function ServicesPage({ params }: { params: Promise<{ locale: string }> }) {
