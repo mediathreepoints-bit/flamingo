@@ -19,10 +19,10 @@ const LABELS: Record<string, string> = {
   petites: 'Petites réparations',
 };
 
-type Loc = { title: string; desc: string };
+type Loc = { title: string; desc: string; sub: string };
 type Form = { image: string; fr: Loc; en: Loc; ar: Loc };
 
-const emptyLoc = (): Loc => ({ title: '', desc: '' });
+const emptyLoc = (): Loc => ({ title: '', desc: '', sub: '' });
 
 export default function ServicesManager({ initial, defaults }: { initial: ServiceContent[]; defaults: Record<string, { image: string; fr: Loc; en: Loc; ar: Loc }> }) {
   const toast = useToast();
@@ -33,9 +33,9 @@ export default function ServicesManager({ initial, defaults }: { initial: Servic
       const d = defaults[m.id];
       out[m.id] = {
         image: ov?.image || d.image,
-        fr: { title: ov?.fr?.title || d.fr.title, desc: ov?.fr?.desc || d.fr.desc },
-        en: { title: ov?.en?.title || d.en.title, desc: ov?.en?.desc || d.en.desc },
-        ar: { title: ov?.ar?.title || d.ar.title, desc: ov?.ar?.desc || d.ar.desc },
+        fr: { title: ov?.fr?.title || d.fr.title, desc: ov?.fr?.desc || d.fr.desc, sub: ov?.fr?.sub || d.fr.sub },
+        en: { title: ov?.en?.title || d.en.title, desc: ov?.en?.desc || d.en.desc, sub: ov?.en?.sub || d.en.sub },
+        ar: { title: ov?.ar?.title || d.ar.title, desc: ov?.ar?.desc || d.ar.desc, sub: ov?.ar?.sub || d.ar.sub },
       };
     }
     return out;
@@ -125,7 +125,10 @@ export default function ServicesManager({ initial, defaults }: { initial: Servic
               {(['fr', 'en', 'ar'] as const).map((loc) => (
                 <div key={loc} className="mt-4 grid gap-3 sm:grid-cols-2">
                   <TextInput label={`Titre (${loc.toUpperCase()})`} value={f[loc].title} onChange={(v) => setLoc(m.id, loc, { title: v })} />
-                  <TextArea label={`Description (${loc.toUpperCase()})`} value={f[loc].desc} onChange={(v) => setLoc(m.id, loc, { desc: v })} rows={2} />
+                  <TextInput label={`Sous-titre affiché (${loc.toUpperCase()})`} value={f[loc].sub} onChange={(v) => setLoc(m.id, loc, { sub: v })} />
+                  <div className="sm:col-span-2">
+                    <TextArea label={`Description (${loc.toUpperCase()})`} value={f[loc].desc} onChange={(v) => setLoc(m.id, loc, { desc: v })} rows={2} />
+                  </div>
                 </div>
               ))}
 

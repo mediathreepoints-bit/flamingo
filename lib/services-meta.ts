@@ -19,4 +19,5 @@ export interface Service8 {
   image: string;
   title: string;
   desc: string;
+  sub: string;
 }

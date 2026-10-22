@@ -8,6 +8,7 @@ import type { Promotion } from '@/lib/types';
  * - Sinon : simple annonce de réouverture, SANS aucune remise active.
  */
 export default function PromoBar({ t, locale, promo }: { t: Dict; locale: Locale; promo: Promotion | null }) {
+  const note = promo && promo.services.length > 0 && promo.services.length < 8 ? t.reopen.badgeSome : t.reopen.badgeNote;
   return (
     <div className="relative bg-gradient-to-r from-flame-700 via-flame-500 to-flame-700 text-white">
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/20" aria-hidden />
@@ -18,7 +19,7 @@ export default function PromoBar({ t, locale, promo }: { t: Dict; locale: Locale
           <span className="mx-2 text-white/60" aria-hidden>•</span>
           {promo ? (
             <span className="underline decoration-2 underline-offset-2">
-              {promo.title} — -{promo.percent}% {t.reopen.badgeNote}
+              {promo.title} — -{promo.percent}% {note}
             </span>
           ) : (
             <span>{t.reopen.text}</span>

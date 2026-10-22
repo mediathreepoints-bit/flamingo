@@ -16,7 +16,7 @@ export default async function AdminServicesPage() {
   const fr = getDict('fr').services8.items;
   const en = getDict('en').services8.items;
   const ar = getDict('ar').services8.items;
-  const defaults: Record<string, { image: string; fr: { title: string; desc: string }; en: { title: string; desc: string }; ar: { title: string; desc: string } }> = {};
+  const defaults: Record<string, { image: string; fr: { title: string; desc: string; sub: string }; en: { title: string; desc: string; sub: string }; ar: { title: string; desc: string; sub: string } }> = {};
   SERVICES8_META.forEach((m, i) => {
     defaults[m.id] = { image: m.image, fr: fr[i], en: en[i], ar: ar[i] };
   });

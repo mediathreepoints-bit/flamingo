@@ -38,7 +38,18 @@ export default function ServicesGrid({ locale, t, items }: { locale: Locale; t: 
             <div className="flex flex-1 flex-col p-5">
               <div className="flex items-center gap-3">
                 <Icon className="h-6 w-6 shrink-0 text-flame-500" strokeWidth={1.9} aria-hidden />
-                <h3 className="font-display text-sm font-black uppercase leading-tight tracking-wide text-white">{sv.title}</h3>
+                <span className="min-w-0">
+                  <h3 className="font-display text-sm font-black uppercase leading-tight tracking-wide text-white">{sv.title}</h3>
+                  {sv.sub && (
+                    <span
+                      className={`mt-0.5 block text-[11px] font-bold text-steel-500 ${locale === 'ar' ? '' : 'font-ar'}`}
+                      lang={locale === 'ar' ? 'fr' : 'ar'}
+                      dir={locale === 'ar' ? 'ltr' : 'rtl'}
+                    >
+                      {sv.sub}
+                    </span>
+                  )}
+                </span>
               </div>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-steel-400">{sv.desc}</p>
 

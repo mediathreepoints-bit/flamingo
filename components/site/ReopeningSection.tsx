@@ -14,6 +14,7 @@ import type { Promotion } from '@/lib/types';
  * reste en annonce « à venir », sans jamais affirmer une offre active.
  */
 export default function ReopeningSection({ t, whatsapp, promo }: { t: Dict; whatsapp: string; promo: Promotion | null }) {
+  const note = promo && promo.services.length > 0 && promo.services.length < 8 ? t.reopen.badgeSome : t.reopen.badgeNote;
   const fmt = (d: string) => (d ? new Date(`${d}T00:00:00`).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '');
 
   return (
@@ -114,7 +115,7 @@ export default function ReopeningSection({ t, whatsapp, promo }: { t: Dict; what
               >
                 <span className="text-[10px] font-black uppercase tracking-mega opacity-90">{promo ? t.reopen.activeLabel : t.reopen.kicker}</span>
                 <span className="font-display mt-1 text-5xl font-black leading-none md:text-6xl">{promo ? `-${promo.percent}%` : t.reopen.badge}</span>
-                <span className="mt-2 max-w-[80%] text-center text-[10px] font-bold uppercase leading-tight tracking-wider opacity-80">{t.reopen.badgeNote}</span>
+                <span className="mt-2 max-w-[80%] text-center text-[10px] font-bold uppercase leading-tight tracking-wider opacity-80">{note}</span>
               </div>
             </motion.div>
           </div>

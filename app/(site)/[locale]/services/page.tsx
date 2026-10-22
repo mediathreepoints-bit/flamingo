@@ -89,6 +89,15 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
               <div>
                 <p className="text-xs font-bold uppercase tracking-mega text-flame-500">{String(i + 1).padStart(2, '0')}</p>
                 <h2 className="font-display mt-2 text-3xl font-black uppercase tracking-tight text-white md:text-4xl">{sv.title}</h2>
+                {sv.sub && (
+                  <p
+                    className={`mt-1 text-sm font-bold text-flame-400/90 ${raw === 'ar' ? '' : 'font-ar'}`}
+                    lang={raw === 'ar' ? 'fr' : 'ar'}
+                    dir={raw === 'ar' ? 'ltr' : 'rtl'}
+                  >
+                    {sv.sub}
+                  </p>
+                )}
                 <p className="mt-4 text-base leading-relaxed text-steel-400">{sv.desc}</p>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <Link href={withLocale(raw, '/devis')} className="btn-primary !px-5 !py-3">

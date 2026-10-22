@@ -88,9 +88,9 @@ export interface Promotion {
 export interface ServiceContent {
   id: string;
   image?: string;
-  fr?: { title?: string; desc?: string };
-  en?: { title?: string; desc?: string };
-  ar?: { title?: string; desc?: string };
+  fr?: { title?: string; desc?: string; sub?: string };
+  en?: { title?: string; desc?: string; sub?: string };
+  ar?: { title?: string; desc?: string; sub?: string };
 }
 
 export interface DB {

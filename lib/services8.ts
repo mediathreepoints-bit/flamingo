@@ -17,13 +17,14 @@ export async function getServices8(locale: Locale, t: Dict): Promise<Service8[]>
   }
   return SERVICES8_META.map((m, i) => {
     const ov = overrides.find((o) => o.id === m.id);
-    const loc = ov ? (ov as unknown as Record<string, { title?: string; desc?: string } | undefined>)[locale] : undefined;
+    const loc = ov ? (ov as unknown as Record<string, { title?: string; desc?: string; sub?: string } | undefined>)[locale] : undefined;
     return {
       id: m.id,
       icon: m.icon,
       image: ov?.image || m.image,
       title: loc?.title || defaults[i].title,
       desc: loc?.desc || defaults[i].desc,
+      sub: loc?.sub || defaults[i].sub,
     };
   });
 }
