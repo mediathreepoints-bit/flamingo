@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink text-steel-200 font-body antialiased;
+}
+
+::selection {
+  background: #F04438;
+  color: #fff;
+}
+
+/* ————— utilitaires maison ————— */
+
+.mask-edges {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+.glass {
+  background: rgba(11, 12, 14, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.btn-glow {
+  box-shadow: 0 0 0 rgba(240, 68, 56, 0);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.btn-glow:hover {
+  box-shadow: 0 10px 44px -8px rgba(240, 68, 56, 0.55);
+  transform: translateY(-1px);
+}
+
+/* carte verre premium */
+.card-glass {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 40px -12px rgba(0, 0, 0, 0.65);
+}
+
+/* texte dégradé marque */
+.text-brand-gradient {
+  background: linear-gradient(100deg, #ff6b5e 0%, #f04438 45%, #b42318 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* reflet balayant les boutons premium */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+.btn-shine:hover::after {
+  left: 120%;
+}
+
+.text-glow-red {
+  text-shadow: 0 0 24px rgba(240, 68, 56, 0.45);
+}
+
+/* slogan arabe */
+.font-ar {
+  font-family: 'Noto Sans Arabic Variable', 'Noto Sans Arabic', sans-serif;
+}
+.slogan-ar {
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+
+/* sliders de comparaison avant/après : masquer la barre native */
+input[type='range'].ba-range {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+}
+input[type='range'].ba-range::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 32px;
+  height: 32px;
+}
+input[type='range'].ba-range::-moz-range-thumb {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+}
+
+/* scrollbar discrète */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2A2E35 transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #2A2E35;
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@layer components {
+  .field {
+    @apply w-full rounded-lg border border-ink-600 bg-ink-800 px-3 py-2.5 text-sm text-steel-100 placeholder:text-steel-600 outline-none transition focus:border-flame-500 focus:ring-2 focus:ring-flame-500/25;
+  }
+  .label {
+    @apply mb-1.5 block text-[11px] font-semibold uppercase tracking-mega text-steel-400;
+  }
+  .btn-primary {
+    @apply btn-glow btn-shine inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-b from-flame-500 to-flame-600 px-5 py-2.5 text-sm font-bold uppercase tracking-mega text-white transition hover:from-flame-400 hover:to-flame-600 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-ink-500 bg-ink-700 px-4 py-2.5 text-sm font-semibold text-steel-200 transition hover:border-steel-700 hover:text-white;
+  }
+  .card {
+    @apply rounded-xl border border-ink-600 bg-ink-700;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-mega;
+  }
+}

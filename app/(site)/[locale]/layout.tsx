@@ -1,0 +1,57 @@
+import { notFound } from 'next/navigation';
+import Header from '@/components/site/Header';
+import Footer from '@/components/site/Footer';
+import WhatsAppFab from '@/components/site/WhatsAppFab';
+import LocaleHtmlAttrs from '@/components/site/LocaleHtmlAttrs';
+import { repo } from '@/lib/repo';
+import { DEFAULT_SETTINGS } from '@/lib/site';
+import { getDict, isLocale, LOCALE_META } from '@/lib/i18n';
+
+export const dynamic = 'force-dynamic';
+
+export default async function SiteLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: raw } = await params;
+  if (!isLocale(raw)) notFound();
+  const t = getDict(raw);
+  const s = { ...DEFAULT_SETTINGS, ...(await repo.settings()) };
+  const dir = LOCALE_META[raw].dir;
+
+  return (
+    <div dir={dir} className="relative min-h-screen bg-ink text-steel-200">
+      <LocaleHtmlAttrs locale={raw} />
+      <div className="pointer-events-none fixed inset-0 z-[60] noise opacity-[0.03]" aria-hidden />
+      <Header
+        locale={raw}
+        t={t}
+        brand={s.brand}
+        city={s.city}
+        phone={s.phone}
+        phoneRaw={s.phoneRaw}
+        whatsapp={s.whatsapp}
+      />
+      <main>{children}</main>
+      <Footer
+        locale={raw}
+        t={t}
+        brand={s.brand}
+        city={s.city}
+        phone={s.phone}
+        phoneRaw={s.phoneRaw}
+        whatsapp={s.whatsapp}
+        instagram={s.instagram}
+        instagramHandle={s.instagramHandle}
+        mapUrl={s.mapUrl}
+        sloganFr={s.sloganFr}
+        sloganAr={s.sloganAr}
+        legal={s.legal}
+      />
+      <WhatsAppFab whatsapp={s.whatsapp} />
+    </div>
+  );
+}

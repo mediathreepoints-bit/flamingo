@@ -1,0 +1,349 @@
+/* i18n — FR (défaut, sans préfixe) / EN (/en) / AR (/ar, RTL) */
+
+export type Locale = 'fr' | 'en' | 'ar';
+export const LOCALES: Locale[] = ['fr', 'en', 'ar'];
+export const DEFAULT_LOCALE: Locale = 'fr';
+
+export const LOCALE_META: Record<Locale, { label: string; short: string; dir: 'ltr' | 'rtl'; hreflang: string }> = {
+  fr: { label: 'Français', short: 'FR', dir: 'ltr', hreflang: 'fr' },
+  en: { label: 'English', short: 'EN', dir: 'ltr', hreflang: 'en' },
+  ar: { label: 'العربية', short: 'AR', dir: 'rtl', hreflang: 'ar' },
+};
+
+export const isLocale = (v: string | undefined): v is Locale => !!v && (LOCALES as string[]).includes(v);
+
+/** Retire le préfixe de locale d'un pathname : /en/services → /services */
+export const stripLocale = (pathname: string) => pathname.replace(/^\/(en|ar)(?=\/|$)/, '') || '/';
+
+/** Préfixe un pathname pour une locale (fr = sans préfixe). */
+export const withLocale = (locale: Locale, pathname: string) =>
+  locale === DEFAULT_LOCALE ? pathname || '/' : `/${locale}${pathname === '/' ? '' : pathname}`;
+
+const fr = {
+  meta: {
+    home: { title: 'Carrosserie, Peinture au four & Polissage à Kénitra', desc: 'FLAMINGO AUTO KÉNITRA : carrosserie, peinture au four, polissage et rénovation automobile à Kénitra. Devis gratuit, suivi sur WhatsApp. Une nouvelle équipe, un nouvel élan.' },
+    services: { title: 'Services — Carrosserie, Peinture au four, Polissage & Rénovation', desc: 'Carrosserie Kénitra, peinture au four Kénitra, polissage automobile Kénitra et rénovation automobile Kénitra : les prestations de FLAMINGO AUTO KÉNITRA.' },
+    works: { title: 'Réalisations — Galerie avant / après', desc: 'Galerie avant/après de FLAMINGO AUTO KÉNITRA : comparateur interactif des chantiers de carrosserie, peinture et polissage à Kénitra.' },
+    about: { title: 'À propos — Une nouvelle équipe, un nouvel élan', desc: 'FLAMINGO AUTO KÉNITRA : une nouvelle équipe, un nouvel élan au service de votre véhicule. Carrosserie, peinture au four, polissage et rénovation à Kénitra.' },
+    quote: { title: 'Devis gratuit — Carrosserie à Kénitra', desc: 'Demandez votre devis gratuit de carrosserie, peinture au four ou polissage à Kénitra. Décrivez les dégâts, ajoutez vos photos, réponse rapide sur WhatsApp.' },
+    contact: { title: 'Contact — FLAMINGO AUTO KÉNITRA', desc: 'Contactez FLAMINGO AUTO KÉNITRA : téléphone 0661 50 86 74, WhatsApp, Instagram @flamingo_auto_kenitra. Carrosserie et peinture au four à Kénitra.' },
+  },
+  nav: { home: 'Accueil', services: 'Services', works: 'Réalisations', about: 'À propos', contact: 'Contact' },
+  common: {
+    before: 'Avant', after: 'Après', demo: 'Visuel illustratif', all: 'Toutes',
+    learnMore: 'En savoir plus', freeQuote: 'Devis gratuit', whatsapp: 'WhatsApp',
+    discover: 'Découvrir', phone: 'Téléphone', whatsappLabel: 'WhatsApp', instagram: 'Instagram',
+    city: 'Ville', cityValue: 'Kénitra, Maroc', rights: 'Tous droits réservés.',
+  },
+  categories: { carrosserie: 'Carrosserie', peinture: 'Peinture au four', polissage: 'Polissage', renovation: 'Rénovation automobile' },
+  marquee: ['Carrosserie Kénitra', 'Peinture au four Kénitra', 'Polissage automobile Kénitra', 'Rénovation automobile Kénitra', 'Devis gratuit', 'Suivi WhatsApp'],
+  hero: { eyebrow: 'Votre carrossier de confiance à Kénitra', title1: 'UNE NOUVELLE ÉQUIPE.', title2: 'UN NOUVEL ÉLAN.', subtitle: 'Carrosserie • Peinture au four • Polissage & Rénovation à Kénitra', slogan: 'Votre confiance, notre responsabilité.' },
+  servicesBlock: {
+    kicker: 'Nos prestations', title: 'Services', accent: 'complets',
+    intro: 'De la tôlerie à la finition : chaque véhicule est pris en charge de A à Z par notre atelier à Kénitra.',
+    items: [
+      { title: 'Carrosserie', desc: 'Redressage, soudure et remplacement de pièces pour retrouver une structure nette après un choc.' },
+      { title: 'Peinture au four', desc: 'Préparation soignée, teinte ajustée et cuisson au four pour une finition d’origine durable.' },
+      { title: 'Polissage & Rénovation', desc: 'Correction des défauts de peinture, brillance profonde et protection de la carrosserie.' },
+      { title: 'Rénovation automobile', desc: 'Remise en état complète : carrosserie, peinture et finitions pour un véhicule comme neuf.' },
+    ],
+  },
+  transform: {
+    kicker: 'Avant / Après', title: 'Transformations', accent: 'réelles',
+    intro: 'Faites glisser le curseur pour comparer. Les médias présentés sont des visuels illustratifs provisoires : les photographies des chantiers de l’atelier seront ajoutées ici.',
+    ctaTitle1: 'Votre voiture peut être', ctaAccent: 'la prochaine', ctaText: 'Envoyez vos photos sur WhatsApp, recevez une première estimation.',
+    empty: 'Aucune réalisation dans cette catégorie pour le moment.',
+  },
+  why: { title: 'Pourquoi nous', accent: 'choisir', items: [
+    { title: 'De la tolérie à la finition', text: 'Un accompagnement complet, du diagnostic au contrôle final, pour chaque véhicule confié.' },
+    { title: 'Finition soignée', text: 'Préparation minutieuse, peinture au four et polissage pour un rendu propre et durable.' },
+    { title: 'Réponse rapide', text: 'Envoyez vos photos sur WhatsApp : nous revenons vers vous avec une première estimation.' },
+    { title: 'Une nouvelle équipe', text: 'Un nouvel élan au service de votre confiance — votre satisfaction guide chaque intervention.' },
+  ] },
+  wa: {
+    kicker: 'Contact direct', title: 'Un projet ?', accent: 'Écrivez-nous',
+    text: 'Envoyez les photos de votre véhicule directement sur WhatsApp. Nous vous répondons avec une première estimation et les étapes de prise en charge.',
+    chat: 'Discuter sur WhatsApp', respLabel: 'Réponse', respText: 'directe & personnalisée',
+  },
+  footer: { nav: 'Navigation', services: 'Prestations', contact: 'Contact', write: 'Écrire sur WhatsApp' },
+  servicesPage: {
+    kicker: 'Nos prestations', title: 'Services de', accent: 'carrosserie', titleSuffix: 'à Kénitra',
+    intro: 'Carrosserie, peinture au four, polissage automobile et rénovation automobile à Kénitra — une prise en charge complète, du diagnostic à la finition.',
+    cta: 'Demander un devis pour ce service',
+    sections: [
+      { title: 'Carrosserie', text: 'Un choc, une rayure profonde ou un panneau déformé ? Nos tôliers remettent la structure en état avant toute mise en peinture, pour un résultat invisible.', points: ['Diagnostic des dégâts après choc', 'Redressage et soudure de tôle', 'Remplacement des pièces abîmées', 'Remise en ligne avant finition'] },
+      { title: 'Peinture au four', text: 'La peinture au four garantit une teinte homogène, un séchage maîtrisé et une brillance durable. Chaque panneau est préparé à la main avant passage en cabine.', points: ['Préparation et ponçage soignés', 'Recherche de teinte ajustée au véhicule', 'Application en cabine puis cuisson au four', 'Vernis et finition d’aspect d’origine'] },
+      { title: 'Polissage & Détail', text: 'Le polissage redonne de l’éclat aux peintures ternies et corrige les défauts de surface. Idéal après une peinture ou pour rafraîchir un véhicule avant vente.', points: ['Correction des micro-rayures et swirls', 'Élimination de l’oxydation', 'Brillance profonde et reflets nets', 'Protection de la peinture en fin de chantier'] },
+      { title: 'Rénovation automobile', text: 'Vous souhaitez retrouver un véhicule comme au premier jour ? Nous planifions une rénovation complète : carrosserie, peinture au four et finitions détaillées.', points: ['Remise en état complète, intérieur comme extérieur', 'Combinaison tôlerie + peinture + polissage', 'Rénovation de véhicules anciens ou accidentés', 'Suivi du chantier étape par étape'] },
+    ],
+  },
+  works: {
+    kicker: 'Galerie', title: 'Réalisations', accent: 'avant / après',
+    intro: 'Faites glisser le curseur sur chaque réalisation pour comparer l’état avant et après intervention. Les médias affichés sont des visuels illustratifs provisoires, en attente des photographies des chantiers de l’atelier.',
+    empty: 'Aucune réalisation dans cette catégorie pour le moment.',
+    ctaTitle: 'Votre véhicule mérite le même soin', ctaText: 'Devis gratuit, réponse rapide sur WhatsApp.',
+  },
+  about: {
+    kicker: 'À propos', title1: 'Une nouvelle équipe.', accent: 'Un nouvel élan.',
+    title2: 'Votre carrossier', title2Accent: 'à Kénitra',
+    p1: 'FLAMINGO AUTO KÉNITRA est un atelier de carrosserie, peinture au four, polissage et rénovation automobile basé à Kénitra, au Maroc. Une nouvelle équipe y apporte un nouvel élan : le soin du détail, la transparence dans le suivi et la recherche d’une finition d’origine.',
+    p2: 'Chaque véhicule confié suit un parcours clair : diagnostic, devis, travaux de tôlerie, préparation et peinture, polissage, puis contrôle qualité avant la remise. Vous pouvez suivre les étapes et échanger avec l’atelier directement sur WhatsApp.',
+    zone: { title: 'Zone d’intervention', text: 'Kénitra et sa région, Maroc.', maps: 'Voir sur Google Maps' },
+    direct: { title: 'Échange direct', text: 'Envoyez vos photos sur WhatsApp, recevez une première estimation et suivez votre chantier.' },
+    social: { title: 'Actualité de l’atelier', text: 'Retrouvez l’atelier et ses chantiers sur Instagram.' },
+    cta: 'Demander un devis gratuit',
+  },
+  quotePage: {
+    kicker: 'Devis gratuit', title: 'Estimez votre', accent: 'réparation',
+    intro: 'Complétez le formulaire ci-dessous avec les photos des dégâts. L’atelier vous répond rapidement — vous pouvez aussi écrire directement sur WhatsApp.',
+    steps: [
+      { title: '1. Envoyez vos photos', text: 'Décrivez les dégâts et ajoutez jusqu’à 5 photos de votre véhicule.' },
+      { title: '2. Réponse rapide', text: 'L’atelier étudie votre demande et revient vers vous avec une estimation.' },
+      { title: '3. Devis clair', text: 'Un devis détaillé et transparent avant toute intervention.' },
+    ],
+    quick: 'Une question rapide ?',
+    types: ['Carrosserie', 'Peinture au four', 'Polissage', 'Rénovation automobile', 'Autre / je ne sais pas'],
+    form: {
+      name: 'Nom complet', namePh: 'Votre nom', phone: 'Téléphone', phonePh: '06 XX XX XX XX',
+      brand: 'Marque', brandPh: 'Ex. Renault', model: 'Modèle', modelPh: 'Ex. Clio 4',
+      year: 'Année', yearPh: 'Sélectionner', type: 'Type de réparation',
+      message: 'Décrivez les dégâts', messagePh: 'Ex. enfoncement porte arrière gauche, peinture rayée…',
+      photos: 'Photos des dégâts (5 max.)', drop: 'Glissez vos photos ici ou', browse: 'Parcourir les fichiers',
+      send: 'Envoyer ma demande de devis', sending: 'Envoi en cours…',
+      done: 'Demande envoyée', doneText: 'Votre demande de devis a bien été transmise à l’atelier. Pour une réponse encore plus rapide, écrivez-nous directement sur WhatsApp.',
+      contWA: 'Continuer sur WhatsApp', call: 'Appeler l’atelier', privacy: 'Vos informations servent uniquement à traiter votre demande.',
+      errName: 'Veuillez indiquer votre nom.', errPhone: 'Numéro de téléphone invalide.', errType: 'Choisissez un type de réparation.',
+    },
+  },
+  contactPage: {
+    kicker: 'Contact', title: 'Parlons de votre', accent: 'véhicule',
+    zone: 'Notre zone d’intervention', mapTitle: 'Carte — Kénitra, Maroc',
+    form: {
+      name: 'Nom', namePh: 'Votre nom', phone: 'Téléphone', phonePh: '06 XX XX XX XX',
+      email: 'Email', emailPh: 'vous@exemple.ma', message: 'Message', messagePh: 'Votre message…',
+      send: 'Envoyer le message', sending: 'Envoi…', done: 'Message envoyé', doneText: 'Merci ! L’atelier vous répondra dans les meilleurs délais.',
+      errName: 'Veuillez indiquer votre nom.', errMessage: 'Message trop court.', errContact: 'Indiquez un email ou un téléphone.',
+    },
+  },
+};
+
+export type Dict = typeof fr;
+
+const en: Dict = {
+  meta: {
+    home: { title: 'Bodywork, Oven-baked Paint & Polishing in Kenitra', desc: 'FLAMINGO AUTO KÉNITRA: bodywork, oven-baked painting, polishing and automotive restoration in Kenitra, Morocco. Free quote, WhatsApp follow-up. A new team, a new momentum.' },
+    services: { title: 'Services — Bodywork, Oven-baked Paint, Polishing & Restoration', desc: 'Bodywork Kenitra, oven-baked paint Kenitra, car polishing Kenitra and automotive restoration Kenitra: FLAMINGO AUTO KÉNITRA services.' },
+    works: { title: 'Our work — Before / after gallery', desc: 'Before/after gallery of FLAMINGO AUTO KÉNITRA: interactive comparator of bodywork, paint and polishing jobs in Kenitra.' },
+    about: { title: 'About — A new team, a new momentum', desc: 'FLAMINGO AUTO KÉNITRA: a new team, a new momentum serving your vehicle. Bodywork, oven-baked paint, polishing and restoration in Kenitra.' },
+    quote: { title: 'Free quote — Bodywork in Kenitra', desc: 'Request your free quote for bodywork, oven-baked paint or polishing in Kenitra. Describe the damage, upload your photos, fast WhatsApp answer.' },
+    contact: { title: 'Contact — FLAMINGO AUTO KÉNITRA', desc: 'Contact FLAMINGO AUTO KÉNITRA: phone 0661 50 86 74, WhatsApp, Instagram @flamingo_auto_kenitra. Bodywork and oven-baked paint in Kenitra.' },
+  },
+  nav: { home: 'Home', services: 'Services', works: 'Our work', about: 'About', contact: 'Contact' },
+  common: {
+    before: 'Before', after: 'After', demo: 'Illustrative visual', all: 'All',
+    learnMore: 'Learn more', freeQuote: 'Free quote', whatsapp: 'WhatsApp',
+    discover: 'Discover', phone: 'Phone', whatsappLabel: 'WhatsApp', instagram: 'Instagram',
+    city: 'City', cityValue: 'Kenitra, Morocco', rights: 'All rights reserved.',
+  },
+  categories: { carrosserie: 'Bodywork', peinture: 'Oven-baked paint', polissage: 'Polishing', renovation: 'Auto restoration' },
+  marquee: ['Bodywork Kenitra', 'Oven-baked paint Kenitra', 'Car polishing Kenitra', 'Auto restoration Kenitra', 'Free quote', 'WhatsApp follow-up'],
+  hero: { eyebrow: 'Your trusted bodyshop in Kenitra', title1: 'A NEW TEAM.', title2: 'A NEW MOMENTUM.', subtitle: 'Bodywork • Oven-baked paint • Polishing & Restoration in Kenitra', slogan: 'Your trust, our responsibility.' },
+  servicesBlock: {
+    kicker: 'What we do', title: 'Complete', accent: 'services',
+    intro: 'From panel beating to final finish: every vehicle is handled from A to Z in our Kenitra workshop.',
+    items: [
+      { title: 'Bodywork', desc: 'Straightening, welding and part replacement to restore a clean structure after an impact.' },
+      { title: 'Oven-baked paint', desc: 'Careful preparation, matched colour and oven curing for a durable factory-grade finish.' },
+      { title: 'Polishing & Restoration', desc: 'Paint defect correction, deep gloss and protection of your bodywork.' },
+      { title: 'Auto restoration', desc: 'Complete refurbishment: bodywork, paint and finishes for a like-new vehicle.' },
+    ],
+  },
+  transform: {
+    kicker: 'Before / After', title: 'Real', accent: 'transformations',
+    intro: 'Drag the slider to compare. Media shown are temporary illustrative visuals: photographs of the workshop’s real jobs will be added here.',
+    ctaTitle1: 'Your car could be', ctaAccent: 'the next one', ctaText: 'Send your photos on WhatsApp, get a first estimate.',
+    empty: 'No work in this category yet.',
+  },
+  why: { title: 'Why choose', accent: 'us', items: [
+    { title: 'From panel to finish', text: 'Complete support, from diagnosis to final inspection, for every vehicle entrusted to us.' },
+    { title: 'Careful finish', text: 'Meticulous preparation, oven-baked paint and polishing for a clean, lasting result.' },
+    { title: 'Fast answer', text: 'Send your photos on WhatsApp: we come back to you with a first estimate.' },
+    { title: 'A new team', text: 'A new momentum serving your trust — your satisfaction drives every job.' },
+  ] },
+  wa: {
+    kicker: 'Direct contact', title: 'A project?', accent: 'Write to us',
+    text: 'Send photos of your vehicle directly on WhatsApp. We reply with a first estimate and the next steps.',
+    chat: 'Chat on WhatsApp', respLabel: 'Answer', respText: 'direct & personalised',
+  },
+  footer: { nav: 'Navigation', services: 'Services', contact: 'Contact', write: 'Write on WhatsApp' },
+  servicesPage: {
+    kicker: 'What we do', title: 'Bodywork', accent: 'services', titleSuffix: 'in Kenitra',
+    intro: 'Bodywork, oven-baked paint, car polishing and auto restoration in Kenitra — complete handling, from diagnosis to finish.',
+    cta: 'Request a quote for this service',
+    sections: [
+      { title: 'Bodywork', text: 'An impact, a deep scratch or a deformed panel? Our panel beaters restore the structure before any painting, for an invisible result.', points: ['Damage diagnosis after impact', 'Panel straightening and welding', 'Replacement of damaged parts', 'Alignment before finishing'] },
+      { title: 'Oven-baked paint', text: 'Oven-baked painting guarantees an even colour, controlled drying and lasting gloss. Every panel is prepared by hand before entering the booth.', points: ['Careful preparation and sanding', 'Colour matched to your vehicle', 'Booth application then oven curing', 'Clear coat and factory-look finish'] },
+      { title: 'Polishing & Detailing', text: 'Polishing restores shine to dull paint and corrects surface defects. Ideal after a repaint or to refresh a vehicle before sale.', points: ['Micro-scratch and swirl correction', 'Oxidation removal', 'Deep gloss and crisp reflections', 'Paint protection at the end of the job'] },
+      { title: 'Auto restoration', text: 'Want your vehicle back to day-one condition? We plan a complete restoration: bodywork, oven-baked paint and detailed finishes.', points: ['Complete refurbishment, inside and out', 'Panel beating + paint + polishing combined', 'Restoration of old or accident-damaged cars', 'Step-by-step job follow-up'] },
+    ],
+  },
+  works: {
+    kicker: 'Gallery', title: 'Our work,', accent: 'before / after',
+    intro: 'Drag the slider on each project to compare the condition before and after our work. Media shown are temporary illustrative visuals, pending photographs of the workshop’s real jobs.',
+    empty: 'No work in this category yet.',
+    ctaTitle: 'Your vehicle deserves the same care', ctaText: 'Free quote, fast WhatsApp answer.',
+  },
+  about: {
+    kicker: 'About', title1: 'A new team.', accent: 'A new momentum.',
+    title2: 'Your bodyshop', title2Accent: 'in Kenitra',
+    p1: 'FLAMINGO AUTO KÉNITRA is a bodywork, oven-baked paint, polishing and auto restoration workshop based in Kenitra, Morocco. A new team brings a new momentum: care for detail, transparency in follow-up and the pursuit of a factory-grade finish.',
+    p2: 'Every vehicle entrusted to us follows a clear path: diagnosis, quote, panel work, preparation and paint, polishing, then quality control before delivery. You can follow the steps and talk to the workshop directly on WhatsApp.',
+    zone: { title: 'Service area', text: 'Kenitra and its region, Morocco.', maps: 'View on Google Maps' },
+    direct: { title: 'Direct chat', text: 'Send your photos on WhatsApp, get a first estimate and follow your job.' },
+    social: { title: 'Workshop news', text: 'Follow the workshop and its jobs on Instagram.' },
+    cta: 'Request a free quote',
+  },
+  quotePage: {
+    kicker: 'Free quote', title: 'Estimate your', accent: 'repair',
+    intro: 'Fill in the form below with photos of the damage. The workshop answers quickly — you can also write directly on WhatsApp.',
+    steps: [
+      { title: '1. Send your photos', text: 'Describe the damage and add up to 5 photos of your vehicle.' },
+      { title: '2. Fast answer', text: 'The workshop reviews your request and comes back with an estimate.' },
+      { title: '3. Clear quote', text: 'A detailed, transparent quote before any work starts.' },
+    ],
+    quick: 'Quick question?',
+    types: ['Bodywork', 'Oven-baked paint', 'Polishing', 'Auto restoration', 'Other / not sure'],
+    form: {
+      name: 'Full name', namePh: 'Your name', phone: 'Phone', phonePh: '06 XX XX XX XX',
+      brand: 'Brand', brandPh: 'e.g. Renault', model: 'Model', modelPh: 'e.g. Clio 4',
+      year: 'Year', yearPh: 'Select', type: 'Repair type',
+      message: 'Describe the damage', messagePh: 'e.g. dent on left rear door, scratched paint…',
+      photos: 'Damage photos (max 5)', drop: 'Drop your photos here or', browse: 'Browse files',
+      send: 'Send my quote request', sending: 'Sending…',
+      done: 'Request sent', doneText: 'Your quote request has been sent to the workshop. For an even faster answer, write to us directly on WhatsApp.',
+      contWA: 'Continue on WhatsApp', call: 'Call the workshop', privacy: 'Your information is used only to process your request.',
+      errName: 'Please enter your name.', errPhone: 'Invalid phone number.', errType: 'Please choose a repair type.',
+    },
+  },
+  contactPage: {
+    kicker: 'Contact', title: 'Let’s talk about your', accent: 'vehicle',
+    zone: 'Our service area', mapTitle: 'Map — Kenitra, Morocco',
+    form: {
+      name: 'Name', namePh: 'Your name', phone: 'Phone', phonePh: '06 XX XX XX XX',
+      email: 'Email', emailPh: 'you@example.com', message: 'Message', messagePh: 'Your message…',
+      send: 'Send message', sending: 'Sending…', done: 'Message sent', doneText: 'Thank you! The workshop will answer as soon as possible.',
+      errName: 'Please enter your name.', errMessage: 'Message too short.', errContact: 'Provide an email or a phone number.',
+    },
+  },
+};
+
+const ar: Dict = {
+  meta: {
+    home: { title: 'كاروسيري، طلاء بالفرن وتلميع السيارات في القنيطرة', desc: 'فلامينغو أوتو القنيطرة: إصلاح الهياكل، الطلاء بالفرن، التلميع وتجديد السيارات في القنيطرة. تقدير مجاني ومتابعة عبر واتساب. فريق جديد، انطلاقة جديدة.' },
+    services: { title: 'خدماتنا — كاروسيري، طلاء بالفرن، تلميع وتجديد', desc: 'كاروسيري القنيطرة، طلاء بالفرن القنيطرة، تلميع السيارات القنيطرة وتجديد السيارات القنيطرة: خدمات فلامينغو أوتو القنيطرة.' },
+    works: { title: 'إنجازاتنا — معرض قبل / بعد', desc: 'معرض قبل/بعد لفلامينغو أوتو القنيطرة: مقارنة تفاعلية لأشغال الكاروسيري والطلاء والتلميع في القنيطرة.' },
+    about: { title: 'من نحن — فريق جديد، انطلاقة جديدة', desc: 'فلامينغو أوتو القنيطرة: فريق جديد وانطلاقة جديدة في خدمة سيارتك. كاروسيري، طلاء بالفرن، تلميع وتجديد في القنيطرة.' },
+    quote: { title: 'تقدير مجاني — كاروسيري في القنيطرة', desc: 'اطلب تقديرًا مجانيًا للكاروسيري أو الطلاء بالفرن أو التلميع في القنيطرة. صِف الأضرار، أضف صورك، وجواب سريع عبر واتساب.' },
+    contact: { title: 'اتصل بنا — فلامينغو أوتو القنيطرة', desc: 'تواصل مع فلامينغو أوتو القنيطرة: الهاتف 0661 50 86 74، واتساب، إنستغرام flamingo_auto_kenitra@. كاروسيري وطلاء بالفرن في القنيطرة.' },
+  },
+  nav: { home: 'الرئيسية', services: 'خدماتنا', works: 'إنجازاتنا', about: 'من نحن', contact: 'اتصل بنا' },
+  common: {
+    before: 'قبل', after: 'بعد', demo: 'صورة توضيحية', all: 'الكل',
+    learnMore: 'اعرف المزيد', freeQuote: 'تقدير مجاني', whatsapp: 'واتساب',
+    discover: 'اكتشف', phone: 'الهاتف', whatsappLabel: 'واتساب', instagram: 'إنستغرام',
+    city: 'المدينة', cityValue: 'القنيطرة، المغرب', rights: 'جميع الحقوق محفوظة.',
+  },
+  categories: { carrosserie: 'كاروسيري', peinture: 'طلاء بالفرن', polissage: 'تلميع', renovation: 'تجديد السيارات' },
+  marquee: ['كاروسيري القنيطرة', 'طلاء بالفرن القنيطرة', 'تلميع السيارات القنيطرة', 'تجديد السيارات القنيطرة', 'تقدير مجاني', 'متابعة عبر واتساب'],
+  hero: { eyebrow: 'ورشة الثقة لديكم في القنيطرة', title1: 'فريق جديد.', title2: 'انطلاقة جديدة.', subtitle: 'كاروسيري • طلاء بالفرن • تلميع وتجديد السيارات في القنيطرة', slogan: 'ثقتكم مسؤوليتنا.' },
+  servicesBlock: {
+    kicker: 'خدماتنا', title: 'خدمات', accent: 'متكاملة',
+    intro: 'من إصلاح الهيكل إلى اللمسة الأخيرة: كل سيارة تحظى بعناية كاملة من الألف إلى الياء في ورشتنا بالقنيطرة.',
+    items: [
+      { title: 'كاروسيري', desc: 'تقويم ولحام واستبدال القطع لاستعادة هيكل سليم بعد الحادث.' },
+      { title: 'طلاء بالفرن', desc: 'تحضير دقيق، مطابقة اللون وتجفيف بالفرن لنتيجة أصلية تدوم.' },
+      { title: 'تلميع وتجديد', desc: 'تصحيح عيوب الطلاء، لمعان عميق وحماية للهيكل.' },
+      { title: 'تجديد السيارات', desc: 'إعادة تأهيل كاملة: كاروسيري وطلاء ولمسات أخيرة لسيارة كالجديدة.' },
+    ],
+  },
+  transform: {
+    kicker: 'قبل / بعد', title: 'تحولات', accent: 'حقيقية',
+    intro: 'حرّك المؤشر للمقارنة. الوسائط المعروضة صور توضيحية مؤقتة: ستُضاف هنا صور أشغال الورشة الحقيقية.',
+    ctaTitle1: 'سيارتك يمكن أن تكون', ctaAccent: 'التالية', ctaText: 'أرسل صورك عبر واتساب واحصل على تقدير أولي.',
+    empty: 'لا توجد إنجازات في هذا التصنيف حاليًا.',
+  },
+  why: { title: 'لماذا', accent: 'تختارنا', items: [
+    { title: 'من الهيكل إلى اللمسة الأخيرة', text: 'مواكبة كاملة، من التشخيص إلى المراقبة النهائية، لكل سيارة تُعهد إلينا.' },
+    { title: 'لمسات متقنة', text: 'تحضير دقيق، طلاء بالفرن وتلميع لنتيجة نظيفة تدوم.' },
+    { title: 'جواب سريع', text: 'أرسل صورك عبر واتساب وسنعود إليك بتقدير أولي.' },
+    { title: 'فريق جديد', text: 'انطلاقة جديدة في خدمة ثقتكم — رضاكم يوجّه كل تدخل.' },
+  ] },
+  wa: {
+    kicker: 'تواصل مباشر', title: 'لديك مشروع؟', accent: 'راسلنا',
+    text: 'أرسل صور سيارتك مباشرة عبر واتساب. نجيبك بتقدير أولي وخطوات التكفل بسيارتك.',
+    chat: 'تحدث عبر واتساب', respLabel: 'جواب', respText: 'مباشر وشخصي',
+  },
+  footer: { nav: 'روابط', services: 'خدماتنا', contact: 'اتصل بنا', write: 'راسلنا على واتساب' },
+  servicesPage: {
+    kicker: 'خدماتنا', title: 'خدمات', accent: 'الكاروسيري', titleSuffix: 'في القنيطرة',
+    intro: 'كاروسيري، طلاء بالفرن، تلميع وتجديد السيارات في القنيطرة — تكفل كامل، من التشخيص إلى اللمسة الأخيرة.',
+    cta: 'اطلب تقديرًا لهذه الخدمة',
+    sections: [
+      { title: 'كاروسيري', text: 'صدمة، خدش عميق أو لوح مشوّه؟ تقنيونا يعيدون الهيكل إلى حالته قبل أي طلاء، لنتيجة غير مرئية.', points: ['تشخيص الأضرار بعد الصدمة', 'تقويم ولحام الألواح', 'استبدال القطع التالفة', 'ضبط الاستقامة قبل الإنهاء'] },
+      { title: 'طلاء بالفرن', text: 'الطلاء بالفرن يضمن لونًا متجانسًا وتجفيفًا مضبوطًا ولمعانًا يدوم. كل لوح يُحضَّر يدويًا قبل دخول الكبينة.', points: ['تحضير وصنفرة دقيقة', 'مطابقة اللون مع سيارتك', 'رش في الكبينة ثم تجفيف بالفرن', 'ورنيش ولمسة أصلية'] },
+      { title: 'تلميع وعناية', text: 'التلميع يعيد البريق للطلاء الباهت ويصحح عيوب السطح. مثالي بعد الطلاء أو لتجديد سيارة قبل بيعها.', points: ['تصحيح الخدوش الدقيقة والدوامات', 'إزالة الأكسدة', 'لمعان عميق وانعكاسات صافية', 'حماية الطلاء في نهاية الأشغال'] },
+      { title: 'تجديد السيارات', text: 'تريد استعادة سيارتك كيومها الأول؟ نخطط تجديدًا كاملًا: كاروسيري وطلاء بالفرن ولمسات مفصّلة.', points: ['إعادة تأهيل كاملة، داخلًا وخارجًا', 'جمع الهيكل + الطلاء + التلميع', 'تجديد السيارات القديمة أو المتضررة', 'متابعة الأشغال خطوة بخطوة'] },
+    ],
+  },
+  works: {
+    kicker: 'معرض', title: 'إنجازاتنا', accent: 'قبل / بعد',
+    intro: 'حرّك المؤشر على كل إنجاز لمقارنة الحالة قبل وبعد التدخل. الوسائط المعروضة صور توضيحية مؤقتة، في انتظار صور أشغال الورشة الحقيقية.',
+    empty: 'لا توجد إنجازات في هذا التصنيف حاليًا.',
+    ctaTitle: 'سيارتك تستحق نفس العناية', ctaText: 'تقدير مجاني وجواب سريع عبر واتساب.',
+  },
+  about: {
+    kicker: 'من نحن', title1: 'فريق جديد.', accent: 'انطلاقة جديدة.',
+    title2: 'ورشتكم', title2Accent: 'في القنيطرة',
+    p1: 'فلامينغو أوتو القنيطرة ورشة للكاروسيري والطلاء بالفرن والتلميع وتجديد السيارات مقرها القنيطرة بالمغرب. فريق جديد يحمل انطلاقة جديدة: العناية بالتفاصيل، شفافية المتابعة والبحث عن لمسة أصلية.',
+    p2: 'كل سيارة تُعهد إلينا تتبع مسارًا واضحًا: التشخيص، التقدير، أشغال الهيكل، التحضير والطلاء، التلميع، ثم مراقبة الجودة قبل التسليم. يمكنكم متابعة المراحل والتواصل مع الورشة مباشرة عبر واتساب.',
+    zone: { title: 'منطقة التدخل', text: 'القنيطرة ونواحيها، المغرب.', maps: 'عرض على خرائط غوغل' },
+    direct: { title: 'تواصل مباشر', text: 'أرسل صورك عبر واتساب، احصل على تقدير أولي وتابع أشغال سيارتك.' },
+    social: { title: 'جديد الورشة', text: 'تابعوا الورشة وأشغالها على إنستغرام.' },
+    cta: 'اطلب تقديرًا مجانيًا',
+  },
+  quotePage: {
+    kicker: 'تقدير مجاني', title: 'قدّر', accent: 'إصلاحك',
+    intro: 'املأ الاستمارة أسفله مع صور الأضرار. الورشة تجيبك سريعًا — يمكنكم أيضًا الكتابة مباشرة عبر واتساب.',
+    steps: [
+      { title: '1. أرسل صورك', text: 'صِف الأضرار وأضف حتى 5 صور لسيارتك.' },
+      { title: '2. جواب سريع', text: 'تدرس الورشة طلبك وتعود إليك بتقدير.' },
+      { title: '3. تقدير واضح', text: 'تقدير مفصل وشفاف قبل أي تدخل.' },
+    ],
+    quick: 'سؤال سريع؟',
+    types: ['كاروسيري', 'طلاء بالفرن', 'تلميع', 'تجديد السيارات', 'آخر / لا أعرف'],
+    form: {
+      name: 'الاسم الكامل', namePh: 'اسمك', phone: 'الهاتف', phonePh: '06 XX XX XX XX',
+      brand: 'الماركة', brandPh: 'مثال: Renault', model: 'الطراز', modelPh: 'مثال: Clio 4',
+      year: 'السنة', yearPh: 'اختر', type: 'نوع الإصلاح',
+      message: 'صِف الأضرار', messagePh: 'مثال: انبعاج الباب الخلفي الأيسر، خدوش في الطلاء…',
+      photos: 'صور الأضرار (5 كحد أقصى)', drop: 'أفلت صورك هنا أو', browse: 'تصفح الملفات',
+      send: 'أرسل طلب التقدير', sending: 'جارٍ الإرسال…',
+      done: 'تم إرسال الطلب', doneText: 'تم إرسال طلب التقدير إلى الورشة. لجواب أسرع، راسلنا مباشرة عبر واتساب.',
+      contWA: 'المتابعة على واتساب', call: 'اتصل بالورشة', privacy: 'تُستخدم معلوماتكم فقط لمعالجة طلبكم.',
+      errName: 'المرجو إدخال اسمك.', errPhone: 'رقم هاتف غير صالح.', errType: 'المرجو اختيار نوع الإصلاح.',
+    },
+  },
+  contactPage: {
+    kicker: 'اتصل بنا', title: 'لنتحدث عن', accent: 'سيارتك',
+    zone: 'منطقة تدخلنا', mapTitle: 'خريطة — القنيطرة، المغرب',
+    form: {
+      name: 'الاسم', namePh: 'اسمك', phone: 'الهاتف', phonePh: '06 XX XX XX XX',
+      email: 'البريد الإلكتروني', emailPh: 'you@example.ma', message: 'الرسالة', messagePh: 'رسالتك…',
+      send: 'إرسال الرسالة', sending: 'جارٍ الإرسال…', done: 'تم إرسال الرسالة', doneText: 'شكرًا! ستجيبكم الورشة في أقرب الآجال.',
+      errName: 'المرجو إدخال اسمك.', errMessage: 'الرسالة قصيرة جدًا.', errContact: 'المرجو إدخال بريد إلكتروني أو هاتف.',
+    },
+  },
+};
+
+export const dictionaries: Record<Locale, Dict> = { fr, en, ar };
+export const getDict = (locale: Locale): Dict => dictionaries[locale] || fr;
