@@ -23,10 +23,11 @@ export const REAL_PHOTOS: AtelierPhoto[] = [
   { src: '/images/atelier/cabine-peinture-2.jpg', category: 'peinture', caption: 8 },
   { src: '/images/atelier/peinture-capot-gris.webp', category: 'peinture', caption: 4 },
   { src: '/images/atelier/post-nouvelle-etape.webp', category: 'renovation', caption: 3 },
+  { src: '/images/atelier/avant-apres-utilitaire.webp', category: 'carrosserie', caption: 10 },
 ];
 
 /** Ordre d'affichage en mosaïque (alternance des formats). */
-export const MOSAIC_ORDER = [0, 2, 3, 1, 4, 6, 5, 8, 7, 9];
+export const MOSAIC_ORDER = [0, 10, 2, 3, 1, 4, 6, 5, 8, 7, 9];
 
 /** Images réelles utilisées pour les cartes services et le diaporama. */
 export const SERVICE_IMAGES: Record<RepairCategory, string> = {

@@ -4,13 +4,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown, ShieldCheck, Wrench, Users, BadgeCheck } from 'lucide-react';
 import HeroSlides from './HeroSlides';
 import { WhatsAppIcon } from './WhatsAppFab';
 import { waLink } from '@/lib/site';
+import { withLocale } from '@/lib/i18n';
 import { LogoMark } from './Logo';
 import type { Dict, Locale } from '@/lib/i18n';
 import { SERVICE_IMAGES } from '@/lib/atelier';
+
+const BADGE_ICONS = [ShieldCheck, Wrench, Users, BadgeCheck];
 
 export default function Hero({
   locale,
@@ -55,29 +58,22 @@ export default function Hero({
       <div className="absolute inset-0 bg-gradient-to-r from-ink-950/90 via-transparent to-ink-950/40" aria-hidden />
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" aria-hidden />
       <div className="pointer-events-none absolute inset-0 noise opacity-[0.05]" aria-hidden />
-      {/* halos lumineux premium */}
       <div className="pointer-events-none absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-flame-500/12 blur-[130px]" aria-hidden />
       <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[60rem] -translate-x-1/2 rounded-full bg-flame-500/10 blur-[120px]" aria-hidden />
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute bottom-0 right-1/4 h-80 w-80 rounded-full bg-flame-600/10 blur-[110px]"
-        animate={{ opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-      />
 
       {/* diaporama cinématique (desktop) */}
-      <HeroSlides items={slides} className="absolute right-10 top-[38%] z-10 hidden w-[40%] max-w-xl lg:block" />
+      <HeroSlides items={slides} className="absolute right-10 top-[34%] z-10 hidden w-[40%] max-w-xl lg:block" />
 
       {/* signalétique murale façon maquette */}
-      <div className="pointer-events-none absolute end-8 top-28 z-10 hidden flex-col items-end gap-3 md:flex">
+      <div className="pointer-events-none absolute end-8 top-24 z-10 hidden flex-col items-end gap-3 md:flex">
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.7, duration: 0.6 }}>
-          <LogoMark size={64} />
+          <LogoMark size={56} />
         </motion.div>
         <motion.p
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.85, duration: 0.6 }}
-          className="font-display text-5xl font-black uppercase leading-none tracking-tight text-flame-500 text-glow-red lg:text-6xl"
+          className="font-display text-4xl font-black uppercase leading-none tracking-tight text-flame-500 text-glow-red lg:text-5xl"
         >
           Flamingo
         </motion.p>
@@ -85,7 +81,7 @@ export default function Hero({
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.95, duration: 0.6 }}
-          className="font-display text-3xl font-black uppercase leading-none tracking-[0.3em] text-white lg:text-4xl"
+          className="font-display text-2xl font-black uppercase leading-none tracking-[0.3em] text-white lg:text-3xl"
         >
           Auto
         </motion.p>
@@ -123,32 +119,67 @@ export default function Hero({
             {subtitle}
           </motion.p>
 
+          {/* badges de confiance (maquette) */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="mt-7 flex flex-wrap gap-x-7 gap-y-4"
+          >
+            {t.hero.badges.map((b, i) => {
+              const Icon = BADGE_ICONS[i];
+              return (
+                <span key={b} className="flex items-center gap-2.5">
+                  <Icon className="h-5 w-5 shrink-0 text-flame-500" strokeWidth={1.9} />
+                  <span className="max-w-[130px] text-xs font-semibold leading-tight text-white">{b}</span>
+                </span>
+              );
+            })}
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.52, duration: 0.6 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
             className="mt-8 flex flex-wrap items-center gap-3"
           >
-            <Link href={`/${locale === 'fr' ? '' : locale + '/'}devis`} className="btn-primary !px-6 !py-3.5">
-              {t.common.freeQuote} <ArrowRight className="h-4 w-4" />
+            <Link href={withLocale(locale, '/devis')} className="btn-primary !px-6 !py-3.5">
+              {t.hero.ctaQuote} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
             </Link>
             <a
               href={waLink(whatsapp, 'Bonjour Flamingo Auto Kénitra, je souhaite un devis.')}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shine inline-flex items-center justify-center gap-2 rounded-lg bg-[#25D366] px-6 py-3.5 text-sm font-bold uppercase tracking-mega text-white transition hover:bg-[#1EBE5A] hover:shadow-[0_10px_44px_-8px_rgba(37,211,102,0.55)]"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/20 bg-ink-900/60 px-6 py-3.5 text-sm font-bold uppercase tracking-mega text-white backdrop-blur-md transition hover:border-[#25D366]/60 hover:bg-[#25D366]/10"
             >
-              <WhatsAppIcon className="h-4 w-4" /> {t.common.whatsapp}
+              <WhatsAppIcon className="h-4 w-4 text-[#25D366]" /> {t.hero.ctaWa}
             </a>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.68, duration: 0.6 }} className="mt-7">
+          {/* slogans (mobile / tablette) */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.75, duration: 0.6 }} className="mt-7 lg:hidden">
             <p className={`text-2xl text-flame-400 ${locale === 'ar' ? 'font-ar text-xl font-bold' : 'font-hand'}`}>{slogan}</p>
             <p className={`mt-1 text-base font-bold text-steel-300 ${locale === 'ar' ? 'font-hand text-xl' : 'font-ar slogan-ar'}`} lang={locale === 'ar' ? 'fr' : 'ar'} dir={locale === 'ar' ? 'ltr' : 'rtl'}>
               {secondary}
             </p>
           </motion.div>
         </div>
+      </motion.div>
+
+      {/* slogan manuscrit en bas à droite (maquette) */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.7 }}
+        className="pointer-events-none absolute bottom-10 end-10 z-20 hidden text-end lg:block"
+      >
+        <p className={`-rotate-3 text-3xl text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] ${locale === 'ar' ? 'font-ar text-2xl font-bold' : 'font-hand'}`}>
+          {slogan}
+        </p>
+        <span className="mt-1 ms-auto block h-1 w-24 rounded-full bg-gradient-to-r from-flame-500 to-transparent" aria-hidden />
+        <p className={`mt-2 text-sm font-bold text-steel-300 ${locale === 'ar' ? 'font-hand text-lg' : 'font-ar slogan-ar'}`} lang={locale === 'ar' ? 'fr' : 'ar'} dir={locale === 'ar' ? 'ltr' : 'rtl'}>
+          {secondary}
+        </p>
       </motion.div>
 
       {/* scroll hint */}

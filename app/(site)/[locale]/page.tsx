@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Hero from '@/components/site/Hero';
 import Marquee from '@/components/site/Marquee';
@@ -11,6 +12,8 @@ import { repo } from '@/lib/repo';
 import { DEFAULT_SETTINGS } from '@/lib/site';
 import { getDict, isLocale } from '@/lib/i18n';
 import { localeMetadata } from '@/lib/seo';
+import { ArrowRight } from 'lucide-react';
+import { withLocale } from '@/lib/i18n';
 import type { GalleryItem } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
@@ -59,7 +62,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 {t.servicesBlock.title} <span className="text-brand-gradient">{t.servicesBlock.accent}</span>
               </h2>
             </div>
-            <p className="max-w-md text-sm leading-relaxed text-steel-400">{t.servicesBlock.intro}</p>
+            <Link
+              href={withLocale(raw, '/services')}
+              className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-xs font-bold uppercase tracking-mega text-white backdrop-blur-md transition hover:border-flame-500/60 hover:text-flame-400"
+            >
+              {t.servicesBlock.seeAll} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+            </Link>
           </div>
 
           <ServicesGrid locale={raw} t={t} />

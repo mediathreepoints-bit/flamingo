@@ -98,7 +98,7 @@ export default function Header({
             {phone}
           </a>
           <Link href={withLocale(locale, '/devis')} className="btn-primary hidden !px-4 !py-2 text-[11px] sm:inline-flex">
-            {t.common.freeQuote}
+            {t.hero.ctaQuote}
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}

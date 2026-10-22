@@ -63,6 +63,50 @@ export default function Footer({
         Flamingo
       </p>
 
+      {/* ——— barre d'infos (maquette) ——— */}
+      <div className="relative border-b border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col items-stretch gap-6 px-5 py-8 lg:flex-row lg:items-center lg:gap-10 lg:px-8">
+          <Logo brand={brand} city={city} size={40} />
+          <div className="flex flex-1 flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 lg:divide-x lg:divide-white/10 lg:rtl:divide-x-reverse">
+            <a href={`tel:${phoneRaw}`} className="group flex items-center gap-3 lg:px-6">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 transition group-hover:border-flame-500/50">
+                <PhoneCall className="h-4 w-4 text-flame-500" />
+              </span>
+              <span>
+                <span className="block text-sm font-bold text-white">{phone}</span>
+                <span className="block text-xs text-steel-500">{t.footer.phoneSub}</span>
+              </span>
+            </a>
+            <a href={instagram} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 lg:px-6">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 transition group-hover:border-flame-500/50">
+                <InstagramIcon className="h-4 w-4 text-flame-500" />
+              </span>
+              <span>
+                <span className="block text-sm font-bold text-white">{instagramHandle}</span>
+                <span className="block text-xs text-steel-500">{t.footer.igSub}</span>
+              </span>
+            </a>
+            <span className="flex items-center gap-3 lg:px-6">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5">
+                <MapPin className="h-4 w-4 text-flame-500" />
+              </span>
+              <span>
+                <span className="block text-sm font-bold text-white">{t.common.cityValue}</span>
+                <span className="block text-xs text-steel-500">{t.footer.citySub}</span>
+              </span>
+            </span>
+          </div>
+          <a
+            href={mapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-lg border border-flame-500/50 px-5 py-3 text-xs font-bold uppercase tracking-mega text-flame-400 transition hover:bg-flame-500/10 hover:text-flame-300 sm:self-auto"
+          >
+            <MapPin className="h-4 w-4" /> {t.footer.maps}
+          </a>
+        </div>
+      </div>
+
       <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-16 lg:grid-cols-[1.4fr_1fr_1.1fr] lg:px-8">
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
           <Logo brand={brand} city={city} size={44} />

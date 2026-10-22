@@ -39,21 +39,21 @@ export default function ServicesGrid({ locale, t }: { locale: Locale; t: Dict })
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/25 to-transparent" aria-hidden />
-              <span className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-b from-flame-500 to-flame-600 text-white shadow-red">
-                <Icon className="h-5 w-5" strokeWidth={2.2} />
-              </span>
+              <div className="absolute inset-0 bg-gradient-to-t from-ink-900/70 via-transparent to-transparent" aria-hidden />
             </div>
 
             <div className="flex flex-1 flex-col p-6">
-              <h3 className="font-display text-lg font-black uppercase leading-tight tracking-wide text-white">{item.title}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-steel-400">{item.desc}</p>
+              <div className="flex items-center gap-3">
+                <Icon className="h-6 w-6 shrink-0 text-flame-500" strokeWidth={1.9} />
+                <h3 className="font-display text-base font-black uppercase leading-tight tracking-wide text-white">{item.title}</h3>
+              </div>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-steel-400">{item.desc}</p>
               <Link
                 href={withLocale(locale, `/services#${ANCHORS[i]}`)}
-                className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-mega text-flame-400 transition-colors hover:text-flame-500"
+                aria-label={item.title}
+                className="mt-5 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-all duration-300 group-hover:border-flame-500 group-hover:bg-gradient-to-b group-hover:from-flame-500 group-hover:to-flame-600 group-hover:shadow-red rtl:rotate-180"
               >
-                {t.common.learnMore}
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1" />
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </motion.div>
