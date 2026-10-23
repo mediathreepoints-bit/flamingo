@@ -43,14 +43,14 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-b from-flame-500 to-flame-600 text-white shadow-red"><PhoneCall className="h-5 w-5" /></span>
             <span>
               <span className="block text-[10px] font-bold uppercase tracking-mega text-steel-500">{t.common.phone}</span>
-              <span className="font-display mt-0.5 block text-xl font-black text-white">{s.phone}</span>
+              <span dir="ltr" className="font-display mt-0.5 block text-xl font-black text-white">{s.phone}</span>
             </span>
           </a>
           <a href={waLink(s.whatsapp, 'Bonjour Flamingo Auto Kénitra.')} target="_blank" rel="noopener noreferrer" className="card-glass flex items-center gap-4 border-[#25D366]/25 bg-[#25D366]/5 p-6 transition-colors hover:border-[#25D366]/50">
             <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#25D366] text-white"><WhatsAppIcon className="h-5 w-5" /></span>
             <span>
               <span className="block text-[10px] font-bold uppercase tracking-mega text-steel-500">{t.common.whatsappLabel}</span>
-              <span className="font-display mt-0.5 block text-xl font-black text-white">{s.phone}</span>
+              <span dir="ltr" className="font-display mt-0.5 block text-xl font-black text-white">{s.phone}</span>
             </span>
           </a>
           <a href={s.instagram} target="_blank" rel="noopener noreferrer" className="card-glass flex items-center gap-4 p-6 transition-colors hover:border-flame-500/40">

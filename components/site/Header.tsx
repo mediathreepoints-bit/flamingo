@@ -110,7 +110,7 @@ export default function Header({
             <span className="flex h-6 w-6 items-center justify-center bg-flame-500" aria-hidden>
               <PhoneCall className="h-3.5 w-3.5 text-white" />
             </span>
-            {phone}
+            <span dir="ltr">{phone}</span>
           </a>
           <Link
             href={withLocale(locale, '/devis')}
@@ -163,7 +163,7 @@ export default function Header({
               ))}
               <div className="flex flex-col gap-2 pt-4">
                 <a href={`tel:${phoneRaw}`} className="btn-ghost">
-                  <PhoneCall className="h-4 w-4 text-flame-500" /> {phone}
+                  <PhoneCall className="h-4 w-4 text-flame-500" /> <span dir="ltr">{phone}</span>
                 </a>
                 <a
                   href={waLink(whatsapp, 'Bonjour Flamingo Auto Kénitra, je souhaite un devis.')}

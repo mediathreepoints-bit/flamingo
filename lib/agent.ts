@@ -37,6 +37,7 @@ const fmtDate = (d: string) => (d ? new Date(`${d}T00:00:00`).toLocaleDateString
 
 /** Fabrique la réponse de l'agent pour une intention donnée. */
 export function answerFor(intent: AgentIntent, ctx: AgentCtx): string {
+  const phoneIso = '⁦' + ctx.phone + '⁩';
   const a = ctx.t.agent.answers;
   const fill = (tpl: string, vars: Record<string, string>) => tpl.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
   switch (intent) {
@@ -47,11 +48,11 @@ export function answerFor(intent: AgentIntent, ctx: AgentCtx): string {
     case 'quote':
       return a.quote;
     case 'location':
-      return fill(a.location, { phone: ctx.phone });
+      return fill(a.location, { phone: phoneIso });
     case 'phone':
-      return fill(a.phone, { phone: ctx.phone });
+      return fill(a.phone, { phone: phoneIso });
     case 'hours':
-      return fill(a.hours, { phone: ctx.phone });
+      return fill(a.hours, { phone: phoneIso });
     case 'thanks':
       return a.thanks;
     case 'promo':

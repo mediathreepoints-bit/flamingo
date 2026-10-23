@@ -105,7 +105,7 @@ export default function Footer({
                 <a href={`tel:${phoneRaw}`} className="group flex items-start gap-3 text-[#424245] transition-colors hover:text-ink-950">
                   <PhoneCall className="mt-0.5 h-4 w-4 shrink-0 text-flame-500" aria-hidden />
                   <span>
-                    <span className="block font-bold text-ink-950">{phone}</span>
+                    <span dir="ltr" className="block font-bold text-ink-950">{phone}</span>
                     <span className="mono-label !text-[10px] text-[#6E6E73]">{t.footer.phoneSub}</span>
                   </span>
                 </a>

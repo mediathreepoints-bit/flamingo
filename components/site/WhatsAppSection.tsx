@@ -75,7 +75,7 @@ export default function WhatsAppSection({
             {chips.map((c) => (
               <span key={c.label} className="flex items-center gap-2.5 bg-white px-4 py-3.5">
                 <c.icon className="h-4 w-4 shrink-0 text-flame-500" strokeWidth={2} aria-hidden />
-                <span className="mono-label !text-[11px] text-ink-950">{c.label}</span>
+                <span dir="ltr" className="mono-label !text-[11px] text-ink-950">{c.label}</span>
               </span>
             ))}
           </motion.div>
@@ -99,7 +99,7 @@ export default function WhatsAppSection({
               href={`tel:${phoneRaw}`}
               className="mono-label inline-flex items-center gap-2.5 border border-[#86868B] px-7 py-4 text-ink-950 transition hover:border-flame-500 hover:text-flame-600"
             >
-              <PhoneCall className="h-4 w-4 text-flame-500" /> {phone}
+              <PhoneCall className="h-4 w-4 text-flame-500" /> <span dir="ltr">{phone}</span>
             </a>
           </motion.div>
         </div>
@@ -109,7 +109,7 @@ export default function WhatsAppSection({
           <Image src={image} alt={t.wa.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover grayscale contrast-125 transition-[filter] duration-700 hover:grayscale-0" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25" aria-hidden />
           <span className="mono-label absolute bottom-4 start-5 bg-black/70 px-3 py-1.5 text-white" aria-hidden>
-            WhatsApp · {phone}
+            WhatsApp · <span dir="ltr">{phone}</span>
           </span>
         </div>
       </div>
