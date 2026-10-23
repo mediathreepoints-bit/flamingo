@@ -6,41 +6,45 @@ import { DEFAULT_SETTINGS } from './site';
 const DATA_DIR = path.join(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
 
-/** Galerie d'attente : médias illustratifs uniquement (jamais présentés comme de vrais chantiers). */
-const placeholderGallery = (): GalleryItem[] => [
+/** Galerie seed : paires avant/après constituées À PARTIR DES PHOTOS RÉELLES de l'atelier.
+ *  - utilitaire : avant/après 100% réel (découpage du visuel Instagram publié par l'atelier) ;
+ *  - 208 & Clio : « après » = photo réelle, « avant » = état reconstitué depuis cette photo réelle
+ *    (clairement indiqué dans la description de chaque fiche). */
+const seededGallery = (): GalleryItem[] => [
   {
-    id: 'ga_demo1',
-    title: 'Exemple — réparation de flanc',
-    vehicle: 'Visuel illustratif',
+    id: 'ga_utilitaire',
+    title: 'Utilitaire Peugeot accidenté — repris et repeint',
+    vehicle: 'Peugeot Partner — photos réelles',
     category: 'carrosserie',
-    beforeImage: '/images/before-1.jpg',
-    afterImage: '/images/after-1.jpg',
-    description: "Média illustratif provisoire, en attente des photographies de chantiers réels de l'atelier.",
-    demo: true,
+    beforeImage: '/images/atelier/avant-apres-utilitaire-avant.jpg',
+    afterImage: '/images/atelier/avant-apres-utilitaire-apres.jpg',
+    description: 'Avant / après 100% réel publié par l’atelier : tôle froissée, remise en forme, puis peinture et finition.',
+    demo: false,
     featured: true,
     year: new Date().getFullYear(),
   },
   {
-    id: 'ga_demo2',
-    title: 'Exemple — redressage & brillance',
-    vehicle: 'Visuel illustratif',
+    id: 'ga_208',
+    title: 'Peugeot 208 — capot repeint noir profond',
+    vehicle: 'Peugeot 208 — après : photo réelle',
+    category: 'peinture',
+    beforeImage: '/images/atelier/avant-208-peinture.jpg',
+    afterImage: '/images/atelier/peinture-capot-noir-1.webp',
+    description: 'Après : photo réelle sortie de cabine. Avant : état reconstitué à partir de cette photo réelle (ponçage, mastic, apprêts).',
+    demo: false,
+    featured: true,
+    year: new Date().getFullYear(),
+  },
+  {
+    id: 'ga_clio',
+    title: 'Renault Clio — polissage & lustrage',
+    vehicle: 'Renault Clio — après : photo réelle',
     category: 'polissage',
-    beforeImage: '/images/before-2.jpg',
-    afterImage: '/images/after-2.jpg',
-    description: "Média illustratif provisoire, en attente des photographies de chantiers réels de l'atelier.",
-    demo: true,
+    beforeImage: '/images/atelier/avant-clio-polissage.jpg',
+    afterImage: '/images/atelier/finition-clio-blanche.webp',
+    description: 'Après : photo réelle de la finition livrée. Avant : état terne et rayé reconstitué à partir de cette photo réelle.',
+    demo: false,
     featured: true,
-    year: new Date().getFullYear(),
-  },
-  {
-    id: 'ga_demo3',
-    title: 'Exemple — bouclier avant repris',
-    vehicle: 'Visuel illustratif',
-    category: 'carrosserie',
-    beforeImage: '/images/before-3.jpg',
-    afterImage: '/images/after-3.jpg',
-    description: "Média illustratif provisoire, en attente des photographies de chantiers réels de l'atelier.",
-    demo: true,
     year: new Date().getFullYear(),
   },
 ];
@@ -62,7 +66,7 @@ const seedPromotions = (): Promotion[] => [
 ];
 
 export function seedDB(): DB {
-  return { ...emptyDB(), settings: { ...DEFAULT_SETTINGS }, gallery: placeholderGallery(), promotions: seedPromotions() };
+  return { ...emptyDB(), settings: { ...DEFAULT_SETTINGS }, gallery: seededGallery(), promotions: seedPromotions() };
 }
 
 function ensureDir() {

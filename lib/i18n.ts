@@ -50,7 +50,7 @@ const fr = {
   },
   transform: {
     kicker: 'Nos réalisations', title: 'Avant /', accent: 'après', discover: 'Découvrez quelques-unes de nos transformations',
-    intro: 'Faites glisser le curseur pour comparer. Les médias présentés sont des visuels illustratifs provisoires : les photographies des chantiers de l’atelier seront ajoutées ici.',
+    intro: 'Faites glisser le curseur pour comparer. Chaque paire est issue des photos réelles de l’atelier : l’état « après » est toujours une photo réelle, certains états « avant » sont reconstitués à partir de celle-ci.',
     ctaTitle1: 'Votre voiture peut être', ctaAccent: 'la prochaine', ctaText: 'Envoyez vos photos sur WhatsApp, recevez une première estimation.',
     empty: 'Aucune réalisation dans cette catégorie pour le moment.',
   },
@@ -98,7 +98,7 @@ const fr = {
   },
   works: {
     kicker: 'Galerie', title: 'Réalisations', accent: 'avant / après',
-    intro: 'Faites glisser le curseur sur chaque réalisation pour comparer l’état avant et après intervention. Les médias affichés sont des visuels illustratifs provisoires, en attente des photographies des chantiers de l’atelier.',
+    intro: 'Faites glisser le curseur sur chaque réalisation pour comparer l’état avant et après intervention — des paires constituées à partir des photos réelles de l’atelier.',
     empty: 'Aucune réalisation dans cette catégorie pour le moment.',
     ctaTitle: 'Votre véhicule mérite le même soin', ctaText: 'Devis gratuit, réponse rapide sur WhatsApp.',
   },
@@ -196,7 +196,7 @@ const en: Dict = {
   },
   transform: {
     kicker: 'Our work', title: 'Before /', accent: 'after', discover: 'Discover some of our transformations',
-    intro: 'Drag the slider to compare. Media shown are temporary illustrative visuals: photographs of the workshop’s real jobs will be added here.',
+    intro: 'Drag the slider to compare. Every pair is built from the workshop’s real photos: the “after” side is always a real photograph; some “before” states are reconstructed from it.',
     ctaTitle1: 'Your car could be', ctaAccent: 'the next one', ctaText: 'Send your photos on WhatsApp, get a first estimate.',
     empty: 'No work in this category yet.',
   },
@@ -244,7 +244,7 @@ const en: Dict = {
   },
   works: {
     kicker: 'Gallery', title: 'Our work,', accent: 'before / after',
-    intro: 'Drag the slider on each project to compare the condition before and after our work. Media shown are temporary illustrative visuals, pending photographs of the workshop’s real jobs.',
+    intro: 'Drag the slider on each project to compare the condition before and after our work — pairs built from the workshop’s real photos.',
     empty: 'No work in this category yet.',
     ctaTitle: 'Your vehicle deserves the same care', ctaText: 'Free quote, fast WhatsApp answer.',
   },
@@ -340,7 +340,7 @@ const ar: Dict = {
   },
   transform: {
     kicker: 'إنجازاتنا', title: 'قبل /', accent: 'بعد', discover: 'اكتشفوا بعض تحولاتنا',
-    intro: 'حرّك المؤشر للمقارنة. الوسائط المعروضة صور توضيحية مؤقتة: ستُضاف هنا صور أشغال الورشة الحقيقية.',
+    intro: 'حرّك المؤشر للمقارنة. كل زوج مبني من صور الورشة الحقيقية: حالة «بعد» صورة حقيقية دائمًا، وبعض حالات «قبل» مُعاد بناؤها منها.',
     ctaTitle1: 'سيارتك يمكن أن تكون', ctaAccent: 'التالية', ctaText: 'أرسل صورك عبر واتساب واحصل على تقدير أولي.',
     empty: 'لا توجد إنجازات في هذا التصنيف حاليًا.',
   },
@@ -388,7 +388,7 @@ const ar: Dict = {
   },
   works: {
     kicker: 'معرض', title: 'إنجازاتنا', accent: 'قبل / بعد',
-    intro: 'حرّك المؤشر على كل إنجاز لمقارنة الحالة قبل وبعد التدخل. الوسائط المعروضة صور توضيحية مؤقتة، في انتظار صور أشغال الورشة الحقيقية.',
+    intro: 'حرّك المؤشر على كل إنجاز لمقارنة الحالة قبل وبعد التدخل — أزواج مبنية من صور الورشة الحقيقية.',
     empty: 'لا توجد إنجازات في هذا التصنيف حاليًا.',
     ctaTitle: 'سيارتك تستحق نفس العناية', ctaText: 'تقدير مجاني وجواب سريع عبر واتساب.',
   },
