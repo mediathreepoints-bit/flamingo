@@ -54,7 +54,9 @@ export default function Footer({
         <div className="grid gap-12 pb-16 lg:grid-cols-[1.2fr_1fr_1fr_1.2fr]">
           {/* marque */}
           <div>
-            <Logo brand={brand} city={city} />
+            <span className="inline-flex rounded-2xl bg-ink-950 p-3 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.35)]">
+              <Logo brand={brand} city={city} size={44} />
+            </span>
             <p className={`mt-5 max-w-xs text-2xl leading-snug text-flame-500 ${locale === 'ar' ? 'font-ar text-xl font-bold' : 'font-hand'}`}>
               {slogan}
             </p>
