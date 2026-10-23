@@ -142,7 +142,7 @@ export default function WhatsAppAgent({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.96 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="card-glass fixed bottom-24 end-4 z-50 flex h-[min(70vh,34rem)] w-[min(92vw,24rem)] flex-col overflow-hidden !rounded-none shadow-lift md:end-6"
+            className="card-glass fixed bottom-24 end-4 z-50 flex h-[min(70vh,34rem)] w-[min(92vw,24rem)] flex-col overflow-hidden !rounded-2xl shadow-lift md:end-6"
             role="dialog"
             aria-label={t.agent.label}
           >
@@ -179,7 +179,7 @@ export default function WhatsAppAgent({
                 <div key={m.id} className={cx('flex', m.role === 'user' ? 'justify-end' : 'justify-start')}>
                   <div
                     className={cx(
-                      'max-w-[85%] rounded-none px-4 py-2.5 text-sm leading-relaxed',
+                      'max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed',
                       m.role === 'user'
                         ? 'rounded-br-sm bg-gradient-to-b from-flame-500 to-flame-600 text-white'
                         : 'rounded-bl-sm border border-white/10 bg-ink-800/90 text-steel-200',
@@ -222,7 +222,7 @@ export default function WhatsAppAgent({
               ))}
               {typing && (
                 <div className="flex justify-start">
-                  <div className="flex items-center gap-1.5 rounded-none rounded-bl-sm border border-white/10 bg-ink-800/90 px-4 py-3">
+                  <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-sm border border-white/10 bg-ink-800/90 px-4 py-3">
                     {[0, 1, 2].map((i) => (
                       <motion.span
                         key={i}

@@ -50,7 +50,7 @@ export default function HeroSlides({ className, items = SLIDES }: { className?: 
       aria-roledescription="carrousel"
       aria-label="Prestations de l’atelier en images"
     >
-      <div className="relative aspect-[16/10] overflow-hidden border border-white/15 bg-ink-800">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/15 bg-ink-800">
         <AnimatePresence initial={false} custom={dir} mode="popLayout">
           <motion.div
             key={index}
@@ -97,14 +97,14 @@ export default function HeroSlides({ className, items = SLIDES }: { className?: 
         <button
           onClick={() => go(-1)}
           aria-label="Image précédente"
-          className="absolute left-3 top-1/2 -translate-y-1/2 border border-white/25 bg-ink-950/70 p-2 text-white opacity-0 transition hover:border-flame-500 hover:text-flame-400 focus:opacity-100 group-hover:opacity-100"
+          className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border border-white/25 bg-black/60 p-2 text-white opacity-0 transition hover:border-flame-500 hover:text-flame-400 focus:opacity-100 group-hover:opacity-100"
         >
           <ChevronLeft className="h-4 w-4 rtl:rotate-180" />
         </button>
         <button
           onClick={() => go(1)}
           aria-label="Image suivante"
-          className="absolute right-3 top-1/2 -translate-y-1/2 border border-white/25 bg-ink-950/70 p-2 text-white opacity-0 transition hover:border-flame-500 hover:text-flame-400 focus:opacity-100 group-hover:opacity-100"
+          className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border border-white/25 bg-black/60 p-2 text-white opacity-0 transition hover:border-flame-500 hover:text-flame-400 focus:opacity-100 group-hover:opacity-100"
         >
           <ChevronRight className="h-4 w-4 rtl:rotate-180" />
         </button>

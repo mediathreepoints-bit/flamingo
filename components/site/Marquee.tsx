@@ -6,7 +6,7 @@ export default function Marquee({ items, locale }: { items: string[]; locale: Lo
   return (
     <div
       dir={LOCALE_META[locale].dir}
-      className="relative overflow-hidden border-y border-white/10 bg-ink-950 py-3"
+      className="relative overflow-hidden border-y border-white/10 bg-black py-3"
       aria-hidden
     >
       <div className="flex w-max animate-marquee gap-8">

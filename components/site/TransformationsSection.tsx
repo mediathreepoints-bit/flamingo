@@ -40,7 +40,7 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
   };
 
   const arrowBtn =
-    'flex h-11 w-11 items-center justify-center border border-ink-950/25 text-ink-950 transition hover:bg-ink-950 hover:text-paper';
+    'flex h-11 w-11 items-center justify-center rounded-full border border-ink-950/25 text-ink-950 transition hover:bg-ink-950 hover:text-paper';
 
   return (
     <section id="transformations" className="section-paper relative py-24">
@@ -96,7 +96,7 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
                 'mono-label border px-4 py-2 transition-all',
                 filter === f.id
                   ? 'border-ink-950 bg-ink-950 text-paper'
-                  : 'border-ink-950/25 text-ink-950/70 hover:border-ink-950 hover:text-ink-950',
+                  : 'border-[#86868B] text-[#424245] hover:border-ink-950 hover:text-ink-950',
               )}
             >
               {f.label}
@@ -107,7 +107,7 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
         {/* grand comparateur + mini-tuiles */}
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_300px]">
           <div>
-            <div className="relative border-2 border-ink-950 bg-ink-950">
+            <div className="relative overflow-hidden rounded-3xl border-2 border-ink-950 bg-ink-950">
               <AnimatePresence mode="wait">
                 {current ? (
                   <motion.div key={current.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
@@ -161,7 +161,7 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
                   aria-label={m.title}
                 >
                   {[m.beforeImage, m.afterImage].map((src, si) => (
-                    <span key={si} className="relative block aspect-square overflow-hidden border border-ink-950/25 bg-ink-900 transition group-hover:border-ink-950">
+                    <span key={si} className="relative block aspect-square overflow-hidden rounded-xl border border-[#D2D2D7] bg-white transition group-hover:border-ink-950">
                       <Image src={src} alt={`${m.title} — ${si === 0 ? t.common.before : t.common.after}`} fill sizes="160px" className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0" />
                       <span
                         className={cx(
@@ -184,7 +184,7 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-14 flex flex-col items-start justify-between gap-6 border-2 border-ink-950 bg-ink-950 px-8 py-7 md:flex-row md:items-center"
+          className="mt-14 flex flex-col items-start justify-between gap-6 rounded-3xl border-2 border-ink-950 bg-ink-950 px-8 py-7 md:flex-row md:items-center"
         >
           <div>
             <p className="font-display text-2xl uppercase text-white md:text-3xl">

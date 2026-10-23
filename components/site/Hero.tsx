@@ -51,7 +51,7 @@ export default function Hero({
   ];
 
   return (
-    <section ref={ref} className="relative min-h-[100svh] overflow-hidden bg-ink-950">
+    <section ref={ref} className="relative min-h-[100svh] overflow-hidden bg-black">
       {/* fond photo N&B + voiles encre */}
       <motion.div style={{ y: bgY }} className="absolute inset-0 -top-[6%] h-[112%]">
         <Image src={heroImage} alt="" fill priority sizes="100vw" className="object-cover grayscale contrast-125" />
@@ -59,6 +59,7 @@ export default function Hero({
       <div className="absolute inset-0 bg-gradient-to-b from-ink-950/90 via-ink-950/55 to-ink-950" aria-hidden />
       <div className="absolute inset-0 bg-gradient-to-r from-ink-950/95 via-ink-950/35 to-ink-950/70" aria-hidden />
       <div className="pointer-events-none absolute inset-0 noise opacity-[0.05]" aria-hidden />
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[60rem] -translate-x-1/2 rounded-full bg-flame-500/16 blur-[140px]" aria-hidden />
 
       <motion.div style={{ opacity: fade }} className="relative z-10 mx-auto max-w-7xl px-5 pb-16 pt-36 lg:px-8 lg:pt-44">
         <div className="grid items-end gap-14 lg:grid-cols-12">

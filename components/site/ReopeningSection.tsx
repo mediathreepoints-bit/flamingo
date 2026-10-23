@@ -111,7 +111,7 @@ export default function ReopeningSection({ t, whatsapp, promo }: { t: Dict; what
             <div
               className={
                 promo
-                  ? 'relative flex h-56 w-56 flex-col items-center justify-center border-4 border-ink-950 bg-paper text-ink-950 shadow-[10px_10px_0_rgba(11,12,14,0.35)] md:h-64 md:w-64'
+                  ? 'relative flex h-56 w-56 flex-col items-center justify-center rounded-3xl border-4 border-ink-950 bg-white text-ink-950 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.45)] md:h-64 md:w-64'
                   : 'relative flex h-56 w-56 flex-col items-center justify-center border-2 border-dashed border-ink-950/60 text-ink-950/85 md:h-64 md:w-64'
               }
             >

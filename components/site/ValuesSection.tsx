@@ -33,7 +33,7 @@ export default function ValuesSection({ t }: { t: Dict }) {
           </div>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-px border border-ink-950/15 bg-ink-950/15 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {t.why.items.map((v, i) => {
             const Icon = ICONS[i];
             return (
@@ -43,7 +43,7 @@ export default function ValuesSection({ t }: { t: Dict }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="group flex flex-col bg-paper p-6 transition-colors hover:bg-white"
+                className="group flex flex-col rounded-2xl bg-white p-7 shadow-[0_10px_36px_-16px_rgba(0,0,0,0.14)] transition-shadow hover:shadow-[0_16px_48px_-16px_rgba(0,0,0,0.22)]"
               >
                 <div className="flex items-baseline justify-between">
                   <span className="font-display text-4xl leading-none text-outline-ink" aria-hidden>

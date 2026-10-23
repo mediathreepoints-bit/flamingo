@@ -63,7 +63,7 @@ export default function Header({
       className={cx(
         'fixed inset-x-0 top-0 z-50 transition-all duration-300',
         scrolled || open
-          ? 'border-b border-white/10 bg-ink-950/95 backdrop-blur-md'
+          ? 'border-b border-white/10 bg-black/70 backdrop-blur-xl saturate-150'
           : 'border-b border-transparent bg-gradient-to-b from-ink-950/85 to-transparent',
       )}
     >
@@ -136,7 +136,7 @@ export default function Header({
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-white/10 bg-ink-950 lg:hidden"
+            className="overflow-hidden border-t border-white/10 bg-black/95 backdrop-blur-xl lg:hidden"
             aria-label="Navigation mobile"
           >
             <div className="space-y-1 px-5 pb-6 pt-3">

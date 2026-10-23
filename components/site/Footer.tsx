@@ -49,7 +49,7 @@ export default function Footer({
   ];
 
   return (
-    <footer className="relative overflow-hidden bg-ink-950 pt-20">
+    <footer className="relative overflow-hidden bg-paper pt-20">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-12 pb-16 lg:grid-cols-[1.2fr_1fr_1fr_1.2fr]">
           {/* marque */}
@@ -58,7 +58,7 @@ export default function Footer({
             <p className={`mt-5 max-w-xs text-2xl leading-snug text-flame-500 ${locale === 'ar' ? 'font-ar text-xl font-bold' : 'font-hand'}`}>
               {slogan}
             </p>
-            <p className="mono-label mt-6 text-steel-500">{t.tagline}</p>
+            <p className="mono-label mt-6 text-[#6E6E73]">{t.tagline}</p>
           </div>
 
           {/* navigation */}
@@ -69,7 +69,7 @@ export default function Footer({
                 <li key={item.href}>
                   <Link
                     href={withLocale(locale, item.href)}
-                    className="group inline-flex items-center gap-2 text-sm font-semibold text-steel-300 transition-colors hover:text-white"
+                    className="group inline-flex items-center gap-2 text-sm font-semibold text-[#424245] transition-colors hover:text-ink-950"
                   >
                     <span className="h-px w-0 bg-flame-500 transition-all duration-300 group-hover:w-4" aria-hidden />
                     {item.label}
@@ -87,7 +87,7 @@ export default function Footer({
                 <li key={s.title}>
                   <Link
                     href={withLocale(locale, '/services')}
-                    className="group inline-flex items-center gap-2 text-sm font-semibold text-steel-300 transition-colors hover:text-white"
+                    className="group inline-flex items-center gap-2 text-sm font-semibold text-[#424245] transition-colors hover:text-ink-950"
                   >
                     <span className="h-px w-0 bg-flame-500 transition-all duration-300 group-hover:w-4" aria-hidden />
                     {s.title}
@@ -102,11 +102,11 @@ export default function Footer({
             <p className="mono-label text-flame-500">{t.footer.contact}</p>
             <ul className="mt-5 space-y-4 text-sm">
               <li>
-                <a href={`tel:${phoneRaw}`} className="group flex items-start gap-3 text-steel-300 transition-colors hover:text-white">
+                <a href={`tel:${phoneRaw}`} className="group flex items-start gap-3 text-[#424245] transition-colors hover:text-ink-950">
                   <PhoneCall className="mt-0.5 h-4 w-4 shrink-0 text-flame-500" aria-hidden />
                   <span>
-                    <span className="block font-bold text-white">{phone}</span>
-                    <span className="mono-label !text-[10px] text-steel-500">{t.footer.phoneSub}</span>
+                    <span className="block font-bold text-ink-950">{phone}</span>
+                    <span className="mono-label !text-[10px] text-[#6E6E73]">{t.footer.phoneSub}</span>
                   </span>
                 </a>
               </li>
@@ -115,28 +115,28 @@ export default function Footer({
                   href={waLink(whatsapp, 'Bonjour Flamingo Auto Kénitra, je souhaite un devis.')}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mono-label inline-flex items-center gap-2.5 border border-white/20 px-4 py-2.5 text-white transition hover:border-[#25D366] hover:bg-[#25D366]/10"
+                  className="mono-label inline-flex items-center gap-2.5 border border-[#86868B] px-4 py-2.5 text-ink-950 transition hover:border-[#25D366] hover:bg-[#25D366]/10"
                 >
                   <WhatsAppDot /> {t.footer.write}
                 </a>
               </li>
               {instagram && (
                 <li>
-                  <a href={instagram} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-steel-300 transition-colors hover:text-white">
+                  <a href={instagram} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-[#424245] transition-colors hover:text-ink-950">
                     <InstagramIcon className="mt-0.5 h-4 w-4 shrink-0 text-flame-500" />
                     <span>
-                      <span className="block font-bold text-white">{instagramHandle}</span>
-                      <span className="mono-label !text-[10px] text-steel-500">{t.footer.igSub}</span>
+                      <span className="block font-bold text-ink-950">{instagramHandle}</span>
+                      <span className="mono-label !text-[10px] text-[#6E6E73]">{t.footer.igSub}</span>
                     </span>
                   </a>
                 </li>
               )}
               <li>
-                <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-steel-300 transition-colors hover:text-white">
+                <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-[#424245] transition-colors hover:text-ink-950">
                   <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-flame-500" aria-hidden />
                   <span>
-                    <span className="block font-bold text-white">{city}</span>
-                    <span className="mono-label !text-[10px] text-steel-500">{t.footer.citySub} — {t.footer.maps}</span>
+                    <span className="block font-bold text-ink-950">{city}</span>
+                    <span className="mono-label !text-[10px] text-[#6E6E73]">{t.footer.citySub} — {t.footer.maps}</span>
                   </span>
                 </a>
               </li>
@@ -154,18 +154,18 @@ export default function Footer({
         className="pointer-events-none select-none px-2"
         aria-hidden
       >
-        <p className="text-outline whitespace-nowrap text-center font-display text-[13.5vw] uppercase leading-[0.8] opacity-70">
+        <p className="text-outline-ink whitespace-nowrap text-center font-display text-[13.5vw] uppercase leading-[0.8] opacity-70">
           Flamingo
         </p>
       </motion.div>
 
       {/* barre finale */}
-      <div className="border-t border-white/10">
+      <div className="border-t border-[#D2D2D7]">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-5 md:flex-row lg:px-8">
-          <p className="mono-label !text-[10px] text-steel-500">
+          <p className="mono-label !text-[10px] text-[#6E6E73]">
             © {year} {brand} — {legal}
           </p>
-          <p className="mono-label !text-[10px] text-steel-500">
+          <p className="mono-label !text-[10px] text-[#6E6E73]">
             {city} <span className="mx-2 text-flame-500" aria-hidden>▪</span> FR · EN · AR
           </p>
         </div>

@@ -61,20 +61,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Marquee items={t.marquee} locale={raw} />
 
       {/* ——— Services ——— */}
-      <section id="services" className="relative bg-ink-950 py-24">
+      <section id="services" className="relative bg-white py-24">
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="mono-label flex items-center gap-3 text-flame-500">
                 <span className="h-2 w-2 bg-flame-500" aria-hidden /> {t.servicesBlock.kicker}
               </p>
-              <h2 className="font-display mt-4 text-4xl uppercase leading-[0.95] text-white md:text-6xl">
+              <h2 className="font-display mt-4 text-4xl uppercase leading-[0.95] text-ink-950 md:text-6xl">
                 {t.servicesBlock.title} <span className="text-flame-500">{t.servicesBlock.accent}</span>
               </h2>
             </div>
             <Link
               href={withLocale(raw, '/services')}
-              className="mono-label inline-flex shrink-0 items-center gap-2 border-b border-flame-500 pb-1 text-white transition hover:text-flame-400"
+              className="mono-label inline-flex shrink-0 items-center gap-2 border-b border-flame-500 pb-1 text-ink-950 transition hover:text-flame-600"
             >
               {t.servicesBlock.seeAll} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
             </Link>
@@ -90,7 +90,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <ValuesSection t={t} />
 
       {/* ——— Devis (template : « Parlez-nous de votre véhicule ») ——— */}
-      <section id="devis" className="relative border-t border-white/10 bg-ink-950 py-24">
+      <section id="devis" className="relative border-t border-white/10 bg-black py-24">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="max-w-2xl">
             <p className="mono-label flex items-center gap-3 text-flame-500">

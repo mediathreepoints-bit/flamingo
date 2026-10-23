@@ -33,7 +33,7 @@ export default function WhatsAppSection({
   ];
 
   return (
-    <section id="whatsapp" className="relative border-y border-white/10 bg-ink-950">
+    <section id="whatsapp" className="relative border-y border-[#D2D2D7] bg-white">
       <div className="grid lg:grid-cols-2">
         {/* colonne texte */}
         <div className="flex flex-col justify-center px-5 py-16 lg:px-14 lg:py-24">
@@ -50,7 +50,7 @@ export default function WhatsAppSection({
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
             viewport={{ once: true }}
-            className="font-display mt-5 text-4xl uppercase leading-[0.95] text-white md:text-6xl"
+            className="font-display mt-5 text-4xl uppercase leading-[0.95] text-ink-950 md:text-6xl"
           >
             {t.wa.title}
           </motion.h2>
@@ -59,7 +59,7 @@ export default function WhatsAppSection({
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             viewport={{ once: true }}
-            className="mt-5 max-w-md border-s-2 border-flame-500 ps-5 text-base leading-relaxed text-steel-300"
+            className="mt-5 max-w-md border-s-2 border-flame-500 ps-5 text-base leading-relaxed text-[#424245]"
           >
             {t.wa.text}
           </motion.p>
@@ -70,12 +70,12 @@ export default function WhatsAppSection({
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
             viewport={{ once: true }}
-            className="mt-9 grid grid-cols-1 gap-px border border-white/10 bg-white/10 sm:grid-cols-3"
+            className="mt-9 grid grid-cols-1 gap-px border border-[#D2D2D7] bg-[#D2D2D7] sm:grid-cols-3"
           >
             {chips.map((c) => (
-              <span key={c.label} className="flex items-center gap-2.5 bg-ink-950 px-4 py-3.5">
+              <span key={c.label} className="flex items-center gap-2.5 bg-white px-4 py-3.5">
                 <c.icon className="h-4 w-4 shrink-0 text-flame-500" strokeWidth={2} aria-hidden />
-                <span className="mono-label !text-[10px] text-white">{c.label}</span>
+                <span className="mono-label !text-[11px] text-ink-950">{c.label}</span>
               </span>
             ))}
           </motion.div>
@@ -97,7 +97,7 @@ export default function WhatsAppSection({
             </a>
             <a
               href={`tel:${phoneRaw}`}
-              className="mono-label inline-flex items-center gap-2.5 border border-white/25 px-7 py-4 text-white transition hover:border-flame-500 hover:text-flame-400"
+              className="mono-label inline-flex items-center gap-2.5 border border-[#86868B] px-7 py-4 text-ink-950 transition hover:border-flame-500 hover:text-flame-600"
             >
               <PhoneCall className="h-4 w-4 text-flame-500" /> {phone}
             </a>
@@ -105,10 +105,10 @@ export default function WhatsAppSection({
         </div>
 
         {/* colonne photo */}
-        <div className="relative min-h-[320px] border-t border-white/10 lg:min-h-0 lg:border-s lg:border-t-0">
+        <div className="relative min-h-[320px] border-t border-[#D2D2D7] lg:min-h-0 lg:border-s lg:border-t-0">
           <Image src={image} alt={t.wa.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover grayscale contrast-125 transition-[filter] duration-700 hover:grayscale-0" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-ink-950/30" aria-hidden />
-          <span className="mono-label absolute bottom-4 start-5 bg-ink-950/85 px-3 py-1.5 text-flame-500" aria-hidden>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25" aria-hidden />
+          <span className="mono-label absolute bottom-4 start-5 bg-black/70 px-3 py-1.5 text-white" aria-hidden>
             WhatsApp · {phone}
           </span>
         </div>
