@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Header from '@/components/site/Header';
 import Footer from '@/components/site/Footer';
-import WhatsAppFab from '@/components/site/WhatsAppFab';
+import WhatsAppAgent from '@/components/site/WhatsAppAgent';
 import LocaleHtmlAttrs from '@/components/site/LocaleHtmlAttrs';
 import { repo } from '@/lib/repo';
 import { DEFAULT_SETTINGS } from '@/lib/site';
@@ -58,7 +58,15 @@ export default async function SiteLayout({
         mapUrl={s.mapUrl}
         legal={s.legal}
       />
-      <WhatsAppFab whatsapp={s.whatsapp} />
+      <WhatsAppAgent
+        locale={raw}
+        t={t}
+        whatsapp={s.whatsapp}
+        phone={s.phone}
+        phoneRaw={s.phoneRaw}
+        promo={promo}
+        services={t.services8.items.map((i) => i.title)}
+      />
     </div>
   );
 }
