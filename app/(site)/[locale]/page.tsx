@@ -61,21 +61,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Marquee items={t.marquee} locale={raw} />
 
       {/* ——— Services ——— */}
-      <section id="services" className="relative bg-ink-900 py-24">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-flame-500/40 to-transparent" aria-hidden />
+      <section id="services" className="relative bg-ink-950 py-24">
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-mega text-flame-400 backdrop-blur-md">
-                <span className="h-1.5 w-1.5 rounded-full bg-flame-500" /> {t.servicesBlock.kicker}
+              <p className="mono-label flex items-center gap-3 text-flame-500">
+                <span className="h-2 w-2 bg-flame-500" aria-hidden /> {t.servicesBlock.kicker}
               </p>
-              <h2 className="font-display mt-4 text-4xl font-black uppercase leading-tight tracking-tight text-white md:text-5xl">
-                {t.servicesBlock.title} <span className="text-brand-gradient">{t.servicesBlock.accent}</span>
+              <h2 className="font-display mt-4 text-4xl uppercase leading-[0.95] text-white md:text-6xl">
+                {t.servicesBlock.title} <span className="text-flame-500">{t.servicesBlock.accent}</span>
               </h2>
             </div>
             <Link
               href={withLocale(raw, '/services')}
-              className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-xs font-bold uppercase tracking-mega text-white backdrop-blur-md transition hover:border-flame-500/60 hover:text-flame-400"
+              className="mono-label inline-flex shrink-0 items-center gap-2 border-b border-flame-500 pb-1 text-white transition hover:text-flame-400"
             >
               {t.servicesBlock.seeAll} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
             </Link>
@@ -91,17 +90,16 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <ValuesSection t={t} />
 
       {/* ——— Devis (template : « Parlez-nous de votre véhicule ») ——— */}
-      <section id="devis" className="relative bg-ink-900 py-24">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-flame-500/40 to-transparent" aria-hidden />
+      <section id="devis" className="relative border-t border-white/10 bg-ink-950 py-24">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="max-w-2xl">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-mega text-flame-400 backdrop-blur-md">
-              <span className="h-1.5 w-1.5 rounded-full bg-flame-500" /> {t.quotePage.kicker}
+            <p className="mono-label flex items-center gap-3 text-flame-500">
+              <span className="h-2 w-2 bg-flame-500" aria-hidden /> {t.quotePage.kicker}
             </p>
-            <h2 className="font-display mt-4 text-3xl font-black uppercase leading-tight tracking-tight text-white md:text-4xl">
-              {t.quotePage.title} <span className="text-brand-gradient">{t.quotePage.accent}</span>
+            <h2 className="font-display mt-4 text-4xl uppercase leading-[0.95] text-white md:text-6xl">
+              {t.quotePage.title} <span className="text-flame-500">{t.quotePage.accent}</span>
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-steel-400">{t.quotePage.intro}</p>
+            <p className="mt-5 border-s-2 border-flame-500 ps-5 text-base leading-relaxed text-steel-400">{t.quotePage.intro}</p>
           </div>
           <div className="mt-10">
             <QuoteForm whatsapp={s.whatsapp} phone={s.phone} t={t} />

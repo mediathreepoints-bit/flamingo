@@ -13,6 +13,10 @@ import LocaleSwitcher from './LocaleSwitcher';
 import PromoBar from './PromoBar';
 import type { Promotion } from '@/lib/types';
 
+/**
+ * Header « Editorial Signal » : barre encre à hairline, nav monospace,
+ * CTA rouge vif à angles vifs, menu mobile plein écran typographié.
+ */
 export default function Header({
   locale,
   t,
@@ -58,32 +62,36 @@ export default function Header({
     <header
       className={cx(
         'fixed inset-x-0 top-0 z-50 transition-all duration-300',
-        scrolled || open ? 'glass border-b border-white/10 shadow-card' : 'border-b border-transparent bg-gradient-to-b from-black/70 to-transparent',
+        scrolled || open
+          ? 'border-b border-white/10 bg-ink-950/95 backdrop-blur-md'
+          : 'border-b border-transparent bg-gradient-to-b from-ink-950/85 to-transparent',
       )}
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-flame-500/60 to-transparent" aria-hidden />
       <PromoBar t={t} promo={promo} />
-      <div className="mx-auto flex h-20 max-w-7xl items-center gap-6 px-5 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-5 lg:h-20 lg:px-8">
         <Link href={withLocale(locale, '/')} aria-label={`${brand} ${city}`} className="shrink-0">
           <Logo brand={brand} city={city} />
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Navigation principale">
-          {NAV.map((item) => {
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
+          {NAV.map((item, i) => {
             const active = current === item.href;
             return (
               <Link
                 key={item.href}
                 href={withLocale(locale, item.href)}
                 className={cx(
-                  'group relative py-2 text-sm font-semibold uppercase tracking-wider transition-colors',
-                  active ? 'text-white' : 'text-steel-300 hover:text-white',
+                  'group mono-label relative py-2 transition-colors',
+                  active ? 'text-white' : 'text-steel-400 hover:text-white',
                 )}
               >
+                <span className="me-1.5 text-flame-500" aria-hidden>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
                 {item.label}
                 <span
                   className={cx(
-                    'absolute -bottom-0.5 left-0 right-0 h-0.5 origin-left rounded-full bg-gradient-to-r from-flame-400 to-flame-600 transition-transform duration-300',
+                    'absolute -bottom-0.5 left-0 right-0 h-0.5 bg-flame-500 transition-transform duration-300',
                     active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100',
                   )}
                   aria-hidden
@@ -97,17 +105,22 @@ export default function Header({
           <LocaleSwitcher locale={locale} />
           <a
             href={`tel:${phoneRaw}`}
-            className="hidden items-center gap-2 text-sm font-bold text-white transition-colors hover:text-flame-400 md:flex"
+            className="mono-label hidden items-center gap-2 text-white transition-colors hover:text-flame-400 md:flex"
           >
-            <PhoneCall className="h-4 w-4 text-flame-500" aria-hidden />
+            <span className="flex h-6 w-6 items-center justify-center bg-flame-500" aria-hidden>
+              <PhoneCall className="h-3.5 w-3.5 text-white" />
+            </span>
             {phone}
           </a>
-          <Link href={withLocale(locale, '/devis')} className="btn-primary hidden !px-4 !py-2 text-[11px] sm:inline-flex">
+          <Link
+            href={withLocale(locale, '/devis')}
+            className="mono-label hidden bg-flame-500 px-4 py-2.5 text-white transition-colors hover:bg-white hover:text-ink-950 sm:inline-flex"
+          >
             {t.hero.ctaQuote}
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white transition hover:bg-white/10 lg:hidden"
+            className="flex h-10 w-10 items-center justify-center border border-white/15 text-white transition hover:border-flame-500 hover:text-flame-400 lg:hidden"
             aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
             aria-expanded={open}
           >
@@ -123,7 +136,7 @@ export default function Header({
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-white/5 lg:hidden"
+            className="overflow-hidden border-t border-white/10 bg-ink-950 lg:hidden"
             aria-label="Navigation mobile"
           >
             <div className="space-y-1 px-5 pb-6 pt-3">
@@ -137,23 +150,26 @@ export default function Header({
                   <Link
                     href={withLocale(locale, item.href)}
                     className={cx(
-                      'block rounded-lg px-4 py-3 font-display text-2xl font-black uppercase tracking-wide transition-colors',
-                      current === item.href ? 'bg-flame-500/10 text-flame-400' : 'text-white hover:bg-white/5',
+                      'flex items-baseline gap-3 border-b border-white/5 px-1 py-3 font-display text-3xl uppercase tracking-wide transition-colors',
+                      current === item.href ? 'text-flame-500' : 'text-white hover:text-flame-400',
                     )}
                   >
+                    <span className="mono-label text-flame-500" aria-hidden>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
                     {item.label}
                   </Link>
                 </motion.div>
               ))}
-              <div className="flex flex-col gap-2 pt-3">
-                <a href={`tel:${phoneRaw}`} className="btn-ghost !border-white/15 !bg-white/5">
+              <div className="flex flex-col gap-2 pt-4">
+                <a href={`tel:${phoneRaw}`} className="btn-ghost">
                   <PhoneCall className="h-4 w-4 text-flame-500" /> {phone}
                 </a>
                 <a
                   href={waLink(whatsapp, 'Bonjour Flamingo Auto Kénitra, je souhaite un devis.')}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary !bg-[#25D366] hover:!bg-[#1EBE5A]"
+                  className="btn-primary !bg-[#25D366] hover:!bg-[#1EBE5A] hover:!text-white"
                 >
                   {t.common.whatsapp}
                 </a>

@@ -142,7 +142,7 @@ export default function WhatsAppAgent({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.96 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="card-glass fixed bottom-24 end-4 z-50 flex h-[min(70vh,34rem)] w-[min(92vw,24rem)] flex-col overflow-hidden !rounded-2xl shadow-lift md:end-6"
+            className="card-glass fixed bottom-24 end-4 z-50 flex h-[min(70vh,34rem)] w-[min(92vw,24rem)] flex-col overflow-hidden !rounded-none shadow-lift md:end-6"
             role="dialog"
             aria-label={t.agent.label}
           >
@@ -150,7 +150,7 @@ export default function WhatsAppAgent({
             <div className="flex items-center gap-3 border-b border-white/10 bg-ink-900/80 px-4 py-3">
               <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-b from-flame-500 to-flame-700">
                 <LogoMark size={22} />
-                <span className="absolute -bottom-0.5 -end-0.5 h-3 w-3 rounded-full border-2 border-ink-900 bg-[#25D366]" aria-hidden />
+                <span className="absolute -bottom-0.5 -end-0.5 h-3 w-3 border-2 border-ink-900 bg-[#25D366]" aria-hidden />
               </span>
               <div className="min-w-0 flex-1">
                 <p className="font-display truncate text-sm font-black uppercase tracking-wide text-white">{t.agent.label}</p>
@@ -164,11 +164,11 @@ export default function WhatsAppAgent({
                 rel="noopener noreferrer"
                 aria-label={t.agent.waContinue}
                 title={t.agent.waContinue}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[#25D366] transition hover:bg-[#25D366]/10"
+                className="flex h-9 w-9 items-center justify-center border border-white/10 bg-white/5 text-[#25D366] transition hover:bg-[#25D366]/10"
               >
                 <WhatsAppIcon className="h-4 w-4" />
               </a>
-              <button onClick={() => setOpen(false)} aria-label="Fermer" className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-steel-300 transition hover:text-white">
+              <button onClick={() => setOpen(false)} aria-label="Fermer" className="flex h-9 w-9 items-center justify-center border border-white/10 bg-white/5 text-steel-300 transition hover:text-white">
                 <X className="h-4 w-4" />
               </button>
             </div>
@@ -179,7 +179,7 @@ export default function WhatsAppAgent({
                 <div key={m.id} className={cx('flex', m.role === 'user' ? 'justify-end' : 'justify-start')}>
                   <div
                     className={cx(
-                      'max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed',
+                      'max-w-[85%] rounded-none px-4 py-2.5 text-sm leading-relaxed',
                       m.role === 'user'
                         ? 'rounded-br-sm bg-gradient-to-b from-flame-500 to-flame-600 text-white'
                         : 'rounded-bl-sm border border-white/10 bg-ink-800/90 text-steel-200',
@@ -210,7 +210,7 @@ export default function WhatsAppAgent({
                           <button
                             key={sv}
                             onClick={() => handle(sv)}
-                            className="rounded-full border border-flame-500/40 bg-flame-500/10 px-3 py-1.5 text-[11px] font-bold text-flame-300 transition hover:bg-flame-500/20 hover:text-white"
+                            className="border border-flame-500/40 bg-flame-500/10 px-3 py-1.5 text-[11px] font-bold text-flame-300 transition hover:bg-flame-500/20 hover:text-white"
                           >
                             {sv}
                           </button>
@@ -222,7 +222,7 @@ export default function WhatsAppAgent({
               ))}
               {typing && (
                 <div className="flex justify-start">
-                  <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-sm border border-white/10 bg-ink-800/90 px-4 py-3">
+                  <div className="flex items-center gap-1.5 rounded-none rounded-bl-sm border border-white/10 bg-ink-800/90 px-4 py-3">
                     {[0, 1, 2].map((i) => (
                       <motion.span
                         key={i}
@@ -244,7 +244,7 @@ export default function WhatsAppAgent({
                   <button
                     key={c}
                     onClick={() => chipIntent(c)}
-                    className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-bold text-steel-200 transition hover:border-flame-500/50 hover:text-white"
+                    className="border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-bold text-steel-200 transition hover:border-flame-500/50 hover:text-white"
                   >
                     {c}
                   </button>

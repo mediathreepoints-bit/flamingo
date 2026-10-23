@@ -37,7 +37,7 @@ const fr = {
   },
   categories: { carrosserie: 'Carrosserie', peinture: 'Peinture au four', polissage: 'Polissage', renovation: 'Rénovation automobile' },
   marquee: ['Qualité', 'Passion', 'Professionnalisme', 'Carrosserie Kénitra', 'Peinture au four Kénitra', 'Polissage automobile Kénitra', 'Rénovation automobile Kénitra', 'Devis gratuit', 'Suivi WhatsApp'],
-  hero: { eyebrow: 'Votre carrossier de confiance à Kénitra', title1: 'UNE NOUVELLE ÉQUIPE.', title2: 'UN NOUVEL ÉLAN.', subtitle: 'Carrosserie • Peinture au four • Polissage & Rénovation à Kénitra', slogan: 'Votre confiance, notre responsabilité.', ctaQuote: 'Demander un devis', ctaWa: 'Nous écrire sur WhatsApp', badges: ['Qualité garantie', 'Travail professionnel', 'Nouvelle équipe', 'Votre confiance, notre responsabilité'] },
+  hero: { eyebrow: 'Votre carrossier de confiance à Kénitra', title1: 'UNE NOUVELLE ÉQUIPE.', title2: 'UN NOUVEL ÉLAN.', subtitle: 'Carrosserie • Peinture au four • Polissage & Rénovation à Kénitra', slogan: 'Votre confiance, notre responsabilité.', ctaQuote: 'Demander un devis', ctaWa: 'Nous écrire sur WhatsApp', badges: ['Qualité garantie', 'Travail professionnel', 'Nouvelle équipe', 'Votre confiance, notre responsabilité'], metaServices: '8 services experts', metaCity: 'Kénitra, Maroc' },
   servicesBlock: {
     kicker: 'Nos services', title: 'Un service complet pour votre', accent: 'véhicule', seeAll: 'Voir tous nos services',
     intro: 'De la tôlerie à la finition : chaque véhicule est pris en charge de A à Z par notre atelier à Kénitra.',
@@ -205,7 +205,7 @@ const en: Dict = {
   },
   categories: { carrosserie: 'Bodywork', peinture: 'Oven-baked paint', polissage: 'Polishing', renovation: 'Auto restoration' },
   marquee: ['Quality', 'Passion', 'Professionalism', 'Bodywork Kenitra', 'Oven-baked paint Kenitra', 'Car polishing Kenitra', 'Auto restoration Kenitra', 'Free quote', 'WhatsApp follow-up'],
-  hero: { eyebrow: 'Your trusted bodyshop in Kenitra', title1: 'A NEW TEAM.', title2: 'A NEW MOMENTUM.', subtitle: 'Bodywork • Oven-baked paint • Polishing & Restoration in Kenitra', slogan: 'Your trust, our responsibility.', ctaQuote: 'Request a quote', ctaWa: 'Write to us on WhatsApp', badges: ['Guaranteed quality', 'Professional work', 'New team', 'Your trust, our responsibility'] },
+  hero: { eyebrow: 'Your trusted bodyshop in Kenitra', title1: 'A NEW TEAM.', title2: 'A NEW MOMENTUM.', subtitle: 'Bodywork • Oven-baked paint • Polishing & Restoration in Kenitra', slogan: 'Your trust, our responsibility.', ctaQuote: 'Request a quote', ctaWa: 'Write to us on WhatsApp', badges: ['Guaranteed quality', 'Professional work', 'New team', 'Your trust, our responsibility'], metaServices: '8 expert services', metaCity: 'Kenitra, Morocco' },
   servicesBlock: {
     kicker: 'Our services', title: 'Complete service for your', accent: 'vehicle', seeAll: 'View all services',
     intro: 'From panel beating to final finish: every vehicle is handled from A to Z in our Kenitra workshop.',
@@ -371,7 +371,7 @@ const ar: Dict = {
   },
   categories: { carrosserie: 'كاروسيري', peinture: 'طلاء بالفرن', polissage: 'تلميع', renovation: 'تجديد السيارات' },
   marquee: ['جودة', 'شغف', 'احترافية', 'كاروسيري القنيطرة', 'طلاء بالفرن القنيطرة', 'تلميع السيارات القنيطرة', 'تجديد السيارات القنيطرة', 'تقدير مجاني', 'متابعة عبر واتساب'],
-  hero: { eyebrow: 'ورشة الثقة لديكم في القنيطرة', title1: 'فريق جديد.', title2: 'انطلاقة جديدة.', subtitle: 'كاروسيري • طلاء بالفرن • تلميع وتجديد السيارات في القنيطرة', slogan: 'ثقتكم مسؤوليتنا.', ctaQuote: 'اطلب تقديرًا', ctaWa: 'راسلنا على واتساب', badges: ['جودة مضمونة', 'عمل احترافي', 'فريق جديد', 'ثقتكم مسؤوليتنا'] },
+  hero: { eyebrow: 'ورشة الثقة لديكم في القنيطرة', title1: 'فريق جديد.', title2: 'انطلاقة جديدة.', subtitle: 'كاروسيري • طلاء بالفرن • تلميع وتجديد السيارات في القنيطرة', slogan: 'ثقتكم مسؤوليتنا.', ctaQuote: 'اطلب تقديرًا', ctaWa: 'راسلنا على واتساب', badges: ['جودة مضمونة', 'عمل احترافي', 'فريق جديد', 'ثقتكم مسؤوليتنا'], metaServices: '8 خدمات متخصصة', metaCity: 'القنيطرة، المغرب' },
   servicesBlock: {
     kicker: 'خدماتنا', title: 'خدمة متكاملة لـ', accent: 'سيارتك', seeAll: 'كل خدماتنا',
     intro: 'من إصلاح الهيكل إلى اللمسة الأخيرة: كل سيارة تحظى بعناية كاملة من الألف إلى الياء في ورشتنا بالقنيطرة.',

@@ -3,76 +3,70 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ArrowRight, Car, SprayCan, Sparkles, Flame, GlassWater, Package, Armchair, Wrench } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { withLocale, type Dict, type Locale } from '@/lib/i18n';
 import type { Service8 } from '@/lib/services-meta';
 
-const ICON_MAP: Record<string, typeof Car> = { Car, SprayCan, Sparkles, Flame, GlassWater, Package, Armchair, Wrench };
-
-/** 8 cartes prestations premium : photo, icône rouge, titre, description, détails + devis. */
+/**
+ * Liste éditoriale des 8 prestations : lignes indexées séparées par hairlines,
+ * titre poster, aperçu N&B qui se colore au survol, flèche signal.
+ */
 export default function ServicesGrid({ locale, t, items }: { locale: Locale; t: Dict; items: Service8[] }) {
   return (
-    <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-      {items.map((sv, i) => {
-        const Icon = ICON_MAP[sv.icon] || Car;
-        return (
-          <motion.div
-            key={sv.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.5, delay: (i % 4) * 0.08, ease: 'easeOut' }}
-            className="group card-glass relative flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-flame-500/40"
+    <div className="mt-12 border-t border-white/10">
+      {items.map((sv, i) => (
+        <motion.div
+          key={sv.id}
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.45, delay: (i % 4) * 0.06, ease: 'easeOut' }}
+        >
+          <Link
+            href={withLocale(locale, `/services#${sv.id}`)}
+            className="group grid grid-cols-[auto_1fr_auto] items-center gap-5 border-b border-white/10 px-2 py-5 transition-colors hover:bg-white/[0.04] md:grid-cols-[72px_1.05fr_1fr_auto] md:gap-8 md:py-6"
           >
-            <div className="relative h-40 overflow-hidden">
-              <Image
-                src={sv.image}
-                alt={sv.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-900/70 via-transparent to-transparent" aria-hidden />
-            </div>
+            <span className="mono-label text-flame-500" aria-hidden>
+              {String(i + 1).padStart(2, '0')}
+            </span>
 
-            <div className="flex flex-1 flex-col p-5">
-              <div className="flex items-center gap-3">
-                <Icon className="h-6 w-6 shrink-0 text-flame-500" strokeWidth={1.9} aria-hidden />
-                <span className="min-w-0">
-                  <h3 className="font-display text-sm font-black uppercase leading-tight tracking-wide text-white">{sv.title}</h3>
-                  {sv.sub && (
-                    <span
-                      className={`mt-0.5 block text-[11px] font-bold text-steel-500 ${locale === 'ar' ? '' : 'font-ar'}`}
-                      lang={locale === 'ar' ? 'fr' : 'ar'}
-                      dir={locale === 'ar' ? 'ltr' : 'rtl'}
-                    >
-                      {sv.sub}
-                    </span>
-                  )}
+            <span className="min-w-0">
+              <span className="font-display block text-xl uppercase leading-tight text-white transition-colors group-hover:text-flame-400 md:text-3xl">
+                {sv.title}
+              </span>
+              {sv.sub && (
+                <span
+                  className={`mt-1 block text-[11px] font-bold text-steel-500 ${locale === 'ar' ? '' : 'font-ar'}`}
+                  lang={locale === 'ar' ? 'fr' : 'ar'}
+                  dir={locale === 'ar' ? 'ltr' : 'rtl'}
+                >
+                  {sv.sub}
                 </span>
-              </div>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-steel-400">{sv.desc}</p>
+              )}
+            </span>
 
-              <div className="mt-5 flex items-center justify-between gap-3">
-                <Link
-                  href={withLocale(locale, `/services#${sv.id}`)}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-mega text-flame-400 transition-colors hover:text-flame-500"
-                >
-                  {t.common.learnMore}
-                </Link>
-                <Link
-                  href={withLocale(locale, '/devis')}
-                  aria-label={`${t.common.freeQuote} — ${sv.title}`}
-                  title={t.common.freeQuote}
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-all duration-300 group-hover:border-flame-500 group-hover:bg-gradient-to-b group-hover:from-flame-500 group-hover:to-flame-600 group-hover:shadow-red rtl:rotate-180"
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        );
-      })}
+            <span className="hidden text-sm leading-relaxed text-steel-400 md:block">{sv.desc}</span>
+
+            <span className="flex items-center gap-4">
+              <span className="relative hidden h-16 w-24 shrink-0 overflow-hidden border border-white/15 sm:block">
+                <Image
+                  src={sv.image}
+                  alt={sv.title}
+                  fill
+                  sizes="96px"
+                  className="object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
+                />
+              </span>
+              <span
+                className="flex h-10 w-10 shrink-0 items-center justify-center border border-white/20 text-white transition-all duration-300 group-hover:border-flame-500 group-hover:bg-flame-500 group-hover:text-white rtl:rotate-180"
+                aria-label={t.common.freeQuote}
+              >
+                <ArrowRight className="h-4 w-4" />
+              </span>
+            </span>
+          </Link>
+        </motion.div>
+      ))}
     </div>
   );
 }

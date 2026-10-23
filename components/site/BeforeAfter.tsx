@@ -36,16 +36,16 @@ export default function BeforeAfter({
 
       {/* pastilles Avant / Après ancrées en bas de chaque moitié (maquette) */}
       <div className="pointer-events-none absolute inset-x-0 bottom-4 flex items-end justify-between px-4">
-        <motion.span initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="rounded-full border border-white/25 bg-black/65 px-4 py-1.5 text-[10px] font-black uppercase tracking-mega text-white backdrop-blur-sm">
+        <motion.span initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mono-label border border-white/30 bg-ink-950/85 px-3 py-1.5 !text-[10px] text-white">
           {beforeLabel}
         </motion.span>
-        <motion.span initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} viewport={{ once: true }} className="rounded-full bg-flame-500 px-4 py-1.5 text-[10px] font-black uppercase tracking-mega text-white shadow-red">
+        <motion.span initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} viewport={{ once: true }} className="mono-label bg-flame-500 px-3 py-1.5 !text-[10px] text-white">
           {afterLabel}
         </motion.span>
       </div>
 
       {demo && (
-        <span className="pointer-events-none absolute left-4 top-4 rounded-full border border-white/20 bg-black/60 px-3 py-1 text-[10px] font-bold uppercase tracking-mega text-steel-300 backdrop-blur-sm">
+        <span className="pointer-events-none absolute left-4 top-4 mono-label border border-white/20 bg-ink-950/80 px-3 py-1 !text-[9px] text-steel-300">
           {demoLabel}
         </span>
       )}
@@ -54,7 +54,7 @@ export default function BeforeAfter({
       <div className="pointer-events-none absolute inset-y-0" style={{ left: `${position}%` }}>
         <div className="absolute inset-y-0 -left-px w-0.5 bg-white/90 shadow-[0_0_18px_rgba(0,0,0,0.6)]" />
         <div className="absolute top-1/2 -left-[22px] -translate-y-1/2">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-black/70 text-white backdrop-blur-md">
+          <div className="flex h-11 w-11 items-center justify-center border border-white/50 bg-ink-950/85 text-white">
             <ChevronLeft className="h-4 w-4 -mr-1" />
             <ChevronRight className="h-4 w-4 -ml-1" />
           </div>

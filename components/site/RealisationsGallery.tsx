@@ -26,11 +26,11 @@ export default function RealisationsGallery({ items, whatsapp, t, locale }: { it
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-25" aria-hidden />
         <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[52rem] -translate-x-1/2 rounded-full bg-flame-500/10 blur-[120px]" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-          <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-mega text-flame-400 backdrop-blur-md">
-            <span className="h-1.5 w-1.5 rounded-full bg-flame-500" /> {t.works.kicker}
+          <p className="mono-label inline-flex items-center gap-3 text-flame-500">
+            <span className="h-2 w-2 bg-flame-500" /> {t.works.kicker}
           </p>
           <h1 className="font-display mt-4 text-4xl font-black uppercase leading-tight tracking-tight text-white md:text-6xl">
-            {t.works.title} <span className="text-brand-gradient">{t.works.accent}</span>
+            {t.works.title} <span className="text-flame-500">{t.works.accent}</span>
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-steel-400">{t.works.intro}</p>
           <div className="mt-8 flex flex-wrap gap-2">

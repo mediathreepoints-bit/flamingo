@@ -61,7 +61,7 @@ export default function AtelierGallery({ t, variant = 'mosaic' }: { t: Dict; var
                 <Camera className="h-3.5 w-3.5" /> {t.atelier.kicker}
               </p>
               <h2 className="font-display mt-4 text-3xl font-black uppercase tracking-tight text-white md:text-4xl">
-                {t.atelier.title} <span className="text-brand-gradient">{t.atelier.accent}</span>
+                {t.atelier.title} <span className="text-flame-500">{t.atelier.accent}</span>
               </h2>
             </div>
             <p className="max-w-md text-sm leading-relaxed text-steel-400">{t.atelier.intro}</p>
@@ -105,7 +105,7 @@ export default function AtelierGallery({ t, variant = 'mosaic' }: { t: Dict; var
               <Camera className="h-3.5 w-3.5" /> {t.atelier.kicker}
             </p>
             <h2 className="font-display mt-4 text-3xl font-black uppercase tracking-tight text-white md:text-4xl">
-              {t.atelier.title} <span className="text-brand-gradient">{t.atelier.accent}</span>
+              {t.atelier.title} <span className="text-flame-500">{t.atelier.accent}</span>
             </h2>
           </div>
           <p className="max-w-md text-sm leading-relaxed text-steel-400">{t.atelier.intro}</p>

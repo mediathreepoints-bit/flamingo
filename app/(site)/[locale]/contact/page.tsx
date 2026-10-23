@@ -28,11 +28,11 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-25" aria-hidden />
         <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[52rem] -translate-x-1/2 rounded-full bg-flame-500/10 blur-[120px]" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-          <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-mega text-flame-400 backdrop-blur-md">
-            <span className="h-1.5 w-1.5 rounded-full bg-flame-500" /> {t.contactPage.kicker}
+          <p className="mono-label inline-flex items-center gap-3 text-flame-500">
+            <span className="h-2 w-2 bg-flame-500" /> {t.contactPage.kicker}
           </p>
           <h1 className="font-display mt-4 text-4xl font-black uppercase leading-tight tracking-tight text-white md:text-6xl">
-            {t.contactPage.title} <span className="text-brand-gradient">{t.contactPage.accent}</span>
+            {t.contactPage.title} <span className="text-flame-500">{t.contactPage.accent}</span>
           </h1>
         </div>
       </section>

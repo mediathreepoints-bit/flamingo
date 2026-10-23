@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import '@fontsource/anton/400.css';
 import '@fontsource-variable/archivo';
 import '@fontsource-variable/manrope';
 import '@fontsource-variable/caveat';

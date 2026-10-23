@@ -31,11 +31,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="pointer-events-none absolute inset-0 bg-grid opacity-25" aria-hidden />
         <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[52rem] -translate-x-1/2 rounded-full bg-flame-500/10 blur-[120px]" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-          <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-mega text-flame-400 backdrop-blur-md">
-            <span className="h-1.5 w-1.5 rounded-full bg-flame-500" /> {t.about.kicker}
+          <p className="mono-label inline-flex items-center gap-3 text-flame-500">
+            <span className="h-2 w-2 bg-flame-500" /> {t.about.kicker}
           </p>
           <h1 className="font-display mt-4 max-w-3xl text-4xl font-black uppercase leading-tight tracking-tight text-white md:text-6xl">
-            {t.about.title1} <span className="text-brand-gradient">{t.about.accent}</span>
+            {t.about.title1} <span className="text-flame-500">{t.about.accent}</span>
           </h1>
           <p className={`mt-6 text-2xl text-flame-400 ${raw === 'ar' ? 'font-ar text-xl font-bold' : 'font-hand'}`}>{raw === 'fr' ? s.sloganFr : raw === 'ar' ? s.sloganAr : t.hero.slogan}</p>
         </div>
@@ -54,7 +54,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
         <div>
           <h2 className="font-display text-3xl font-black uppercase tracking-tight text-white">
-            {t.about.title2} <span className="text-brand-gradient">{t.about.title2Accent}</span>
+            {t.about.title2} <span className="text-flame-500">{t.about.title2Accent}</span>
           </h2>
           <div className="mt-5 space-y-4 text-base leading-relaxed text-steel-400">
             <p>{t.about.p1}</p>

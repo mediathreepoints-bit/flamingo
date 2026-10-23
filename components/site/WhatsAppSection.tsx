@@ -7,7 +7,10 @@ import { WhatsAppIcon } from './WhatsAppFab';
 import { waLink } from '@/lib/site';
 import type { Dict } from '@/lib/i18n';
 
-/** Bande WhatsApp (maquette) : image téléphone à gauche, titre + texte au centre, bouton vert à droite, chips en dessous. */
+/**
+ * Bande contact éditoriale : split encre — titrage poster + preuves monospaces
+ * à gauche, photo N&B et actions bloc à droite.
+ */
 export default function WhatsAppSection({
   whatsapp,
   phone,
@@ -30,78 +33,84 @@ export default function WhatsAppSection({
   ];
 
   return (
-    <section id="whatsapp" className="relative overflow-hidden border-y border-white/5 bg-ink-950">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-25" aria-hidden />
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-[#25D366]/8 to-transparent" aria-hidden />
-
-      <div className="relative mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-        <div className="card-glass overflow-hidden !rounded-2xl border-[#25D366]/20">
-          <div className="grid items-center gap-8 lg:grid-cols-[280px_1fr_auto] lg:gap-12">
-            {/* image téléphone (gauche) */}
-            <motion.div
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative hidden aspect-square lg:block"
-            >
-              <Image src={image} alt="WhatsApp — Flamingo Auto Kénitra" fill sizes="280px" className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-ink-900/60" aria-hidden />
-            </motion.div>
-
-            {/* titre + texte (centre) */}
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="px-6 pt-8 lg:px-0 lg:py-10"
-            >
-              <p className="inline-flex items-center gap-2 rounded-full border border-[#25D366]/25 bg-[#25D366]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-mega text-[#25D366] backdrop-blur-md">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" /> {t.wa.kicker}
-              </p>
-              <h2 className="font-display mt-4 text-3xl font-black uppercase leading-tight tracking-tight text-white md:text-4xl">
-                {t.wa.title}
-              </h2>
-              <p className="mt-3 max-w-md text-base leading-relaxed text-steel-300">{t.wa.text}</p>
-            </motion.div>
-
-            {/* bouton vert (droite) */}
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="px-6 pb-8 lg:pe-12 lg:ps-0"
-            >
-              <a
-                href={waLink(whatsapp, 'Bonjour Flamingo Auto Kénitra, je souhaite un devis.')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-shine inline-flex items-center justify-center gap-2 rounded-lg bg-[#25D366] px-6 py-3.5 text-sm font-bold uppercase tracking-mega text-white transition hover:bg-[#1EBE5A] hover:shadow-[0_10px_44px_-8px_rgba(37,211,102,0.55)]"
-              >
-                <WhatsAppIcon className="h-4 w-4" /> {t.wa.chat}
-              </a>
-            </motion.div>
-          </div>
-
-          {/* chips (maquette) : Réponse rapide · Devis gratuit · téléphone */}
-          <motion.div
+    <section id="whatsapp" className="relative border-y border-white/10 bg-ink-950">
+      <div className="grid lg:grid-cols-2">
+        {/* colonne texte */}
+        <div className="flex flex-col justify-center px-5 py-16 lg:px-14 lg:py-24">
+          <motion.p
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.25 }}
-            className="flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/10 bg-ink-900/60 px-6 py-5 lg:px-10"
+            className="mono-label flex items-center gap-3 text-[#25D366]"
           >
-            {chips.map(({ icon: Icon, label }) => (
-              <span key={label} className="flex items-center gap-2.5 text-sm font-bold text-white">
-                <Icon className="h-4 w-4 text-flame-500" strokeWidth={2} /> {label}
+            <span className="h-2 w-2 bg-[#25D366]" aria-hidden /> {t.wa.kicker}
+          </motion.p>
+          <motion.h2
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.05 }}
+            viewport={{ once: true }}
+            className="font-display mt-5 text-4xl uppercase leading-[0.95] text-white md:text-6xl"
+          >
+            {t.wa.title}
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            viewport={{ once: true }}
+            className="mt-5 max-w-md border-s-2 border-flame-500 ps-5 text-base leading-relaxed text-steel-300"
+          >
+            {t.wa.text}
+          </motion.p>
+
+          {/* preuves : rangée hairline */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+            viewport={{ once: true }}
+            className="mt-9 grid grid-cols-1 gap-px border border-white/10 bg-white/10 sm:grid-cols-3"
+          >
+            {chips.map((c) => (
+              <span key={c.label} className="flex items-center gap-2.5 bg-ink-950 px-4 py-3.5">
+                <c.icon className="h-4 w-4 shrink-0 text-flame-500" strokeWidth={2} aria-hidden />
+                <span className="mono-label !text-[10px] text-white">{c.label}</span>
               </span>
             ))}
-            <a href={`tel:${phoneRaw}`} className="ms-auto text-xs font-bold uppercase tracking-mega text-flame-400 transition-colors hover:text-flame-500">
-              {t.common.phone}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            viewport={{ once: true }}
+            className="mt-9 flex flex-wrap gap-3"
+          >
+            <a
+              href={waLink(whatsapp, 'Bonjour Flamingo Auto Kénitra, j’ai une question sur mon véhicule.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mono-label inline-flex items-center gap-2.5 bg-[#25D366] px-7 py-4 text-white transition hover:bg-white hover:text-ink-950"
+            >
+              <WhatsAppIcon className="h-4 w-4" /> {t.wa.chat}
+            </a>
+            <a
+              href={`tel:${phoneRaw}`}
+              className="mono-label inline-flex items-center gap-2.5 border border-white/25 px-7 py-4 text-white transition hover:border-flame-500 hover:text-flame-400"
+            >
+              <PhoneCall className="h-4 w-4 text-flame-500" /> {phone}
             </a>
           </motion.div>
+        </div>
+
+        {/* colonne photo */}
+        <div className="relative min-h-[320px] border-t border-white/10 lg:min-h-0 lg:border-s lg:border-t-0">
+          <Image src={image} alt={t.wa.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover grayscale contrast-125 transition-[filter] duration-700 hover:grayscale-0" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-ink-950/30" aria-hidden />
+          <span className="mono-label absolute bottom-4 start-5 bg-ink-950/85 px-3 py-1.5 text-flame-500" aria-hidden>
+            WhatsApp · {phone}
+          </span>
         </div>
       </div>
     </section>

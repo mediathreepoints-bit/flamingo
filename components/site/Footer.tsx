@@ -8,6 +8,10 @@ import { withLocale, type Dict, type Locale } from '@/lib/i18n';
 import { InstagramIcon } from './Icons';
 import { Logo } from './Logo';
 
+/**
+ * Footer éditorial : wordmark poster géant en contour, colonnes monospaces,
+ * barre finale hairline avec signature manuscrite rouge.
+ */
 export default function Footer({
   locale,
   t,
@@ -43,142 +47,133 @@ export default function Footer({
     { href: '/a-propos', label: t.nav.about },
     { href: '/contact', label: t.nav.contact },
   ];
-  const SERVICES = [
-    { label: t.categories.carrosserie, href: '/services#carrosserie' },
-    { label: t.categories.peinture, href: '/services#peinture' },
-    { label: t.categories.polissage, href: '/services#polissage' },
-    { label: t.categories.renovation, href: '/services#renovation' },
-  ];
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-ink-950">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-flame-500/70 to-transparent" aria-hidden />
-      {/* filigrane */}
-      <p className="font-display pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 select-none whitespace-nowrap text-[16vw] font-black uppercase leading-none tracking-tight text-white/[0.025]" aria-hidden>
-        Flamingo
-      </p>
-
-      {/* ——— barre d'infos (maquette) ——— */}
-      <div className="relative border-b border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-stretch gap-6 px-5 py-8 lg:flex-row lg:items-center lg:gap-10 lg:px-8">
-          <Logo brand={brand} city={city} size={40} />
-          <div className="flex flex-1 flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 lg:divide-x lg:divide-white/10 lg:rtl:divide-x-reverse">
-            <a href={`tel:${phoneRaw}`} className="group flex items-center gap-3 lg:px-6">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 transition group-hover:border-flame-500/50">
-                <PhoneCall className="h-4 w-4 text-flame-500" />
-              </span>
-              <span>
-                <span className="block text-sm font-bold text-white">{phone}</span>
-                <span className="block text-xs text-steel-500">{t.footer.phoneSub}</span>
-              </span>
-            </a>
-            <a href={instagram} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 lg:px-6">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 transition group-hover:border-flame-500/50">
-                <InstagramIcon className="h-4 w-4 text-flame-500" />
-              </span>
-              <span>
-                <span className="block text-sm font-bold text-white">{instagramHandle}</span>
-                <span className="block text-xs text-steel-500">{t.footer.igSub}</span>
-              </span>
-            </a>
-            <span className="flex items-center gap-3 lg:px-6">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5">
-                <MapPin className="h-4 w-4 text-flame-500" />
-              </span>
-              <span>
-                <span className="block text-sm font-bold text-white">{t.common.cityValue}</span>
-                <span className="block text-xs text-steel-500">{t.footer.citySub}</span>
-              </span>
-            </span>
+    <footer className="relative overflow-hidden bg-ink-950 pt-20">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="grid gap-12 pb-16 lg:grid-cols-[1.2fr_1fr_1fr_1.2fr]">
+          {/* marque */}
+          <div>
+            <Logo brand={brand} city={city} />
+            <p className={`mt-5 max-w-xs text-2xl leading-snug text-flame-500 ${locale === 'ar' ? 'font-ar text-xl font-bold' : 'font-hand'}`}>
+              {slogan}
+            </p>
+            <p className="mono-label mt-6 text-steel-500">{t.tagline}</p>
           </div>
-          <a
-            href={mapUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-lg border border-flame-500/50 px-5 py-3 text-xs font-bold uppercase tracking-mega text-flame-400 transition hover:bg-flame-500/10 hover:text-flame-300 sm:self-auto"
-          >
-            <MapPin className="h-4 w-4" /> {t.footer.maps}
-          </a>
+
+          {/* navigation */}
+          <nav aria-label={t.footer.nav}>
+            <p className="mono-label text-flame-500">{t.footer.nav}</p>
+            <ul className="mt-5 space-y-2.5">
+              {NAV.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={withLocale(locale, item.href)}
+                    className="group inline-flex items-center gap-2 text-sm font-semibold text-steel-300 transition-colors hover:text-white"
+                  >
+                    <span className="h-px w-0 bg-flame-500 transition-all duration-300 group-hover:w-4" aria-hidden />
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* prestations */}
+          <div>
+            <p className="mono-label text-flame-500">{t.footer.services}</p>
+            <ul className="mt-5 space-y-2.5">
+              {t.servicesBlock.items.map((s) => (
+                <li key={s.title}>
+                  <Link
+                    href={withLocale(locale, '/services')}
+                    className="group inline-flex items-center gap-2 text-sm font-semibold text-steel-300 transition-colors hover:text-white"
+                  >
+                    <span className="h-px w-0 bg-flame-500 transition-all duration-300 group-hover:w-4" aria-hidden />
+                    {s.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* contact */}
+          <div>
+            <p className="mono-label text-flame-500">{t.footer.contact}</p>
+            <ul className="mt-5 space-y-4 text-sm">
+              <li>
+                <a href={`tel:${phoneRaw}`} className="group flex items-start gap-3 text-steel-300 transition-colors hover:text-white">
+                  <PhoneCall className="mt-0.5 h-4 w-4 shrink-0 text-flame-500" aria-hidden />
+                  <span>
+                    <span className="block font-bold text-white">{phone}</span>
+                    <span className="mono-label !text-[10px] text-steel-500">{t.footer.phoneSub}</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={waLink(whatsapp, 'Bonjour Flamingo Auto Kénitra, je souhaite un devis.')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mono-label inline-flex items-center gap-2.5 border border-white/20 px-4 py-2.5 text-white transition hover:border-[#25D366] hover:bg-[#25D366]/10"
+                >
+                  <WhatsAppDot /> {t.footer.write}
+                </a>
+              </li>
+              {instagram && (
+                <li>
+                  <a href={instagram} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-steel-300 transition-colors hover:text-white">
+                    <InstagramIcon className="mt-0.5 h-4 w-4 shrink-0 text-flame-500" />
+                    <span>
+                      <span className="block font-bold text-white">{instagramHandle}</span>
+                      <span className="mono-label !text-[10px] text-steel-500">{t.footer.igSub}</span>
+                    </span>
+                  </a>
+                </li>
+              )}
+              <li>
+                <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-steel-300 transition-colors hover:text-white">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-flame-500" aria-hidden />
+                  <span>
+                    <span className="block font-bold text-white">{city}</span>
+                    <span className="mono-label !text-[10px] text-steel-500">{t.footer.citySub} — {t.footer.maps}</span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-16 lg:grid-cols-[1.4fr_1fr_1.1fr] lg:px-8">
-        <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
-          <Logo brand={brand} city={city} size={44} />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-steel-400">{slogan}</p>
-          <p className={`mt-3 text-xl text-white/80 ${locale === 'ar' ? 'font-ar text-lg font-bold' : 'font-hand'}`}>{t.tagline}</p>
-        </motion.div>
+      {/* wordmark géant en contour */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.8 }}
+        className="pointer-events-none select-none px-2"
+        aria-hidden
+      >
+        <p className="text-outline whitespace-nowrap text-center font-display text-[13.5vw] uppercase leading-[0.8] opacity-70">
+          Flamingo
+        </p>
+      </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} viewport={{ once: true }}>
-          <h3 className="font-display text-xs font-black uppercase tracking-mega text-white">{t.footer.nav}</h3>
-          <ul className="mt-5 space-y-3">
-            {NAV.map((n) => (
-              <li key={n.href}>
-                <Link href={withLocale(locale, n.href)} className="text-sm text-steel-400 transition-colors hover:text-flame-400">
-                  {n.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <h3 className="font-display mt-8 text-xs font-black uppercase tracking-mega text-white">{t.footer.services}</h3>
-          <ul className="mt-5 space-y-3">
-            {SERVICES.map((s) => (
-              <li key={s.label}>
-                <Link href={withLocale(locale, s.href)} className="text-sm text-steel-400 transition-colors hover:text-flame-400">
-                  {s.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} viewport={{ once: true }}>
-          <h3 className="font-display text-xs font-black uppercase tracking-mega text-white">{t.footer.contact}</h3>
-          <ul className="mt-5 space-y-4 text-sm">
-            <li>
-              <a href={`tel:${phoneRaw}`} className="flex items-center gap-3 text-steel-300 transition-colors hover:text-white">
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5">
-                  <PhoneCall className="h-4 w-4 text-flame-500" />
-                </span>
-                {phone}
-              </a>
-            </li>
-            <li>
-              <a href={instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-steel-300 transition-colors hover:text-white">
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5">
-                  <InstagramIcon className="h-4 w-4 text-flame-500" />
-                </span>
-                {instagramHandle}
-              </a>
-            </li>
-            <li>
-              <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-steel-300 transition-colors hover:text-white">
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5">
-                  <MapPin className="h-4 w-4 text-flame-500" />
-                </span>
-                {t.common.cityValue}
-              </a>
-            </li>
-          </ul>
-          <a
-            href={waLink(whatsapp, 'Bonjour Flamingo Auto Kénitra, je souhaite un devis.')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary mt-8 w-full !bg-[#25D366] hover:!bg-[#1EBE5A]"
-          >
-            {t.footer.write}
-          </a>
-        </motion.div>
-      </div>
-
-      <div className="relative border-t border-white/5">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-6 text-xs text-steel-500 sm:flex-row lg:px-8">
-          <p>
-            © {year} {brand} {city}. {t.common.rights}
+      {/* barre finale */}
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 py-5 md:flex-row lg:px-8">
+          <p className="mono-label !text-[10px] text-steel-500">
+            © {year} {brand} — {legal}
           </p>
-          <p>{legal}</p>
+          <p className="mono-label !text-[10px] text-steel-500">
+            {city} <span className="mx-2 text-flame-500" aria-hidden>▪</span> FR · EN · AR
+          </p>
         </div>
       </div>
     </footer>
   );
+}
+
+function WhatsAppDot() {
+  return <span className="h-2 w-2 bg-[#25D366]" aria-hidden />;
 }

@@ -40,11 +40,11 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
           className="absolute bottom-8 end-8 hidden w-[38%] max-w-lg lg:block"
         />
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-          <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-mega text-flame-400 backdrop-blur-md">
-            <span className="h-1.5 w-1.5 rounded-full bg-flame-500" /> {t.servicesPage.kicker}
+          <p className="mono-label inline-flex items-center gap-3 text-flame-500">
+            <span className="h-2 w-2 bg-flame-500" /> {t.servicesPage.kicker}
           </p>
           <h1 className="font-display mt-4 max-w-3xl text-4xl font-black uppercase leading-tight tracking-tight text-white md:text-6xl">
-            {t.servicesPage.title} <span className="text-brand-gradient">{t.servicesPage.accent}</span> {t.servicesPage.titleSuffix}
+            {t.servicesPage.title} <span className="text-flame-500">{t.servicesPage.accent}</span> {t.servicesPage.titleSuffix}
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-steel-400">{t.servicesPage.intro}</p>
           <div className="mt-8 flex flex-wrap gap-3">

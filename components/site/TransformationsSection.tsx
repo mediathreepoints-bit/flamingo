@@ -12,6 +12,10 @@ import { cx } from '@/lib/format';
 import { waLink } from '@/lib/site';
 import type { Dict } from '@/lib/i18n';
 
+/**
+ * « AVANT / APRÈS » — section ivoire éditoriale : comparateur encadré d'encre,
+ * filtres carrés, mini-tuiles N&B, CTA WhatsApp en bloc encre.
+ */
 export default function TransformationsSection({ items, whatsapp, t }: { items: GalleryItem[]; whatsapp: string; t: Dict }) {
   const [filter, setFilter] = useState('tous');
   const [index, setIndex] = useState(0);
@@ -20,7 +24,6 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
   const FILTERS = [{ id: 'tous', label: t.common.all }, ...CATEGORIES.map((c) => ({ id: c.id, label: t.categories[c.id] }))];
   const visible = items.filter((i) => filter === 'tous' || i.category === filter);
   const current = visible[Math.min(index, Math.max(0, visible.length - 1))];
-  // mini-tuiles : les 2 réalisations suivantes (maquette : 2 paires avant/après cliquables)
   const minis: GalleryItem[] = visible.length
     ? [1, 2].map((off) => visible[(index + off) % visible.length]).filter((m): m is GalleryItem => Boolean(m) && m !== current)
     : [];
@@ -37,33 +40,30 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
   };
 
   const arrowBtn =
-    'flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white backdrop-blur-md transition hover:border-flame-500 hover:text-flame-400';
+    'flex h-11 w-11 items-center justify-center border border-ink-950/25 text-ink-950 transition hover:bg-ink-950 hover:text-paper';
 
   return (
-    <section id="transformations" className="relative border-y border-white/5 bg-ink-950 py-24">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-20" aria-hidden />
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[46rem] -translate-x-1/2 rounded-full bg-flame-500/10 blur-[130px]" aria-hidden />
-
+    <section id="transformations" className="section-paper relative py-24">
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
-        {/* ——— en-tête (maquette) : titre à gauche, texte + flèches circulaires à droite ——— */}
+        {/* en-tête : titre poster à gauche, texte + flèches carrées à droite */}
         <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <motion.p
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-mega text-flame-400 backdrop-blur-md"
+              className="mono-label flex items-center gap-3 text-flame-600"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-flame-500" /> {t.transform.kicker}
+              <span className="h-2 w-2 bg-flame-500" aria-hidden /> {t.transform.kicker}
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05 }}
               viewport={{ once: true }}
-              className="font-display mt-4 text-4xl font-black uppercase leading-tight tracking-tight text-white md:text-5xl"
+              className="font-display mt-4 text-5xl uppercase leading-[0.95] text-ink-950 md:text-7xl"
             >
-              {t.transform.title} <span className="text-brand-gradient">{t.transform.accent}</span>
+              {t.transform.title} <span className="text-flame-600">{t.transform.accent}</span>
             </motion.h2>
           </div>
 
@@ -74,7 +74,7 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
             viewport={{ once: true }}
             className="flex items-end gap-6"
           >
-            <p className="max-w-[220px] pb-1 text-sm leading-relaxed text-steel-300">{t.transform.discover}</p>
+            <p className="max-w-[220px] pb-1 text-sm leading-relaxed text-ink-950/70">{t.transform.discover}</p>
             <div className="flex shrink-0 items-center gap-2">
               <button onClick={() => go(-1)} aria-label={t.common.prev} className={arrowBtn}>
                 <ChevronLeft className="h-5 w-5 rtl:rotate-180" />
@@ -86,17 +86,17 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
           </motion.div>
         </div>
 
-        {/* filtres */}
-        <div className="mt-8 flex flex-wrap gap-2">
+        {/* filtres carrés */}
+        <div className="mt-10 flex flex-wrap gap-2">
           {FILTERS.map((f) => (
             <button
               key={f.id}
               onClick={() => setFilter(f.id)}
               className={cx(
-                'rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-mega transition-all',
+                'mono-label border px-4 py-2 transition-all',
                 filter === f.id
-                  ? 'border-transparent bg-gradient-to-b from-flame-500 to-flame-600 text-white shadow-red'
-                  : 'border-white/10 bg-white/5 text-steel-300 backdrop-blur-md hover:border-white/25 hover:text-white',
+                  ? 'border-ink-950 bg-ink-950 text-paper'
+                  : 'border-ink-950/25 text-ink-950/70 hover:border-ink-950 hover:text-ink-950',
               )}
             >
               {f.label}
@@ -104,13 +104,13 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
           ))}
         </div>
 
-        {/* ——— grand comparateur + mini-tuiles (maquette) ——— */}
-        <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_300px]">
+        {/* grand comparateur + mini-tuiles */}
+        <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_300px]">
           <div>
-            <div className="card-glass relative overflow-hidden !rounded-2xl">
+            <div className="relative border-2 border-ink-950 bg-ink-950">
               <AnimatePresence mode="wait">
                 {current ? (
-                  <motion.div key={current.id} initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.985 }} transition={{ duration: 0.4 }}>
+                  <motion.div key={current.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
                     <BeforeAfter
                       before={current.beforeImage}
                       after={current.afterImage}
@@ -125,26 +125,26 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
                     />
                   </motion.div>
                 ) : (
-                  <div className="flex aspect-[16/10] items-center justify-center text-steel-500">{t.transform.empty}</div>
+                  <div className="flex aspect-[16/10] items-center justify-center text-steel-400">{t.transform.empty}</div>
                 )}
               </AnimatePresence>
             </div>
 
-            {/* points de navigation sous le comparateur */}
+            {/* points de navigation */}
             {visible.length > 1 && (
-              <div className="mt-5 flex items-center justify-center gap-2">
+              <div className="mt-5 flex items-center gap-2">
                 {visible.map((_, i) => (
                   <button key={i} onClick={() => { setIndex(i); setPos(50); }} aria-label={`${t.transform.kicker} ${i + 1}`} className="group p-1">
-                    <span className={cx('block h-2 rounded-full transition-all', i === index ? 'w-7 bg-flame-500 shadow-[0_0_12px_rgba(240,68,56,0.8)]' : 'w-2 bg-white/20 group-hover:bg-white/40')} />
+                    <span className={cx('block h-1.5 transition-all', i === index ? 'w-7 bg-flame-500' : 'w-2.5 bg-ink-950/25 group-hover:bg-ink-950/50')} />
                   </button>
                 ))}
               </div>
             )}
 
             {current && (
-              <div className="mt-4 text-center lg:text-start">
-                <p className="font-display text-lg font-black uppercase text-white">{current.title}</p>
-                <p className="mt-0.5 text-xs font-bold uppercase tracking-mega text-flame-500">{current.vehicle}</p>
+              <div className="mt-4">
+                <p className="font-display text-xl uppercase text-ink-950">{current.title}</p>
+                <p className="mono-label mt-1 text-flame-600">{current.vehicle}</p>
               </div>
             )}
           </div>
@@ -161,12 +161,14 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
                   aria-label={m.title}
                 >
                   {[m.beforeImage, m.afterImage].map((src, si) => (
-                    <span key={si} className="relative block aspect-square overflow-hidden rounded-xl border border-white/10 bg-ink-800 transition group-hover:border-flame-500/50">
-                      <Image src={src} alt={`${m.title} — ${si === 0 ? t.common.before : t.common.after}`} fill sizes="160px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
-                      <span className={cx(
-                        'absolute bottom-1.5 start-1.5 rounded-full px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-white backdrop-blur-md',
-                        si === 0 ? 'bg-ink-950/80' : 'bg-flame-500/90',
-                      )}>
+                    <span key={si} className="relative block aspect-square overflow-hidden border border-ink-950/25 bg-ink-900 transition group-hover:border-ink-950">
+                      <Image src={src} alt={`${m.title} — ${si === 0 ? t.common.before : t.common.after}`} fill sizes="160px" className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0" />
+                      <span
+                        className={cx(
+                          'mono-label absolute bottom-1.5 start-1.5 px-2 py-0.5 !text-[9px] text-white',
+                          si === 0 ? 'bg-ink-950/85' : 'bg-flame-500/95',
+                        )}
+                      >
                         {si === 0 ? t.common.before : t.common.after}
                       </span>
                     </span>
@@ -182,10 +184,10 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="card-glass mt-14 flex flex-col items-center justify-between gap-6 !rounded-2xl border-[#25D366]/25 bg-gradient-to-r from-[#25D366]/12 via-ink-800 to-ink-800 px-8 py-7 md:flex-row"
+          className="mt-14 flex flex-col items-start justify-between gap-6 border-2 border-ink-950 bg-ink-950 px-8 py-7 md:flex-row md:items-center"
         >
           <div>
-            <p className="font-display text-xl font-black uppercase text-white md:text-2xl">
+            <p className="font-display text-2xl uppercase text-white md:text-3xl">
               {t.transform.ctaTitle1} <span className="text-[#25D366]">{t.transform.ctaAccent}</span>
             </p>
             <p className="mt-1 text-sm text-steel-400">{t.transform.ctaText}</p>
@@ -194,7 +196,7 @@ export default function TransformationsSection({ items, whatsapp, t }: { items: 
             href={waLink(whatsapp, 'Bonjour Flamingo Auto Kénitra, je souhaite une estimation pour mon véhicule.')}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-shine shrink-0 rounded-lg bg-[#25D366] px-6 py-3 text-sm font-bold uppercase tracking-mega text-white transition hover:bg-[#1EBE5A] hover:shadow-[0_10px_44px_-8px_rgba(37,211,102,0.55)]"
+            className="mono-label shrink-0 bg-[#25D366] px-6 py-4 text-white transition hover:bg-white hover:text-ink-950"
           >
             <WhatsAppIcon className="me-2 inline h-4 w-4" /> {t.common.whatsapp}
           </a>
