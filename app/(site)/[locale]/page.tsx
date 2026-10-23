@@ -8,6 +8,7 @@ import TransformationsSection from '@/components/site/TransformationsSection';
 import AtelierGallery from '@/components/site/AtelierGallery';
 import ValuesSection from '@/components/site/ValuesSection';
 import ReopeningSection from '@/components/site/ReopeningSection';
+import QuoteForm from '@/components/site/QuoteForm';
 import WhatsAppSection from '@/components/site/WhatsAppSection';
 import { repo } from '@/lib/repo';
 import { DEFAULT_SETTINGS } from '@/lib/site';
@@ -88,13 +89,33 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <AtelierGallery t={t} variant="strip" />
       <ReopeningSection t={t} whatsapp={s.whatsapp} promo={promo} />
       <ValuesSection t={t} />
+
+      {/* ——— Devis (template : « Parlez-nous de votre véhicule ») ——— */}
+      <section id="devis" className="relative bg-ink-900 py-24">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-flame-500/40 to-transparent" aria-hidden />
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="max-w-2xl">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-mega text-flame-400 backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-flame-500" /> {t.quotePage.kicker}
+            </p>
+            <h2 className="font-display mt-4 text-3xl font-black uppercase leading-tight tracking-tight text-white md:text-4xl">
+              {t.quotePage.title} <span className="text-brand-gradient">{t.quotePage.accent}</span>
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-steel-400">{t.quotePage.intro}</p>
+          </div>
+          <div className="mt-10">
+            <QuoteForm whatsapp={s.whatsapp} phone={s.phone} t={t} />
+          </div>
+        </div>
+      </section>
+
       <WhatsAppSection
         whatsapp={s.whatsapp}
         phone={s.phone}
         phoneRaw={s.phoneRaw}
         instagram={s.instagram}
         instagramHandle={s.instagramHandle}
-        image="/images/whatsapp-hand.jpg"
+        image="/images/contact-template.jpg"
         t={t}
       />
     </>

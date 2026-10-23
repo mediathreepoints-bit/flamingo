@@ -135,7 +135,7 @@ const fr = {
     cta: 'Demander un devis gratuit',
   },
   quotePage: {
-    kicker: 'Devis gratuit', title: 'Estimez votre', accent: 'réparation',
+    kicker: 'Devis gratuit', title: 'Parlez-nous de votre', accent: 'véhicule',
     intro: 'Complétez le formulaire ci-dessous avec les photos des dégâts. L’atelier vous répond rapidement — vous pouvez aussi écrire directement sur WhatsApp.',
     steps: [
       { title: '1. Envoyez vos photos', text: 'Décrivez les dégâts et ajoutez jusqu’à 5 photos de votre véhicule.' },
@@ -174,7 +174,7 @@ const fr = {
     ],
   },
   contactPage: {
-    kicker: 'Contact', title: 'Parlons de votre', accent: 'véhicule',
+    kicker: 'Contact', title: 'Nous sommes là pour', accent: 'vous',
     zone: 'Notre zone d’intervention', mapTitle: 'Carte — Kénitra, Maroc',
     form: {
       name: 'Nom', namePh: 'Votre nom', phone: 'Téléphone', phonePh: '06 XX XX XX XX',
@@ -303,7 +303,7 @@ const en: Dict = {
     cta: 'Request a free quote',
   },
   quotePage: {
-    kicker: 'Free quote', title: 'Estimate your', accent: 'repair',
+    kicker: 'Free quote', title: 'Tell us about your', accent: 'vehicle',
     intro: 'Fill in the form below with photos of the damage. The workshop answers quickly — you can also write directly on WhatsApp.',
     steps: [
       { title: '1. Send your photos', text: 'Describe the damage and add up to 5 photos of your vehicle.' },
@@ -342,7 +342,7 @@ const en: Dict = {
     ],
   },
   contactPage: {
-    kicker: 'Contact', title: 'Let’s talk about your', accent: 'vehicle',
+    kicker: 'Contact', title: 'We are here for', accent: 'you',
     zone: 'Our service area', mapTitle: 'Map — Kenitra, Morocco',
     form: {
       name: 'Name', namePh: 'Your name', phone: 'Phone', phonePh: '06 XX XX XX XX',
@@ -469,7 +469,7 @@ const ar: Dict = {
     cta: 'اطلب تقديرًا مجانيًا',
   },
   quotePage: {
-    kicker: 'تقدير مجاني', title: 'قدّر', accent: 'إصلاحك',
+    kicker: 'تقدير مجاني', title: 'حدثونا عن', accent: 'سيارتكم',
     intro: 'املأ الاستمارة أسفله مع صور الأضرار. الورشة تجيبك سريعًا — يمكنكم أيضًا الكتابة مباشرة عبر واتساب.',
     steps: [
       { title: '1. أرسل صورك', text: 'صِف الأضرار وأضف حتى 5 صور لسيارتك.' },
@@ -508,7 +508,7 @@ const ar: Dict = {
     ],
   },
   contactPage: {
-    kicker: 'اتصل بنا', title: 'لنتحدث عن', accent: 'سيارتك',
+    kicker: 'اتصل بنا', title: 'نحن هنا', accent: 'من أجلكم',
     zone: 'منطقة تدخلنا', mapTitle: 'خريطة — القنيطرة، المغرب',
     form: {
       name: 'الاسم', namePh: 'اسمك', phone: 'الهاتف', phonePh: '06 XX XX XX XX',
