@@ -56,8 +56,6 @@ export default async function SiteLayout({
         instagram={s.instagram}
         instagramHandle={s.instagramHandle}
         mapUrl={s.mapUrl}
-        sloganFr={s.sloganFr}
-        sloganAr={s.sloganAr}
         legal={s.legal}
       />
       <WhatsAppFab whatsapp={s.whatsapp} />

@@ -53,8 +53,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           heroTitle1: s.heroTitle1,
           heroTitle2: s.heroTitle2,
           heroSubtitle: s.heroSubtitle,
-          sloganFr: s.sloganFr,
-          sloganAr: s.sloganAr,
+          slogan: raw === 'fr' ? s.sloganFr : raw === 'ar' ? s.sloganAr : t.hero.slogan,
         }}
       />
 

@@ -62,7 +62,7 @@ export default function Header({
       )}
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-flame-500/60 to-transparent" aria-hidden />
-      <PromoBar t={t} locale={locale} promo={promo} />
+      <PromoBar t={t} promo={promo} />
       <div className="mx-auto flex h-20 max-w-7xl items-center gap-6 px-5 lg:px-8">
         <Link href={withLocale(locale, '/')} aria-label={`${brand} ${city}`} className="shrink-0">
           <Logo brand={brand} city={city} />

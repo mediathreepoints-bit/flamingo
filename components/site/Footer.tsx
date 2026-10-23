@@ -19,8 +19,6 @@ export default function Footer({
   instagram,
   instagramHandle,
   mapUrl,
-  sloganFr,
-  sloganAr,
   legal,
 }: {
   locale: Locale;
@@ -33,13 +31,10 @@ export default function Footer({
   instagram: string;
   instagramHandle: string;
   mapUrl: string;
-  sloganFr: string;
-  sloganAr: string;
   legal: string;
 }) {
   const year = new Date().getFullYear();
-  const slogan = locale === 'ar' ? sloganAr : locale === 'en' ? t.hero.slogan : sloganFr;
-  const secondary = locale === 'ar' ? sloganFr : sloganAr;
+  const slogan = t.hero.slogan;
 
   const NAV = [
     { href: '/', label: t.nav.home },
@@ -111,9 +106,6 @@ export default function Footer({
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
           <Logo brand={brand} city={city} size={44} />
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-steel-400">{slogan}</p>
-          <p className={`mt-2 text-lg font-bold text-flame-400 ${locale === 'ar' ? 'font-ar' : 'font-hand'}`} lang={locale === 'ar' ? 'fr' : 'ar'} dir={locale === 'ar' ? 'ltr' : 'rtl'}>
-            {secondary}
-          </p>
           <p className={`mt-3 text-xl text-white/80 ${locale === 'ar' ? 'font-ar text-lg font-bold' : 'font-hand'}`}>{t.tagline}</p>
         </motion.div>
 

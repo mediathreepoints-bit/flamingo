@@ -38,9 +38,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             {t.about.title1} <span className="text-brand-gradient">{t.about.accent}</span>
           </h1>
           <p className={`mt-6 text-2xl text-flame-400 ${raw === 'ar' ? 'font-ar text-xl font-bold' : 'font-hand'}`}>{raw === 'fr' ? s.sloganFr : raw === 'ar' ? s.sloganAr : t.hero.slogan}</p>
-          <p className={`mt-1 text-lg font-bold text-steel-300 ${raw === 'ar' ? 'font-hand text-xl' : 'font-ar slogan-ar'}`} lang={raw === 'ar' ? 'fr' : 'ar'} dir={raw === 'ar' ? 'ltr' : 'rtl'}>
-            {raw === 'ar' ? s.sloganFr : s.sloganAr}
-          </p>
         </div>
       </section>
 

@@ -68,7 +68,7 @@ const fr = {
     chips: ['Réponse rapide', 'Devis gratuit'],
   },
   footer: { nav: 'Navigation', services: 'Prestations', contact: 'Contact', write: 'Écrire sur WhatsApp', phoneSub: 'Appelez-nous', igSub: 'Suivez-nous sur Instagram', citySub: 'Notre zone d’intervention', maps: 'Voir sur Google Maps' },
-  promo: { title: 'Grande réouverture', offer: 'Jusqu’à -30% sur tous nos services !', tagline: 'بفريق جديد ... وتجربة أفضل' },
+  promo: { title: 'Grande réouverture', offer: 'Jusqu’à -30% sur tous nos services !' },
   tagline: 'Plus qu’un atelier, une référence !',
   engagements: ['Équipe professionnelle et expérimentée', 'Qualité du travail', 'Matériel moderne', 'Délais respectés', 'Accueil personnalisé'],
   services8: {
@@ -214,7 +214,7 @@ const en: Dict = {
     chips: ['Fast answer', 'Free quote'],
   },
   footer: { nav: 'Navigation', services: 'Services', contact: 'Contact', write: 'Write on WhatsApp', phoneSub: 'Call us', igSub: 'Follow us on Instagram', citySub: 'Our service area', maps: 'View on Google Maps' },
-  promo: { title: 'Grand reopening', offer: 'Up to -30% off all our services!', tagline: 'بفريق جديد ... وتجربة أفضل' },
+  promo: { title: 'Grand reopening', offer: 'Up to -30% off all our services!' },
   tagline: 'More than a workshop — a reference!',
   engagements: ['Professional, experienced team', 'Quality of work', 'Modern equipment', 'Deadlines respected', 'Personalised welcome'],
   services8: {
@@ -358,7 +358,7 @@ const ar: Dict = {
     chips: ['جواب سريع', 'تقدير مجاني'],
   },
   footer: { nav: 'روابط', services: 'خدماتنا', contact: 'اتصل بنا', write: 'راسلنا على واتساب', phoneSub: 'اتصلوا بنا', igSub: 'تابعونا على إنستغرام', citySub: 'منطقة تدخلنا', maps: 'عرض على خرائط غوغل' },
-  promo: { title: 'إعادة الافتتاح الكبير', offer: 'حتى -30% على جميع خدماتنا!', tagline: '' },
+  promo: { title: 'إعادة الافتتاح الكبير', offer: 'حتى -30% على جميع خدماتنا!' },
   tagline: 'أكثر من ورشة… مرجع !',
   engagements: ['فريق محترف وذو خبرة', 'جودة العمل', 'معدات حديثة', 'احترام الآجال', 'استقبال شخصي'],
   services8: {

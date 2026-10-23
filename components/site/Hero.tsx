@@ -26,7 +26,7 @@ export default function Hero({
   t: Dict;
   whatsapp: string;
   heroImage: string;
-  settings: { heroEyebrow: string; heroTitle1: string; heroTitle2: string; heroSubtitle: string; sloganFr: string; sloganAr: string };
+  settings: { heroEyebrow: string; heroTitle1: string; heroTitle2: string; heroSubtitle: string; slogan: string };
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
@@ -38,8 +38,7 @@ export default function Hero({
   const title1 = locale === 'fr' ? settings.heroTitle1 : t.hero.title1;
   const title2 = locale === 'fr' ? settings.heroTitle2 : t.hero.title2;
   const subtitle = locale === 'fr' ? settings.heroSubtitle : t.hero.subtitle;
-  const slogan = locale === 'fr' ? settings.sloganFr : locale === 'ar' ? settings.sloganAr : t.hero.slogan;
-  const secondary = locale === 'ar' ? settings.sloganFr : settings.sloganAr;
+  const slogan = settings.slogan;
 
   const slides = [
     { src: SERVICE_IMAGES.carrosserie, label: t.servicesBlock.items[0].title },
@@ -159,9 +158,6 @@ export default function Hero({
           {/* slogans (mobile / tablette) */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.75, duration: 0.6 }} className="mt-7 lg:hidden">
             <p className={`text-2xl text-flame-400 ${locale === 'ar' ? 'font-ar text-xl font-bold' : 'font-hand'}`}>{slogan}</p>
-            <p className={`mt-1 text-base font-bold text-steel-300 ${locale === 'ar' ? 'font-hand text-xl' : 'font-ar slogan-ar'}`} lang={locale === 'ar' ? 'fr' : 'ar'} dir={locale === 'ar' ? 'ltr' : 'rtl'}>
-              {secondary}
-            </p>
           </motion.div>
         </div>
       </motion.div>
@@ -177,9 +173,6 @@ export default function Hero({
           {slogan}
         </p>
         <span className="mt-1 ms-auto block h-1 w-24 rounded-full bg-gradient-to-r from-flame-500 to-transparent" aria-hidden />
-        <p className={`mt-2 text-sm font-bold text-steel-300 ${locale === 'ar' ? 'font-hand text-lg' : 'font-ar slogan-ar'}`} lang={locale === 'ar' ? 'fr' : 'ar'} dir={locale === 'ar' ? 'ltr' : 'rtl'}>
-          {secondary}
-        </p>
       </motion.div>
 
       {/* scroll hint */}

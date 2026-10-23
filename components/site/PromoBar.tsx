@@ -1,5 +1,5 @@
 import { Megaphone } from 'lucide-react';
-import type { Dict, Locale } from '@/lib/i18n';
+import type { Dict } from '@/lib/i18n';
 import type { Promotion } from '@/lib/types';
 
 /**
@@ -7,7 +7,7 @@ import type { Promotion } from '@/lib/types';
  * - Avec campagne active confirmée : titre + remise de la campagne.
  * - Sinon : simple annonce de réouverture, SANS aucune remise active.
  */
-export default function PromoBar({ t, locale, promo }: { t: Dict; locale: Locale; promo: Promotion | null }) {
+export default function PromoBar({ t, promo }: { t: Dict; promo: Promotion | null }) {
   const note = promo && promo.services.length > 0 && promo.services.length < 8 ? t.reopen.badgeSome : t.reopen.badgeNote;
   return (
     <div className="relative bg-gradient-to-r from-flame-700 via-flame-500 to-flame-700 text-white">
@@ -25,11 +25,6 @@ export default function PromoBar({ t, locale, promo }: { t: Dict; locale: Locale
             <span>{t.reopen.text}</span>
           )}
         </p>
-        {locale !== 'ar' && t.promo.tagline && (
-          <p className="font-ar text-xs font-bold leading-tight text-white/90" lang="ar" dir="rtl">
-            {t.promo.tagline}
-          </p>
-        )}
       </div>
     </div>
   );
