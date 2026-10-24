@@ -19,3 +19,7 @@ data/*.tmp-*
 npm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
+
+# export Hostinger
+flamingo-auto-hostinger.zip
+dist-hostinger/

@@ -1,16 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, copyFile } from 'node:fs/promises';
 import path from 'node:path';
+import { getSession } from '@/lib/auth';
+import { appRoot, isStandaloneCwd } from '@/lib/paths';
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getSession();
+    if (!session) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
     const form = await req.formData();
     const files = form.getAll('photos').filter((f): f is File => f instanceof File);
     if (!files.length) return NextResponse.json({ error: 'Aucun fichier reçu' }, { status: 400 });
     if (files.length > 6) return NextResponse.json({ error: 'Maximum 6 photos' }, { status: 400 });
 
-    const dir = path.join(process.cwd(), 'public', 'uploads');
+    const dir = path.join(appRoot(), 'public', 'uploads');
     await mkdir(dir, { recursive: true });
+    // en mode standalone, le serveur sert public/ depuis son propre cwd :
+    // on copie aussi le fichier là pour qu'il soit visible immédiatement.
+    const mirror = isStandaloneCwd() ? path.join(process.cwd(), 'public', 'uploads') : null;
+    if (mirror) await mkdir(mirror, { recursive: true });
 
     const saved: string[] = [];
     for (const file of files) {
@@ -19,7 +27,9 @@ export async function POST(req: NextRequest) {
       }
       const ext = (file.name.split('.').pop() || 'jpg').replace(/[^a-zA-Z0-9]/g, '').slice(0, 5) || 'jpg';
       const name = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-      await writeFile(path.join(dir, name), Buffer.from(await file.arrayBuffer()));
+      const buf = Buffer.from(await file.arrayBuffer());
+      await writeFile(path.join(dir, name), buf);
+      if (mirror) await copyFile(path.join(dir, name), path.join(mirror, name)).catch(() => {});
       saved.push(`/uploads/${name}`);
     }
     return NextResponse.json({ paths: saved });

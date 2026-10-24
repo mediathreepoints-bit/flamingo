@@ -3,7 +3,9 @@ import path from 'node:path';
 import { DB, emptyDB, GalleryItem, Promotion } from './types';
 import { DEFAULT_SETTINGS } from './site';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
+import { appRoot } from './paths';
+
+const DATA_DIR = path.join(appRoot(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
 
 /** Galerie seed : paires avant/après constituées À PARTIR DES PHOTOS RÉELLES de l'atelier.

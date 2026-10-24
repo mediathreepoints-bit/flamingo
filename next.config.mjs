@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Build autonome : Hostinger (apps Node.js) et VPS démarrent .next/standalone/server.js
+  output: 'standalone',
   reactStrictMode: true,
   poweredByHeader: false,
   serverExternalPackages: ['pdfkit'],
