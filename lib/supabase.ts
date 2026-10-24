@@ -42,6 +42,7 @@ export const TABLES: Record<string, string> = {
   quotes: 'quotes',
   invoices: 'invoices',
   payments: 'payments',
+  expenses: 'expenses',
   appointments: 'appointments',
   gallery: 'gallery_items',
   quoteRequests: 'quote_requests',

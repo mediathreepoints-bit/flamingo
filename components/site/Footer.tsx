@@ -173,6 +173,8 @@ export default function Footer({
             </p>
             <Link
               href="/admin"
+              target="_blank"
+              rel="noopener noreferrer"
               className="mono-label !text-[10px] inline-flex items-center gap-1.5 rounded-full border border-[#D2D2D7] px-3 py-1.5 text-[#424245] transition-colors hover:border-flame-500 hover:text-flame-600"
             >
               <KeyRound className="h-3 w-3" aria-hidden /> {t.footer.adminDash}

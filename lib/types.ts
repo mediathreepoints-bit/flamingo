@@ -93,6 +93,20 @@ export interface ServiceContent {
   ar?: { title?: string; desc?: string; sub?: string };
 }
 
+export type ExpenseCategory = 'pieces' | 'fournitures' | 'loyer' | 'salaires' | 'energie' | 'transport' | 'entretien' | 'marketing' | 'autre';
+export interface Expense { id: ID; date: string; category: ExpenseCategory; label: string; supplier?: string; amount: number; method: PaymentMethod; notes?: string; createdAt: string; }
+export const EXPENSE_CATEGORY_META: Record<ExpenseCategory, { label: string; color: string }> = {
+  pieces: { label: 'Pièces détachées', color: '#F04438' },
+  fournitures: { label: 'Fournitures', color: '#F59E0B' },
+  loyer: { label: 'Loyer', color: '#8B5CF6' },
+  salaires: { label: 'Salaires', color: '#38BDF8' },
+  energie: { label: 'Énergie', color: '#22C55E' },
+  transport: { label: 'Transport', color: '#EC4899' },
+  entretien: { label: 'Entretien atelier', color: '#A3A3A3' },
+  marketing: { label: 'Marketing', color: '#F97316' },
+  autre: { label: 'Autre', color: '#6E7787' },
+};
+
 export interface DB {
   customers: Customer[];
   vehicles: Vehicle[];
@@ -100,6 +114,7 @@ export interface DB {
   quotes: Quote[];
   invoices: Invoice[];
   payments: Payment[];
+  expenses: Expense[];
   appointments: Appointment[];
   gallery: GalleryItem[];
   quoteRequests: QuoteRequest[];
@@ -111,7 +126,7 @@ export interface DB {
 
 export const emptyDB = (): DB => ({
   customers: [], vehicles: [], repairs: [], quotes: [], invoices: [],
-  payments: [], appointments: [], gallery: [], quoteRequests: [], messages: [],
+  payments: [], expenses: [], appointments: [], gallery: [], quoteRequests: [], messages: [],
   promotions: [], services: [],
   settings: {},
 });

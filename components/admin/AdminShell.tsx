@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { LayoutDashboard, Users, CarFront, Wrench, FileText, CalendarDays, Receipt, Wallet, Images, Inbox, MessageSquare, Globe, LogOut, Menu, X, Database, BadgePercent, Briefcase } from 'lucide-react';
+import { LayoutDashboard, Users, CarFront, Wrench, FileText, CalendarDays, Receipt, Wallet, Images, Inbox, MessageSquare, Globe, LogOut, Menu, X, Database, BadgePercent, Briefcase , TrendingDown} from 'lucide-react';
 import { cx } from '@/lib/format';
 import { LogoMark } from '@/components/site/Logo';
 import { ToastProvider } from './ui';
@@ -18,6 +18,7 @@ const NAV = [
   { href: '/admin/appointments', label: 'Rendez-vous', icon: CalendarDays },
   { href: '/admin/invoices', label: 'Factures', icon: Receipt },
   { href: '/admin/payments', label: 'Paiements & Soldes', icon: Wallet },
+  { href: '/admin/expenses', label: 'Dépenses', icon: TrendingDown },
   { href: '/admin/gallery', label: 'Galerie avant/après', icon: Images },
   { href: '/admin/promotions', label: 'Promotions & remises', icon: BadgePercent },
   { href: '/admin/services', label: 'Services du site', icon: Briefcase },

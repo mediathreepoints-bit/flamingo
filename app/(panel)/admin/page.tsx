@@ -7,6 +7,7 @@ import { repo } from '@/lib/repo';
 import { fmtMoney, fmtDate } from '@/lib/format';
 import { invoiceBalance, invoicePaid } from '@/lib/billing';
 import { activePromotion } from '@/lib/promo';
+import { EXPENSE_CATEGORY_META, type Expense } from '@/lib/types';
 import { REPAIR_STATUS_META, QUOTE_STATUS_META, type Appointment, type ContactMessage, type Customer, type GalleryItem, type Invoice, type Payment, type Promotion, type Quote, type QuoteRequest, type Repair, type Vehicle } from '@/lib/types';
 import { StatusChip } from '@/components/admin/ui';
 
@@ -69,7 +70,7 @@ function ActivityChart({ requests, messages }: { requests: QuoteRequest[]; messa
 }
 
 export default async function AdminDashboard() {
-  const [customers, vehicles, repairs, quotes, invoices, payments, appointments, quoteRequests, messages, gallery, promotions] = await Promise.all([
+  const [customers, vehicles, repairs, quotes, invoices, payments, appointments, quoteRequests, messages, gallery, promotions, expenses] = await Promise.all([
     repo.list<Customer>('customers'),
     repo.list<Vehicle>('vehicles'),
     repo.list<Repair>('repairs'),
@@ -81,6 +82,7 @@ export default async function AdminDashboard() {
     repo.list<ContactMessage>('messages'),
     repo.list<GalleryItem>('gallery'),
     repo.list<Promotion>('promotions'),
+    repo.list<Expense>('expenses'),
   ]);
 
   const activeRepairs = repairs.filter((r) => r.status !== 'livre');
@@ -94,6 +96,9 @@ export default async function AdminDashboard() {
   const newRequests = quoteRequests.filter((q) => q.status === 'nouveau');
   const newMessages = messages.filter((m) => m.status === 'nouveau');
   const promo = activePromotion(promotions);
+  const spent = expenses.reduce((s2, x) => s2 + x.amount, 0);
+  const net = collected - spent;
+  const lastExpenses = [...expenses].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
   const onlineGallery = gallery.filter((g) => !g.demo);
 
   return (
@@ -140,6 +145,8 @@ export default async function AdminDashboard() {
         <StatCard icon={Wallet} label="Encaissé" value={fmtMoney(collected)} href="/admin/payments" />
         <StatCard icon={Wallet} label="Reste dû" value={fmtMoney(outstanding)} href="/admin/payments" accent={outstanding > 0} />
         <StatCard icon={Sparkles} label="Devis" value={String(quotes.length)} href="/admin/quotes" />
+        <StatCard icon={Wallet} label="Dépenses" value={fmtMoney(spent)} href="/admin/expenses" />
+        <StatCard icon={Wallet} label="Solde net (encaissé - dépenses)" value={fmtMoney(net)} href="/admin/expenses" accent={net < 0} />
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
@@ -221,8 +228,9 @@ export default async function AdminDashboard() {
         </section>
       </div>
 
+      <div className="mt-6 grid gap-6 lg:grid-cols-2">
       {/* derniers devis */}
-      <section className="card mt-6 p-5">
+      <section className="card p-5">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="font-display text-sm font-black uppercase tracking-mega text-white">Derniers devis</h2>
           <Link href="/admin/quotes" className="text-xs font-bold uppercase tracking-mega text-flame-400 hover:text-flame-500">Tout voir</Link>
@@ -245,6 +253,35 @@ export default async function AdminDashboard() {
           </ul>
         )}
       </section>
+
+      {/* dépenses récentes */}
+      <section className="card p-5">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="font-display text-sm font-black uppercase tracking-mega text-white">Dépenses récentes</h2>
+          <Link href="/admin/expenses" className="text-xs font-bold uppercase tracking-mega text-flame-400 hover:text-flame-500">Gérer</Link>
+        </div>
+        {lastExpenses.length === 0 ? (
+          <p className="py-6 text-center text-sm text-steel-500">
+            Aucune dépense enregistrée.{' '}
+            <Link href="/admin/expenses" className="font-bold text-flame-400 hover:text-flame-500">Ajouter une dépense</Link>
+          </p>
+        ) : (
+          <ul className="space-y-2">
+            {lastExpenses.map((x) => {
+              const m = EXPENSE_CATEGORY_META[x.category] || EXPENSE_CATEGORY_META.autre;
+              return (
+                <li key={x.id} className="flex items-center gap-3 rounded-lg border border-ink-600 bg-ink-800/60 px-4 py-3 text-sm">
+                  <span className="font-mono text-xs text-steel-400">{fmtDate(x.date)}</span>
+                  <span className="min-w-0 flex-1 truncate text-steel-200">{x.label}</span>
+                  <StatusChip label={m.label} color={m.color} />
+                  <span className="font-mono text-xs font-bold text-flame-400">{fmtMoney(x.amount)}</span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </section>
+      </div>
     </div>
   );
 }

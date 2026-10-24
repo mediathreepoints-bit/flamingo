@@ -79,6 +79,11 @@ export async function apiCreate(entity: Entity, body: Record<string, unknown>): 
       base.createdAt = base.createdAt || now();
       base.status = base.status || 'nouveau';
       break;
+    case 'expenses':
+      base.createdAt = base.createdAt || now();
+      base.amount = Number(base.amount) || 0;
+      base.date = base.date || todayISO();
+      break;
   }
   const rec = await repo.create(entity, base);
   if (entity === 'payments' || entity === 'invoices') await refreshInvoices();
