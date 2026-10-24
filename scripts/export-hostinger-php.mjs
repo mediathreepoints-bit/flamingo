@@ -68,10 +68,22 @@ const nextConfig = {
   trailingSlash: true,
   reactStrictMode: true,
   poweredByHeader: false,
-  images: { unoptimized: true },
+  images: {
+    loader: 'custom',
+    loaderFile: './lib/img-loader.ts',
+  },
   experimental: { optimizePackageImports: ['lucide-react', 'framer-motion'] },
 };
 export default nextConfig;
+`);
+
+// Chargeur d'images : en export statique sous basePath, next/image n'ajoute PAS
+// le préfixe — ce loader l'ajoute pour toutes les URLs locales (/images/…, /uploads/…).
+fs.writeFileSync(path.join(stage, 'lib', 'img-loader.ts'), `export default function loader({ src }: { src: string; width: number; quality?: number }): string {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  if (!src.startsWith('/') || !base || src.startsWith(base + '/')) return src;
+  return base + src;
+}
 `);
 
 // robots/sitemap : force-static requis par output:export
