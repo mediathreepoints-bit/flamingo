@@ -535,6 +535,15 @@ function sess_current(): ?array
     $name = cfg()['cookie'];
     $id = (string)($_COOKIE[$name] ?? '');
     if (!preg_match('/^[a-f0-9]{64}$/', $id)) {
+        /* Repli « Authorization: Bearer <id> » : indispensable dans les iframes
+           d'aperçu où les cookies SameSite sont bloqués par le navigateur.
+           Sur Hostinger en même origine, le cookie reste le chemin normal. */
+        $h = (string)($_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '');
+        if (preg_match('/^Bearer\s+([a-f0-9]{64})$/i', $h, $m)) {
+            $id = $m[1];
+        }
+    }
+    if (!preg_match('/^[a-f0-9]{64}$/', $id)) {
         return null;
     }
     $f = sess_dir() . "/$id.json";
@@ -549,7 +558,7 @@ function sess_current(): ?array
     return ['id' => $id, 'user' => (string)($j['user'] ?? 'admin')];
 }
 
-function sess_create(string $user): void
+function sess_create(string $user): string
 {
     $dir = sess_dir();
     if (!is_dir($dir)) {
@@ -572,6 +581,7 @@ function sess_create(string $user): void
     @chmod("$dir/$id.json", 0600);
     $path = $c['base_path'] !== '' ? $c['base_path'] : '/';
     out_cookie($c['cookie'], $id, time() + (int)$c['session_ttl'], $path);
+    return $id;
 }
 
 function sess_destroy(): void

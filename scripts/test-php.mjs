@@ -55,7 +55,7 @@ function walk(dir, base = '') {
 }
 const API_FILES = walk(path.join(DIST, 'api'));
 
-async function request({ method = 'GET', uri, body = null, cookies = {}, files = [] }) {
+async function request({ method = 'GET', uri, body = null, cookies = {}, files = [], bearer = null }) {
   const php = new PHP(await loadNodeRuntime('8.3', { emscriptenOptions: { processId: pid++ } }));
   try {
     // arborescence applicative dans le FS du wasm
@@ -87,6 +87,7 @@ $_SERVER['REQUEST_METHOD'] = base64_decode('${b64(method)}');
 $_SERVER['REQUEST_URI'] = base64_decode('${b64(uri)}');
 $_SERVER['HTTP_HOST'] = 'threepointsmedia.com';
 $_SERVER['HTTPS'] = 'on';
+${bearer ? `$_SERVER['HTTP_AUTHORIZATION'] = base64_decode('${b64('Bearer ' + bearer)}');` : ''}
 $_COOKIE = json_decode(base64_decode('${b64(JSON.stringify(cookies))}'), true) ?: [];
 register_shutdown_function(function () {
   echo "\\n@@STATUS@@" . (http_response_code() ?: 200);
@@ -161,6 +162,13 @@ check('cookie de session émis (HttpOnly/Lax)', Boolean(sid && /^[a-f0-9]{64}$/.
 const C = { fk_php_session: sid };
 r = await request({ uri: `${BASE}/api/auth/me`, cookies: C });
 check('GET /me avec cookie → {user:"admin"}', r.status === 200 && r.json?.user === 'admin');
+r = await request({ method: 'POST', uri: `${BASE}/api/auth/login`, body: { identifier: 'admin', password: 'flamingo2026' } });
+const tok = r.json?.token;
+check('login renvoie un jeton hex64 (repli iframe sans cookie)', r.status === 200 && /^[a-f0-9]{64}$/.test(String(tok || '')));
+r = await request({ uri: `${BASE}/api/auth/me`, bearer: tok });
+check('GET /me avec Authorization Bearer SANS cookie → 200', r.status === 200 && r.json?.user === 'admin', dbgOf(r));
+r = await request({ uri: `${BASE}/api/admin/customers`, bearer: tok });
+check('GET admin/customers avec Bearer → 200 {rows}', r.status === 200 && Array.isArray(r.json?.rows), dbgOf(r));
 
 console.log('— CRUD admin + règles métier —');
 r = await request({ uri: `${BASE}/api/admin/quotes`, cookies: C });

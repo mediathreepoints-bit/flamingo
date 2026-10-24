@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { apiUrl } from '@/lib/client-env';
+import { authHeaders } from './client-api';
 import AdminShell from './AdminShell';
 
 /** Garde de session pour la variante export PHP (pas de middleware côté
@@ -13,7 +14,7 @@ export default function SessionGuard({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     let on = true;
-    fetch(apiUrl('/api/auth/me'), { cache: 'no-store' })
+    fetch(apiUrl('/api/auth/me'), { cache: 'no-store', headers: authHeaders() })
       .then(async (r) => {
         if (!r.ok) throw new Error('session invalide');
         const j = await r.json();

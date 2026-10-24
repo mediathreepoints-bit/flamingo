@@ -4,7 +4,7 @@
  * Miroir des routes API Next.js pour l'hébergement mutualisé Hostinger.
  * Toutes les requêtes /api/* sont réécrites vers ce fichier (.htaccess).
  *
- *  POST   /api/auth/login            → { ok:true } + cookie de session
+ *  POST   /api/auth/login            → { ok:true, token } + cookie de session
  *  POST   /api/auth/logout           → { ok:true }
  *  GET    /api/auth/me               → { user }
  *  GET    /api/public/site-data      → { gallery, promotion, services } (public)
@@ -51,8 +51,11 @@ if ($s0 === 'auth') {
         if ($identifier !== $c['admin_user'] || !password_verify($password, $c['admin_password_hash'])) {
             json_err('Identifiants invalides', 401);
         }
-        sess_create($identifier);
-        json_out(['ok' => true]);
+        $sid = sess_create($identifier);
+        /* token = id de session : le front le stocke (sessionStorage/URL ?atk=)
+           et le renvoie en Authorization: Bearer quand les cookies sont bloqués
+           (aperçu dans une iframe). */
+        json_out(['ok' => true, 'token' => $sid]);
     }
     if ($s1 === 'logout' && $method === 'POST') {
         sess_destroy();

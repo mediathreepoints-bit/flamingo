@@ -8,7 +8,7 @@ import { LayoutDashboard, Users, CarFront, Wrench, FileText, CalendarDays, Recei
 import { cx } from '@/lib/format';
 import { LogoMark } from '@/components/site/Logo';
 import { ToastProvider } from './ui';
-import { getAtk } from './client-api';
+import { getAtk, authHeaders } from './client-api';
 import { apiUrl } from '@/lib/client-env';
 
 const NAV = [
@@ -64,7 +64,7 @@ export default function AdminShell({ user, mode, children }: { user: string; mod
 
   const logout = async () => {
     try { sessionStorage.removeItem('fk_atk'); } catch { /* stockage indisponible */ }
-    await fetch(apiUrl('/api/auth/logout'), { method: 'POST' });
+    await fetch(apiUrl('/api/auth/logout'), { method: 'POST', headers: authHeaders() });
     router.push('/admin/login');
     router.refresh();
   };

@@ -1,6 +1,8 @@
 # Toutes les requêtes /api/* (sauf fichiers réels) → routeur PHP unique
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # Transmet l'en-tête Authorization à PHP (supprimé par certaines configs FastCGI)
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule . router.php [QSA,L]
 </IfModule>

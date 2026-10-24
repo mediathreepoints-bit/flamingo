@@ -6,6 +6,7 @@ import { Save, Globe, Eye } from 'lucide-react';
 import { PageHeader, useToast } from './ui';
 import type { SiteSettings } from '@/lib/site';
 import { apiUrl, PHP_MODE, safeJson } from '@/lib/client-env';
+import { authHeaders } from './client-api';
 
 const GROUPS: { title: string; fields: { key: keyof SiteSettings; label: string; hint?: string; wide?: boolean; arabic?: boolean }[] }[] = [
   {
@@ -55,7 +56,7 @@ export default function SettingsForm({ settings }: { settings: SiteSettings }) {
   // variante export PHP : recharge les réglages enregistrés côté serveur
   useEffect(() => {
     if (!PHP_MODE) return;
-    fetch(apiUrl('/api/admin/settings'), { cache: 'no-store' })
+    fetch(apiUrl('/api/admin/settings'), { cache: 'no-store', headers: authHeaders() })
       .then((r) => (r.ok ? r.json() : null))
       .then((j) => { if (j?.settings) setForm(j.settings); })
       .catch(() => { /* garder les réglages initiaux */ });
@@ -68,7 +69,7 @@ export default function SettingsForm({ settings }: { settings: SiteSettings }) {
     try {
       const res = await fetch(apiUrl('/api/admin/settings'), {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders({ 'Content-Type': 'application/json' }),
         body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error((await safeJson(res)).error || 'Erreur');

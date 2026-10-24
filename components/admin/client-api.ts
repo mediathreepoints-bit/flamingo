@@ -15,7 +15,7 @@ export function getAtk(): string | null {
   }
 }
 
-function authHeaders(extra?: Record<string, string>): Record<string, string> {
+export function authHeaders(extra?: Record<string, string>): Record<string, string> {
   const h: Record<string, string> = { ...(extra || {}) };
   const atk = getAtk();
   if (atk) h.Authorization = `Bearer ${atk}`;
