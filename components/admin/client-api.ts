@@ -1,4 +1,4 @@
-import { apiUrl } from '@/lib/client-env';
+import { apiUrl, safeJson } from '@/lib/client-env';
 
 // Jeton de session admin : sessionStorage d'abord, sinon l'URL (?atk=) —
 // fonctionne même dans un iframe où le stockage est bloqué.
@@ -34,8 +34,11 @@ export async function api<T = any>(
     body: body ? JSON.stringify(body) : undefined,
     cache: 'no-store',
   });
-  const json = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(json.error || 'Erreur serveur');
+  const json = await safeJson<T>(res).catch((e) => {
+    if (!res.ok) return { error: 'Erreur serveur' } as T;
+    throw e;
+  });
+  if (!res.ok) throw new Error((json as any)?.error || 'Erreur serveur');
   return json as T;
 }
 
@@ -45,7 +48,10 @@ export async function convertQuoteApi(quoteId: string) {
     headers: authHeaders({ 'Content-Type': 'application/json' }),
     body: JSON.stringify({ quoteId }),
   });
-  const json = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(json.error || 'Erreur serveur');
+  const json = await safeJson(res).catch((e) => {
+    if (!res.ok) return { error: 'Erreur serveur' };
+    throw e;
+  });
+  if (!res.ok) throw new Error(json?.error || 'Erreur serveur');
   return json;
 }

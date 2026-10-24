@@ -1,7 +1,7 @@
 'use client';
 
 import { useLiveRows } from './live';
-import { apiUrl } from '@/lib/client-env';
+import { apiUrl, safeJson } from '@/lib/client-env';
 
 import Image from 'next/image';
 import { useRef, useState } from 'react';
@@ -23,7 +23,7 @@ function ImagePicker({ label, value, onChange }: { label: string; value: string;
       const fd = new FormData();
       fd.append('photos', file);
       const res = await fetch(apiUrl('/api/upload'), { method: 'POST', body: fd });
-      const json = await res.json();
+      const json = await safeJson(res);
       if (!res.ok) throw new Error(json.error || 'Upload impossible');
       onChange(json.paths[0]);
       toast('Image envoyée');

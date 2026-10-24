@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, CheckCircle2, AlertCircle, Send } from 'lucide-react';
 import { cx } from '@/lib/format';
 import type { Dict } from '@/lib/i18n';
-import { apiUrl } from '@/lib/client-env';
+import { apiUrl, safeJson } from '@/lib/client-env';
 
 export default function ContactForm({ t }: { t: Dict }) {
   const f = t.contactPage.form;
@@ -34,7 +34,7 @@ export default function ContactForm({ t }: { t: Dict }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      const json = await res.json();
+      const json = await safeJson(res);
       if (!res.ok) throw new Error(json.error || 'Erreur inconnue');
       setState('done');
     } catch (err: any) {

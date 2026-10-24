@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Upload } from 'lucide-react';
 import { PageHeader, TextInput, TextArea, useToast } from './ui';
 import { api } from './client-api';
-import { apiUrl, PHP_MODE } from '@/lib/client-env';
+import { apiUrl, PHP_MODE, safeJson } from '@/lib/client-env';
 import { SERVICES8_META } from '@/lib/services-meta';
 import type { ServiceContent } from '@/lib/types';
 
@@ -63,7 +63,7 @@ export default function ServicesManager({ initial, defaults }: { initial: Servic
       const fd = new FormData();
       fd.append('photos', file);
       const res = await fetch(apiUrl('/api/upload'), { method: 'POST', body: fd });
-      const json = await res.json();
+      const json = await safeJson(res);
       if (!res.ok) throw new Error(json.error || 'Upload impossible');
       set(id, { image: json.paths[0] });
       toast('Image envoyée');

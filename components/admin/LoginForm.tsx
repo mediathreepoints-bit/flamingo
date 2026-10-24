@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Lock, Loader2 } from 'lucide-react';
 import { Logo } from '@/components/site/Logo';
-import { apiUrl, PHP_MODE } from '@/lib/client-env';
+import { apiUrl, PHP_MODE, safeJson } from '@/lib/client-env';
 
 export default function LoginForm({ mode }: { mode: 'supabase' | 'local' }) {
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function LoginForm({ mode }: { mode: 'supabase' | 'local' }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifier, password }),
       });
-      const json = await res.json();
+      const json = await safeJson(res);
       if (!res.ok) throw new Error(json.error || 'Connexion impossible');
       const base = params.get('next') || '/admin';
       if (json.token) {

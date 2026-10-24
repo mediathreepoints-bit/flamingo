@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Save, Globe, Eye } from 'lucide-react';
 import { PageHeader, useToast } from './ui';
 import type { SiteSettings } from '@/lib/site';
-import { apiUrl, PHP_MODE } from '@/lib/client-env';
+import { apiUrl, PHP_MODE, safeJson } from '@/lib/client-env';
 
 const GROUPS: { title: string; fields: { key: keyof SiteSettings; label: string; hint?: string; wide?: boolean; arabic?: boolean }[] }[] = [
   {
@@ -71,7 +71,7 @@ export default function SettingsForm({ settings }: { settings: SiteSettings }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error((await res.json()).error || 'Erreur');
+      if (!res.ok) throw new Error((await safeJson(res)).error || 'Erreur');
       toast('Contenu du site mis à jour');
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
