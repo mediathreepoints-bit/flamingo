@@ -1,0 +1,27 @@
+# dependencies
+node_modules
+
+# next.js
+.next
+out
+
+# runtime
+public/uploads
+data/db.json
+data/*.tmp-*
+
+# env
+.env
+.env*.local
+
+# misc
+.DS_Store
+npm-debug.log*
+*.tsbuildinfo
+next-env.d.ts
+
+# export Hostinger / sauvegardes locales (ne pas commiter)
+flamingo-auto-hostinger.zip
+dist-hostinger/
+sauvegarde/
+sauvegarde-*.zip
