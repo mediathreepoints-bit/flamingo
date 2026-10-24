@@ -23,3 +23,6 @@ next-env.d.ts
 # export Hostinger
 flamingo-auto-hostinger.zip
 dist-hostinger/
+
+# sauvegardes locales (ne pas commiter)
+sauvegarde-*.zip
