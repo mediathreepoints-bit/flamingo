@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { PhoneCall, MapPin } from 'lucide-react';
+import { PhoneCall, MapPin, KeyRound } from 'lucide-react';
 import { waLink } from '@/lib/site';
 import { withLocale, type Dict, type Locale } from '@/lib/i18n';
 import { InstagramIcon } from './Icons';
@@ -167,9 +167,17 @@ export default function Footer({
           <p className="mono-label !text-[10px] text-[#6E6E73]">
             © {year} {brand} — {legal}
           </p>
-          <p className="mono-label !text-[10px] text-[#6E6E73]">
-            {city} <span className="mx-2 text-flame-500" aria-hidden>▪</span> FR · EN · AR
-          </p>
+          <div className="flex items-center gap-5">
+            <p className="mono-label !text-[10px] text-[#6E6E73]">
+              {city} <span className="mx-2 text-flame-500" aria-hidden>▪</span> FR · EN · AR
+            </p>
+            <Link
+              href="/admin"
+              className="mono-label !text-[10px] inline-flex items-center gap-1.5 text-[#6E6E73] transition-colors hover:text-flame-600"
+            >
+              <KeyRound className="h-3 w-3" aria-hidden /> Admin
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
