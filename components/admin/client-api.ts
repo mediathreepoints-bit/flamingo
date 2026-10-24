@@ -1,3 +1,5 @@
+import { apiUrl } from '@/lib/client-env';
+
 // Jeton de session admin : sessionStorage d'abord, sinon l'URL (?atk=) —
 // fonctionne même dans un iframe où le stockage est bloqué.
 export function getAtk(): string | null {
@@ -26,7 +28,7 @@ export async function api<T = any>(
   id?: string,
   body?: unknown,
 ): Promise<T> {
-  const res = await fetch(`/api/admin/${entity}${id ? `/${id}` : ''}`, {
+  const res = await fetch(apiUrl(`/api/admin/${entity}${id ? `/${id}` : ''}`), {
     method,
     headers: authHeaders(body ? { 'Content-Type': 'application/json' } : undefined),
     body: body ? JSON.stringify(body) : undefined,
@@ -38,7 +40,7 @@ export async function api<T = any>(
 }
 
 export async function convertQuoteApi(quoteId: string) {
-  const res = await fetch('/api/admin/convert-quote', {
+  const res = await fetch(apiUrl('/api/admin/convert-quote'), {
     method: 'POST',
     headers: authHeaders({ 'Content-Type': 'application/json' }),
     body: JSON.stringify({ quoteId }),

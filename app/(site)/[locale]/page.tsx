@@ -10,6 +10,8 @@ import ValuesSection from '@/components/site/ValuesSection';
 import ReopeningSection from '@/components/site/ReopeningSection';
 import QuoteForm from '@/components/site/QuoteForm';
 import WhatsAppSection from '@/components/site/WhatsAppSection';
+import { LiveReopening, LiveServicesGrid, LiveTransformations } from '@/components/site/LiveSiteData';
+import { PHP_MODE } from '@/lib/client-env';
 import { repo } from '@/lib/repo';
 import { DEFAULT_SETTINGS } from '@/lib/site';
 import { getDict, isLocale } from '@/lib/i18n';
@@ -80,13 +82,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             </Link>
           </div>
 
-          <ServicesGrid locale={raw} t={t} items={services8} />
+          {PHP_MODE ? <LiveServicesGrid locale={raw} t={t} items={services8} /> : <ServicesGrid locale={raw} t={t} items={services8} />}
         </div>
       </section>
 
-      <TransformationsSection items={gallery} whatsapp={s.whatsapp} t={t} />
+      {PHP_MODE ? <LiveTransformations items={gallery} whatsapp={s.whatsapp} t={t} /> : <TransformationsSection items={gallery} whatsapp={s.whatsapp} t={t} />}
       <AtelierGallery t={t} variant="strip" />
-      <ReopeningSection t={t} whatsapp={s.whatsapp} promo={promo} />
+      {PHP_MODE ? <LiveReopening t={t} whatsapp={s.whatsapp} promo={promo} /> : <ReopeningSection t={t} whatsapp={s.whatsapp} promo={promo} />}
       <ValuesSection t={t} />
 
       {/* ——— Devis (template : « Parlez-nous de votre véhicule ») ——— */}

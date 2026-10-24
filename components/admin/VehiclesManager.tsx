@@ -1,5 +1,7 @@
 'use client';
 
+import { useLiveRows, useLiveRelated } from './live';
+
 import { useState } from 'react';
 import { PageHeader, DataTable, Modal, TextInput, SelectInput, TextArea, AddButton, useToast, type Column } from './ui';
 import { api } from './client-api';
@@ -7,9 +9,10 @@ import type { Customer, Vehicle } from '@/lib/types';
 
 const emptyForm = { customerId: '', marque: '', modele: '', annee: '', immatriculation: '', couleur: '', kilometrage: '', notes: '' };
 
-export default function VehiclesManager({ initial, customers }: { initial: Vehicle[]; customers: Customer[] }) {
+export default function VehiclesManager({ initial, customers: customersIn }: { initial: Vehicle[]; customers: Customer[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('vehicles', initial);
+  const customers = useLiveRelated('customers', customersIn);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Vehicle | null>(null);
   const [form, setForm] = useState(emptyForm);

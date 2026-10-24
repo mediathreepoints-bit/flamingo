@@ -1,5 +1,7 @@
 'use client';
 
+import { useLiveRows, useLiveRelated } from './live';
+
 import { useState } from 'react';
 import { PageHeader, DataTable, Modal, TextInput, TextArea, AddButton, useToast, type Column } from './ui';
 import { api } from './client-api';
@@ -8,9 +10,10 @@ import { fmtDate, initials } from '@/lib/format';
 
 const emptyForm = { nom: '', telephone: '', email: '', ville: '', adresse: '', notes: '' };
 
-export default function CustomersManager({ initial, vehicles }: { initial: Customer[]; vehicles: Vehicle[] }) {
+export default function CustomersManager({ initial, vehicles: vehiclesIn }: { initial: Customer[]; vehicles: Vehicle[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('customers', initial);
+  const vehicles = useLiveRelated('vehicles', vehiclesIn);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Customer | null>(null);
   const [form, setForm] = useState(emptyForm);

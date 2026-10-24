@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { mkdir, writeFile, copyFile } from 'node:fs/promises';
 import path from 'node:path';
-import { getSession } from '@/lib/auth';
 import { appRoot, isStandaloneCwd } from '@/lib/paths';
 
+// Endpoint PUBLIC : le formulaire de devis du site (photos des dégâts) et les
+// gestionnaires admin l'utilisent. Validations strictes : images uniquement,
+// 10 Mo max par fichier, 6 fichiers max, noms aléatoires non devinables.
 export async function POST(req: NextRequest) {
   try {
-    const session = await getSession();
-    if (!session) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
     const form = await req.formData();
     const files = form.getAll('photos').filter((f): f is File => f instanceof File);
     if (!files.length) return NextResponse.json({ error: 'Aucun fichier reçu' }, { status: 400 });

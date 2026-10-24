@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Save, Globe, Eye } from 'lucide-react';
 import { PageHeader, useToast } from './ui';
 import type { SiteSettings } from '@/lib/site';
+import { apiUrl, PHP_MODE } from '@/lib/client-env';
 
 const GROUPS: { title: string; fields: { key: keyof SiteSettings; label: string; hint?: string; wide?: boolean; arabic?: boolean }[] }[] = [
   {
@@ -51,12 +52,21 @@ export default function SettingsForm({ settings }: { settings: SiteSettings }) {
   const [busy, setBusy] = useState(false);
   const [saved, setSaved] = useState(false);
 
+  // variante export PHP : recharge les réglages enregistrés côté serveur
+  useEffect(() => {
+    if (!PHP_MODE) return;
+    fetch(apiUrl('/api/admin/settings'), { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => { if (j?.settings) setForm(j.settings); })
+      .catch(() => { /* garder les réglages initiaux */ });
+  }, []);
+
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
     setSaved(false);
     try {
-      const res = await fetch('/api/admin/settings', {
+      const res = await fetch(apiUrl('/api/admin/settings'), {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

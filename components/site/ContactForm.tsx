@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, CheckCircle2, AlertCircle, Send } from 'lucide-react';
 import { cx } from '@/lib/format';
 import type { Dict } from '@/lib/i18n';
+import { apiUrl } from '@/lib/client-env';
 
 export default function ContactForm({ t }: { t: Dict }) {
   const f = t.contactPage.form;
@@ -28,7 +29,7 @@ export default function ContactForm({ t }: { t: Dict }) {
 
     setState('sending');
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch(apiUrl('/api/contact'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

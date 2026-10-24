@@ -7,6 +7,7 @@ import { cx } from '@/lib/format';
 import { waLink } from '@/lib/site';
 import { WhatsAppIcon } from './WhatsAppFab';
 import type { Dict } from '@/lib/i18n';
+import { apiUrl } from '@/lib/client-env';
 
 const YEARS = Array.from({ length: 31 }, (_, i) => String(new Date().getFullYear() - i));
 
@@ -47,12 +48,12 @@ export default function QuoteForm({ whatsapp, phone, t }: { whatsapp: string; ph
       if (files.length) {
         const fd = new FormData();
         files.forEach((file) => fd.append('photos', file));
-        const up = await fetch('/api/upload', { method: 'POST', body: fd });
+        const up = await fetch(apiUrl('/api/upload'), { method: 'POST', body: fd });
         const upJson = await up.json();
         if (!up.ok) throw new Error(upJson.error || 'Upload error');
         paths = upJson.paths || [];
       }
-      const res = await fetch('/api/quote', {
+      const res = await fetch(apiUrl('/api/quote'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, photos: paths }),

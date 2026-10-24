@@ -1,5 +1,7 @@
 'use client';
 
+import { useLiveRows, useLiveRelated } from './live';
+
 import { useState } from 'react';
 import { PageHeader, DataTable, Modal, TextInput, SelectInput, StatusChip, AddButton, useToast, type Column } from './ui';
 import { api } from './client-api';
@@ -9,9 +11,11 @@ import { fmtDate, fmtMoney, lineTotals, todayISO } from '@/lib/format';
 
 const emptyForm = { customerId: '', invoiceId: '', amount: '', method: 'especes', type: 'paiement', date: todayISO(), notes: '' };
 
-export default function PaymentsManager({ initial, invoices, customers }: { initial: Payment[]; invoices: Invoice[]; customers: Customer[] }) {
+export default function PaymentsManager({ initial, invoices: invoicesIn, customers: customersIn }: { initial: Payment[]; invoices: Invoice[]; customers: Customer[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('payments', initial);
+  const invoices = useLiveRelated('invoices', invoicesIn);
+  const customers = useLiveRelated('customers', customersIn);
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [busy, setBusy] = useState(false);

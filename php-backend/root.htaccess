@@ -1,0 +1,32 @@
+# ——— FLAMINGO AUTO KÉNITRA — racine du site (public_html/flamingoauto) ———
+# Hébergement mutualisé Hostinger (Apache / LiteSpeed). PHP >= 8.0.
+
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # API → routeur PHP unique (auth, CRUD admin, formulaires, uploads, PDF)
+  RewriteRule ^api/(.*)$ api/router.php [QSA,L]
+
+  # Détail d'une réparation : /admin/repairs/{id}/ → page statique « detail »
+  # (l'identifiant est lu côté client dans l'URL — fonctionnalité conservée)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^admin/repairs/[A-Za-z0-9_-]+/?$ admin/repairs/detail/index.html [L]
+
+  # Blocage absolu du dossier de données (ceinture + data/.htaccess)
+  RewriteRule ^data(/|$) - [F,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Ne jamais servir les fichiers cachés (.htaccess est déjà protégé par Apache)
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>

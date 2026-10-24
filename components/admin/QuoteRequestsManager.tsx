@@ -1,5 +1,9 @@
 'use client';
 
+import { apiUrl } from '@/lib/client-env';
+
+import { useLiveRows } from './live';
+
 import Image from 'next/image';
 import { useState } from 'react';
 import { PhoneCall, FilePlus2 } from 'lucide-react';
@@ -17,7 +21,7 @@ const STATUS: Record<string, { label: string; color: string }> = {
 
 export default function QuoteRequestsManager({ initial }: { initial: QuoteRequest[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('quoteRequests', initial);
   const [selected, setSelected] = useState<QuoteRequest | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -112,7 +116,7 @@ export default function QuoteRequestsManager({ initial }: { initial: QuoteReques
                 <p className="label">Photos des dégâts</p>
                 <div className="flex flex-wrap gap-2">
                   {selected.photos.map((p) => (
-                    <a key={p} href={p} target="_blank" rel="noopener noreferrer" className="relative block h-24 w-32 overflow-hidden rounded-lg border border-ink-500">
+                    <a key={p} href={apiUrl(p)} target="_blank" rel="noopener noreferrer" className="relative block h-24 w-32 overflow-hidden rounded-lg border border-ink-500">
                       <Image src={p} alt="Photo des dégâts" fill sizes="128px" className="object-cover" />
                     </a>
                   ))}

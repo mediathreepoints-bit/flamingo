@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { Upload } from 'lucide-react';
 import { PageHeader, TextInput, TextArea, useToast } from './ui';
 import { api } from './client-api';
+import { apiUrl, PHP_MODE } from '@/lib/client-env';
 import { SERVICES8_META } from '@/lib/services-meta';
 import type { ServiceContent } from '@/lib/types';
 
@@ -26,10 +27,10 @@ const emptyLoc = (): Loc => ({ title: '', desc: '', sub: '' });
 
 export default function ServicesManager({ initial, defaults }: { initial: ServiceContent[]; defaults: Record<string, { image: string; fr: Loc; en: Loc; ar: Loc }> }) {
   const toast = useToast();
-  const [forms, setForms] = useState<Record<string, Form>>(() => {
+  const buildForms = (rows: ServiceContent[]): Record<string, Form> => {
     const out: Record<string, Form> = {};
     for (const m of SERVICES8_META) {
-      const ov = initial.find((r) => r.id === m.id);
+      const ov = rows.find((r) => r.id === m.id);
       const d = defaults[m.id];
       out[m.id] = {
         image: ov?.image || d.image,
@@ -39,7 +40,16 @@ export default function ServicesManager({ initial, defaults }: { initial: Servic
       };
     }
     return out;
-  });
+  };
+  const [forms, setForms] = useState<Record<string, Form>>(() => buildForms(initial));
+  // variante export PHP : recharge les surcharges enregistrées côté serveur
+  useEffect(() => {
+    if (!PHP_MODE) return;
+    api<{ rows: ServiceContent[] }>('services', 'GET')
+      .then((r) => setForms(buildForms(r.rows || [])))
+      .catch(() => { /* garder le contenu initial */ });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [busy, setBusy] = useState<string | null>(null);
   const refs = useRef<Record<string, HTMLInputElement | null>>({});
 
@@ -52,7 +62,7 @@ export default function ServicesManager({ initial, defaults }: { initial: Servic
     try {
       const fd = new FormData();
       fd.append('photos', file);
-      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      const res = await fetch(apiUrl('/api/upload'), { method: 'POST', body: fd });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Upload impossible');
       set(id, { image: json.paths[0] });

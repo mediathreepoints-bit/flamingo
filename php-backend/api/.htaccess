@@ -1,0 +1,6 @@
+# Toutes les requêtes /api/* (sauf fichiers réels) → routeur PHP unique
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule . router.php [QSA,L]
+</IfModule>

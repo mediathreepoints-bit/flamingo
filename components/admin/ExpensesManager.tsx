@@ -1,5 +1,7 @@
 'use client';
 
+import { useLiveRows } from './live';
+
 import { useState } from 'react';
 import { PageHeader, DataTable, Modal, TextInput, SelectInput, StatusChip, AddButton, useToast, type Column } from './ui';
 import { api } from './client-api';
@@ -14,7 +16,7 @@ const emptyForm = { date: todayISO(), category: 'pieces', label: '', supplier: '
 /** Gestion des dépenses de la société : saisie, liste, suppression. */
 export default function ExpensesManager({ initial }: { initial: Expense[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('expenses', initial);
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [busy, setBusy] = useState(false);

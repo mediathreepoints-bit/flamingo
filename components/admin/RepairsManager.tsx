@@ -1,5 +1,7 @@
 'use client';
 
+import { useLiveRows, useLiveRelated } from './live';
+
 import { useState } from 'react';
 import Link from 'next/link';
 import { PageHeader, DataTable, Modal, TextInput, SelectInput, TextArea, StatusChip, AddButton, useToast, type Column } from './ui';
@@ -9,9 +11,11 @@ import { fmtDate, fmtMoney, todayISO } from '@/lib/format';
 
 const emptyForm = { customerId: '', vehicleId: '', status: 'diagnostic', category: 'carrosserie', priority: 'normale', description: '', estimatedAmount: '', startDate: todayISO(), dueDate: '' };
 
-export default function RepairsManager({ initial, customers, vehicles }: { initial: Repair[]; customers: Customer[]; vehicles: Vehicle[] }) {
+export default function RepairsManager({ initial, customers: customersIn, vehicles: vehiclesIn }: { initial: Repair[]; customers: Customer[]; vehicles: Vehicle[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('repairs', initial);
+  const customers = useLiveRelated('customers', customersIn);
+  const vehicles = useLiveRelated('vehicles', vehiclesIn);
   const [filter, setFilter] = useState('tous');
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Repair | null>(null);

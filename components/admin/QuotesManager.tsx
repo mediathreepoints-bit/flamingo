@@ -1,5 +1,8 @@
 'use client';
 
+import { useLiveRows, useLiveRelated } from './live';
+import { apiUrl } from '@/lib/client-env';
+
 import { useState } from 'react';
 import { FileText, ReceiptText } from 'lucide-react';
 import { PageHeader, DataTable, Modal, TextInput, SelectInput, TextArea, StatusChip, AddButton, useToast, type Column } from './ui';
@@ -16,9 +19,11 @@ const emptyForm = {
   validUntil: '', notes: '',
 };
 
-export default function QuotesManager({ initial, customers, vehicles }: { initial: Quote[]; customers: Customer[]; vehicles: Vehicle[] }) {
+export default function QuotesManager({ initial, customers: customersIn, vehicles: vehiclesIn }: { initial: Quote[]; customers: Customer[]; vehicles: Vehicle[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('quotes', initial);
+  const customers = useLiveRelated('customers', customersIn);
+  const vehicles = useLiveRelated('vehicles', vehiclesIn);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Quote | null>(null);
   const [form, setForm] = useState(emptyForm);
@@ -93,7 +98,7 @@ export default function QuotesManager({ initial, customers, vehicles }: { initia
       key: 'actions', header: 'PDF / Facture',
       render: (q) => (
         <span className="flex justify-start gap-1.5">
-          <a href={`/api/pdf/quote/${q.id}`} target="_blank" rel="noopener noreferrer" title="Ouvrir le PDF" className="rounded-lg border border-ink-500 p-1.5 text-steel-300 transition hover:border-flame-500/50 hover:text-white">
+          <a href={apiUrl(`/api/pdf/quote/${q.id}`)} target="_blank" rel="noopener noreferrer" title="Ouvrir le PDF" className="rounded-lg border border-ink-500 p-1.5 text-steel-300 transition hover:border-flame-500/50 hover:text-white">
             <FileText className="h-4 w-4" />
           </a>
           {q.status === 'accepte' && (

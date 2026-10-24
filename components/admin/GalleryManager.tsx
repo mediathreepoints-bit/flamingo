@@ -1,5 +1,8 @@
 'use client';
 
+import { useLiveRows } from './live';
+import { apiUrl } from '@/lib/client-env';
+
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { Upload, Loader2 } from 'lucide-react';
@@ -19,7 +22,7 @@ function ImagePicker({ label, value, onChange }: { label: string; value: string;
     try {
       const fd = new FormData();
       fd.append('photos', file);
-      const res = await fetch('/api/upload', { method: 'POST', body: fd });
+      const res = await fetch(apiUrl('/api/upload'), { method: 'POST', body: fd });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Upload impossible');
       onChange(json.paths[0]);
@@ -54,7 +57,7 @@ function ImagePicker({ label, value, onChange }: { label: string; value: string;
 
 export default function GalleryManager({ initial }: { initial: GalleryItem[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('gallery', initial);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<GalleryItem | null>(null);
   const [form, setForm] = useState(emptyForm);

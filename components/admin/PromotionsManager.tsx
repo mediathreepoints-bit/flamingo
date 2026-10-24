@@ -1,5 +1,7 @@
 'use client';
 
+import { useLiveRows } from './live';
+
 import { useState } from 'react';
 import { PageHeader, DataTable, Modal, TextInput, TextArea, AddButton, StatusChip, useToast, type Column } from './ui';
 import { api } from './client-api';
@@ -21,7 +23,7 @@ const emptyForm = { title: '', percent: '30', services: [] as string[], start: '
 
 export default function PromotionsManager({ initial }: { initial: Promotion[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('promotions', initial);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Promotion | null>(null);
   const [form, setForm] = useState(emptyForm);

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Lock, Loader2 } from 'lucide-react';
 import { Logo } from '@/components/site/Logo';
+import { apiUrl, PHP_MODE } from '@/lib/client-env';
 
 export default function LoginForm({ mode }: { mode: 'supabase' | 'local' }) {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function LoginForm({ mode }: { mode: 'supabase' | 'local' }) {
     setError('');
     setBusy(true);
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(apiUrl('/api/auth/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifier, password }),
@@ -69,10 +70,12 @@ export default function LoginForm({ mode }: { mode: 'supabase' | 'local' }) {
           <button type="submit" disabled={busy} className="btn-primary w-full !py-3">
             {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Lock className="h-4 w-4" /> Se connecter</>}
           </button>
-          {mode === 'local' && (
+          {/* Indice de démonstration : uniquement si NEXT_PUBLIC_ADMIN_HINT est défini.
+              Jamais de mot de passe en littéral dans le JS public (variante PHP). */}
+          {mode === 'local' && !PHP_MODE && process.env.NEXT_PUBLIC_ADMIN_HINT && (
             <p className="text-center text-[11px] text-steel-500">
               Par défaut&nbsp;: <span className="font-mono text-steel-300">admin</span> /{' '}
-              <span className="font-mono text-steel-300">{process.env.NEXT_PUBLIC_ADMIN_HINT || 'flamingo2026'}</span>
+              <span className="font-mono text-steel-300">{process.env.NEXT_PUBLIC_ADMIN_HINT}</span>
             </p>
           )}
         </div>

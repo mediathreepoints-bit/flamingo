@@ -1,5 +1,8 @@
 'use client';
 
+import { useLiveRows, useLiveRelated } from './live';
+import { apiUrl } from '@/lib/client-env';
+
 import { useState } from 'react';
 import { FileText } from 'lucide-react';
 import { PageHeader, DataTable, Modal, TextInput, SelectInput, TextArea, StatusChip, AddButton, useToast, type Column } from './ui';
@@ -11,9 +14,12 @@ import { fmtDate, fmtMoney, lineTotals, todayISO } from '@/lib/format';
 
 const emptyForm = { customerId: '', vehicleId: '', discount: '0', tva: '20', issuedAt: todayISO(), dueAt: '', notes: '' };
 
-export default function InvoicesManager({ initial, customers, vehicles, payments }: { initial: Invoice[]; customers: Customer[]; vehicles: Vehicle[]; payments: Payment[] }) {
+export default function InvoicesManager({ initial, customers: customersIn, vehicles: vehiclesIn, payments: paymentsIn }: { initial: Invoice[]; customers: Customer[]; vehicles: Vehicle[]; payments: Payment[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('invoices', initial);
+  const customers = useLiveRelated('customers', customersIn);
+  const vehicles = useLiveRelated('vehicles', vehiclesIn);
+  const payments = useLiveRelated('payments', paymentsIn);
   const [pays, setPays] = useState(payments);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Invoice | null>(null);
@@ -85,7 +91,7 @@ export default function InvoicesManager({ initial, customers, vehicles, payments
     {
       key: 'pdf', header: 'PDF',
       render: (i) => (
-        <a href={`/api/pdf/invoice/${i.id}`} target="_blank" rel="noopener noreferrer" title="Ouvrir le PDF" className="inline-block rounded-lg border border-ink-500 p-1.5 text-steel-300 transition hover:border-flame-500/50 hover:text-white">
+        <a href={apiUrl(`/api/pdf/invoice/${i.id}`)} target="_blank" rel="noopener noreferrer" title="Ouvrir le PDF" className="inline-block rounded-lg border border-ink-500 p-1.5 text-steel-300 transition hover:border-flame-500/50 hover:text-white">
           <FileText className="h-4 w-4" />
         </a>
       ),

@@ -1,5 +1,7 @@
 'use client';
 
+import { useLiveRows } from './live';
+
 import { useMemo, useState } from 'react';
 import { PageHeader, DataTable, Modal, TextInput, SelectInput, TextArea, StatusChip, AddButton, useToast, type Column } from './ui';
 import { api } from './client-api';
@@ -16,7 +18,7 @@ const STATUS_COLORS: Record<string, { label: string; color: string }> = {
 
 export default function AppointmentsManager({ initial }: { initial: Appointment[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('appointments', initial);
   const [view, setView] = useState<'a_venir' | 'tous' | 'passes'>('a_venir');
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Appointment | null>(null);

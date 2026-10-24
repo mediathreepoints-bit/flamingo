@@ -1,5 +1,7 @@
 'use client';
 
+import { useLiveRows } from './live';
+
 import { useState } from 'react';
 import { PageHeader, DataTable, Modal, StatusChip, useToast, type Column } from './ui';
 import { api } from './client-api';
@@ -13,7 +15,7 @@ const STATUS: Record<string, { label: string; color: string }> = {
 
 export default function MessagesManager({ initial }: { initial: ContactMessage[] }) {
   const toast = useToast();
-  const [rows, setRows] = useState(initial);
+  const [rows, setRows] = useLiveRows('messages', initial);
   const [selected, setSelected] = useState<ContactMessage | null>(null);
 
   const mark = async (m: ContactMessage) => {

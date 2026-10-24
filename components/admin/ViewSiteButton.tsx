@@ -1,19 +1,20 @@
 'use client';
 
 import { Globe } from 'lucide-react';
+import { apiUrl } from '@/lib/client-env';
 
 // « Voir le site » : nouvel onglet si possible, sinon navigation courante
 // (les popups peuvent être bloquées dans l'aperçu intégré).
 export default function ViewSiteButton() {
   return (
     <a
-      href="/"
+      href={apiUrl('/')}
       target="_blank"
       rel="noopener noreferrer"
       onClick={(e) => {
         e.preventDefault();
-        const w = window.open('/', '_blank', 'noopener');
-        if (!w) window.location.href = '/';
+        const w = window.open(apiUrl('/'), '_blank', 'noopener');
+        if (!w) window.location.href = apiUrl('/');
       }}
       className="rounded-lg border border-ink-500 bg-ink-800 px-4 py-2 text-xs font-bold uppercase tracking-mega text-steel-200 transition hover:border-flame-500/50 hover:text-white"
     >
