@@ -20,9 +20,8 @@ npm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# export Hostinger
+# export Hostinger / sauvegardes locales (ne pas commiter)
 flamingo-auto-hostinger.zip
 dist-hostinger/
-
-# sauvegardes locales (ne pas commiter)
+sauvegarde/
 sauvegarde-*.zip

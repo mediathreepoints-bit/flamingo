@@ -50,14 +50,17 @@ for (const item of includes) {
   });
 }
 
-// 3) ZIP
-const zip = path.join(root, 'flamingo-auto-hostinger.zip');
+// 3) ZIP dans le dossier `sauvegarde/`, horodaté
+const outDir = path.join(root, 'sauvegarde');
+fs.mkdirSync(outDir, { recursive: true });
+const date = new Date().toISOString().slice(0, 10);
+const zip = path.join(outDir, `flamingo-auto-hostinger-${date}.zip`);
 fs.rmSync(zip, { force: true });
 execSync(`cd "${stage}" && zip -rq "${zip}" .`, { stdio: 'inherit' });
 fs.rmSync(stage, { recursive: true, force: true });
 
 const mb = (fs.statSync(zip).size / 1e6).toFixed(1);
-console.log(`\n✔ Export prêt : flamingo-auto-hostinger.zip (${mb} Mo)`);
+console.log(`\n✔ Export prêt : sauvegarde/flamingo-auto-hostinger-${date}.zip (${mb} Mo)`);
 console.log('  hPanel → Sites web → Ajouter un site web → Application web Node.js → téléverser le ZIP.');
 console.log('  Réglages : type "next", Node ≥ 20, install "npm ci", build "build", sortie ".next".');
 console.log('  Variables : NEXT_PUBLIC_SITE_URL, ADMIN_SECRET, ADMIN_PASSWORD (+ Supabase optionnel).');
