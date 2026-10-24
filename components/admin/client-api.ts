@@ -1,17 +1,34 @@
+// Jeton de session admin : sessionStorage d'abord, sinon l'URL (?atk=) —
+// fonctionne même dans un iframe où le stockage est bloqué.
+export function getAtk(): string | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const v = window.sessionStorage.getItem('fk_atk');
+    if (v) return v;
+  } catch { /* stockage bloqué */ }
+  try {
+    return new URLSearchParams(window.location.search).get('atk');
+  } catch {
+    return null;
+  }
+}
+
+function authHeaders(extra?: Record<string, string>): Record<string, string> {
+  const h: Record<string, string> = { ...(extra || {}) };
+  const atk = getAtk();
+  if (atk) h.Authorization = `Bearer ${atk}`;
+  return h;
+}
+
 export async function api<T = any>(
   entity: string,
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE',
   id?: string,
   body?: unknown,
 ): Promise<T> {
-  let atk: string | null = null;
-  try { atk = sessionStorage.getItem('fk_atk'); } catch { /* stockage indisponible */ }
-  const headers: Record<string, string> = {};
-  if (body) headers['Content-Type'] = 'application/json';
-  if (atk) headers.Authorization = `Bearer ${atk}`;
   const res = await fetch(`/api/admin/${entity}${id ? `/${id}` : ''}`, {
     method,
-    headers,
+    headers: authHeaders(body ? { 'Content-Type': 'application/json' } : undefined),
     body: body ? JSON.stringify(body) : undefined,
     cache: 'no-store',
   });
@@ -23,7 +40,7 @@ export async function api<T = any>(
 export async function convertQuoteApi(quoteId: string) {
   const res = await fetch('/api/admin/convert-quote', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: authHeaders({ 'Content-Type': 'application/json' }),
     body: JSON.stringify({ quoteId }),
   });
   const json = await res.json().catch(() => ({}));

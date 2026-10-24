@@ -8,6 +8,7 @@ import { LayoutDashboard, Users, CarFront, Wrench, FileText, CalendarDays, Recei
 import { cx } from '@/lib/format';
 import { LogoMark } from '@/components/site/Logo';
 import { ToastProvider } from './ui';
+import { getAtk } from './client-api';
 
 const NAV = [
   { href: '/admin', label: 'Tableau de bord', icon: LayoutDashboard },
@@ -34,8 +35,28 @@ export default function AdminShell({ user, mode, children }: { user: string; mod
   const [atk, setAtk] = useState<string | null>(null);
 
   useEffect(() => {
-    try { setAtk(sessionStorage.getItem('fk_atk')); } catch { /* stockage indisponible */ }
-  }, []);
+    const t = getAtk();
+    setAtk(t);
+    if (t) { try { sessionStorage.setItem('fk_atk', t); } catch { /* stockage bloqué */ } }
+  }, [pathname]);
+
+  // Mode jeton : garantir que CHAQUE lien /admin conserve ?atk= (cartes, actions rapides…),
+  // y compris ceux rendus par le serveur ou ajoutés après coup.
+  useEffect(() => {
+    if (!atk) return;
+    const patch = () => {
+      document.querySelectorAll<HTMLAnchorElement>('a[href^="/admin"]').forEach((a) => {
+        const href = a.getAttribute('href') || '';
+        if (href.includes('atk=')) return;
+        const q = href.includes('?') ? '&' : '?';
+        a.setAttribute('href', `${href}${q}atk=${encodeURIComponent(atk)}`);
+      });
+    };
+    patch();
+    const obs = new MutationObserver(patch);
+    obs.observe(document.body, { childList: true, subtree: true });
+    return () => obs.disconnect();
+  }, [atk, pathname]);
 
   // si la session passe par jeton (cookies bloqués), on le garde dans les URLs
   const withAtk = (href: string) => (atk ? `${href}${href.includes('?') ? '&' : '?'}atk=${encodeURIComponent(atk)}` : href);

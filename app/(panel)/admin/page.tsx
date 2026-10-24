@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ViewSiteButton from '@/components/admin/ViewSiteButton';
 import {
   Users, CarFront, Wrench, Receipt, Wallet, Inbox, CalendarDays, MessageSquare, ArrowRight,
   Image as ImageIcon, Megaphone, Globe, Plus, Sparkles,
@@ -109,9 +110,7 @@ export default async function AdminDashboard() {
           <p className="mt-1 text-sm text-steel-400">Vue d’ensemble de l’activité de l’atelier et du site web.</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Link href="/" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-ink-500 bg-ink-800 px-4 py-2 text-xs font-bold uppercase tracking-mega text-steel-200 transition hover:border-flame-500/50 hover:text-white">
-            <Globe className="me-1.5 inline h-3.5 w-3.5" /> Voir le site
-          </Link>
+          <ViewSiteButton />
           <Link href="/admin/repairs" className="rounded-lg bg-flame-500 px-4 py-2 text-xs font-bold uppercase tracking-mega text-white transition hover:bg-flame-400">
             <Plus className="me-1.5 inline h-3.5 w-3.5" /> Nouvelle réparation
           </Link>
