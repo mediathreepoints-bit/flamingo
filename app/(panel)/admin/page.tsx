@@ -50,7 +50,7 @@ function ActivityChart({ requests, messages }: { requests: QuoteRequest[]; messa
     <div>
       <div className="flex h-24 items-end gap-1.5">
         {days.map((d) => (
-          <div key={d.key} className="group/bar flex flex-1 flex-col items-center justify-end gap-1" title={`${d.key} : ${d.n}`}>
+          <div key={d.key} className="group/bar flex h-full flex-1 flex-col items-center justify-end gap-1" title={`${d.key} : ${d.n}`}>
             <div
               className={`w-full rounded-sm transition-colors ${d.n ? 'bg-flame-500 group-hover/bar:bg-flame-400' : 'bg-ink-600/60'}`}
               style={{ height: `${Math.max(6, (d.n / max) * 100)}%` }}

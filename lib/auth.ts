@@ -29,7 +29,7 @@ export async function login(identifier: string, password: string): Promise<{ ok:
     .setExpirationTime(`${MAX_AGE}s`)
     .sign(secretKey());
   const store = await cookies();
-  store.set(COOKIE, token, { httpOnly: true, sameSite: 'lax', secure: process.env.NODE_ENV === 'production', path: '/', maxAge: MAX_AGE });
+  store.set(COOKIE, token, { httpOnly: true, sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', secure: process.env.NODE_ENV === 'production', path: '/', maxAge: MAX_AGE, partitioned: process.env.NODE_ENV === 'production' });
   return { ok: true };
 }
 
