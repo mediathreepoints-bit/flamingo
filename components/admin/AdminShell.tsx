@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { LayoutDashboard, Users, CarFront, Wrench, FileText, CalendarDays, Receipt, Wallet, Images, Inbox, MessageSquare, Globe, LogOut, Menu, X, Database, BadgePercent, Briefcase , TrendingDown} from 'lucide-react';
 import { cx } from '@/lib/format';
@@ -31,8 +31,17 @@ export default function AdminShell({ user, mode, children }: { user: string; mod
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [atk, setAtk] = useState<string | null>(null);
+
+  useEffect(() => {
+    try { setAtk(sessionStorage.getItem('fk_atk')); } catch { /* stockage indisponible */ }
+  }, []);
+
+  // si la session passe par jeton (cookies bloqués), on le garde dans les URLs
+  const withAtk = (href: string) => (atk ? `${href}${href.includes('?') ? '&' : '?'}atk=${encodeURIComponent(atk)}` : href);
 
   const logout = async () => {
+    try { sessionStorage.removeItem('fk_atk'); } catch { /* stockage indisponible */ }
     await fetch('/api/auth/logout', { method: 'POST' });
     router.push('/admin/login');
     router.refresh();
@@ -45,7 +54,7 @@ export default function AdminShell({ user, mode, children }: { user: string; mod
         return (
           <Link
             key={item.href}
-            href={item.href}
+            href={withAtk(item.href)}
             onClick={() => setOpen(false)}
             className={cx(
               'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors',
@@ -91,7 +100,7 @@ export default function AdminShell({ user, mode, children }: { user: string; mod
 
         {/* mobile drawer */}
         <div className="sticky top-0 z-40 flex items-center justify-between border-b border-ink-600 bg-ink-900/95 px-4 py-3 backdrop-blur lg:hidden">
-          <Link href="/admin" className="flex items-center gap-2">
+          <Link href={withAtk('/admin')} className="flex items-center gap-2">
             <LogoMark size={28} />
             <span className="font-display text-sm font-black uppercase text-white">Admin</span>
           </Link>

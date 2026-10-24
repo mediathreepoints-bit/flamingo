@@ -4,9 +4,14 @@ export async function api<T = any>(
   id?: string,
   body?: unknown,
 ): Promise<T> {
+  let atk: string | null = null;
+  try { atk = sessionStorage.getItem('fk_atk'); } catch { /* stockage indisponible */ }
+  const headers: Record<string, string> = {};
+  if (body) headers['Content-Type'] = 'application/json';
+  if (atk) headers.Authorization = `Bearer ${atk}`;
   const res = await fetch(`/api/admin/${entity}${id ? `/${id}` : ''}`, {
     method,
-    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    headers,
     body: body ? JSON.stringify(body) : undefined,
     cache: 'no-store',
   });

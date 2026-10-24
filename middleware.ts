@@ -40,7 +40,10 @@ export async function middleware(req: NextRequest) {
       return response;
     }
 
-    const token = req.cookies.get(COOKIE)?.value;
+    const atk = req.nextUrl.searchParams.get('atk');
+    const authHdr = req.headers.get('authorization');
+    const bearer = authHdr && authHdr.startsWith('Bearer ') ? authHdr.slice(7) : null;
+    const token = req.cookies.get(COOKIE)?.value || bearer || atk;
     let valid = false;
     if (token) {
       try {
@@ -51,8 +54,20 @@ export async function middleware(req: NextRequest) {
       }
     }
     if (!valid && !isLogin) return redirect('/admin/login');
-    if (valid && isLogin) return redirect('/admin');
-    return NextResponse.next();
+    if (valid && isLogin) {
+      const url = req.nextUrl.clone();
+      url.pathname = '/admin';
+      url.search = atk ? `?atk=${encodeURIComponent(atk)}` : '';
+      return NextResponse.redirect(url);
+    }
+    const reqHeaders = new Headers(req.headers);
+    if (valid && (bearer || atk)) reqHeaders.set('x-admin-token', token as string);
+    const res = NextResponse.next({ request: { headers: reqHeaders } });
+    if (valid && atk) {
+      // tentative cookie (si le navigateur l'accepte), le jeton query reste le secours
+      res.cookies.set(COOKIE, atk, { httpOnly: true, sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', secure: process.env.NODE_ENV === 'production', path: '/', maxAge: 60 * 60 * 12, partitioned: process.env.NODE_ENV === 'production' });
+    }
+    return res;
   }
 
   /* ——— i18n : / = français (rewrite interne), /fr, /en et /ar explicites ——— */

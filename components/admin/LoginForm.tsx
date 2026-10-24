@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Lock, Loader2 } from 'lucide-react';
@@ -13,10 +13,6 @@ export default function LoginForm({ mode }: { mode: 'supabase' | 'local' }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
-  const [inFrame, setInFrame] = useState(false);
-  useEffect(() => {
-    try { setInFrame(window.self !== window.top); } catch { setInFrame(true); }
-  }, []);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +26,14 @@ export default function LoginForm({ mode }: { mode: 'supabase' | 'local' }) {
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || 'Connexion impossible');
-      router.push(params.get('next') || '/admin');
+      const base = params.get('next') || '/admin';
+      if (json.token) {
+        // session par jeton : fonctionne même si les cookies sont bloqués (iframe aperçu)
+        try { sessionStorage.setItem('fk_atk', json.token); } catch { /* stockage indisponible */ }
+        router.push(`${base}${base.includes('?') ? '&' : '?'}atk=${encodeURIComponent(json.token)}`);
+      } else {
+        router.push(base);
+      }
       router.refresh();
     } catch (err: any) {
       setError(err?.message || 'Connexion impossible');
@@ -66,16 +69,6 @@ export default function LoginForm({ mode }: { mode: 'supabase' | 'local' }) {
           <button type="submit" disabled={busy} className="btn-primary w-full !py-3">
             {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Lock className="h-4 w-4" /> Se connecter</>}
           </button>
-          {inFrame && (
-            <a
-              href={typeof window !== 'undefined' ? window.location.href : '/admin/login'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block rounded-lg border border-flame-500/40 bg-flame-500/10 px-3 py-2 text-center text-xs font-bold text-flame-400 transition hover:bg-flame-500/20"
-            >
-              Si la connexion boucle : ouvrir le dashboard dans un nouvel onglet
-            </a>
-          )}
           {mode === 'local' && (
             <p className="text-center text-[11px] text-steel-500">
               Par défaut&nbsp;: <span className="font-mono text-steel-300">admin</span> /{' '}

@@ -1,5 +1,5 @@
 import { SignJWT, jwtVerify } from 'jose';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { supabaseServer, supabaseConfigured } from './supabase';
 
 const COOKIE = 'fk_admin_session';
@@ -11,7 +11,7 @@ const secretKey = () =>
 export const adminPassword = () => process.env.ADMIN_PASSWORD || 'flamingo2026';
 
 /** Connexion : Supabase Auth si configuré, sinon compte local de secours. */
-export async function login(identifier: string, password: string): Promise<{ ok: boolean; error?: string }> {
+export async function login(identifier: string, password: string): Promise<{ ok: boolean; error?: string; token?: string }> {
   if (supabaseConfigured()) {
     const sb = await supabaseServer();
     if (sb) {
@@ -30,7 +30,7 @@ export async function login(identifier: string, password: string): Promise<{ ok:
     .sign(secretKey());
   const store = await cookies();
   store.set(COOKIE, token, { httpOnly: true, sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', secure: process.env.NODE_ENV === 'production', path: '/', maxAge: MAX_AGE, partitioned: process.env.NODE_ENV === 'production' });
-  return { ok: true };
+  return { ok: true, token };
 }
 
 export async function logout() {
@@ -52,7 +52,16 @@ export async function getSession(): Promise<{ user: string } | null> {
     }
   }
   const store = await cookies();
-  const token = store.get(COOKIE)?.value;
+  let token = store.get(COOKIE)?.value || null;
+  if (!token) {
+    // secours : jeton porté par header (middleware) ou Authorization Bearer (fetch client)
+    try {
+      const h = await headers();
+      token = h.get('x-admin-token') || null;
+      const auth = h.get('authorization');
+      if (!token && auth && auth.startsWith('Bearer ')) token = auth.slice(7);
+    } catch { /* headers indisponibles */ }
+  }
   if (!token) return null;
   try {
     const { payload } = await jwtVerify(token, secretKey());
