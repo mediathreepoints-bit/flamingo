@@ -5,7 +5,7 @@ import { repo, type Entity } from '@/lib/repo';
 
 const ALLOWED: Entity[] = [
   'customers', 'vehicles', 'repairs', 'quotes', 'invoices',
-  'payments', 'appointments', 'gallery', 'quoteRequests', 'messages',
+  'payments', 'expenses', 'appointments', 'gallery', 'quoteRequests', 'messages',
   'promotions', 'services',
 ];
 
