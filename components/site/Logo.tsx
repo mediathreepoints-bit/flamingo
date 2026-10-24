@@ -3,13 +3,13 @@ import { cx } from '@/lib/format';
 
 /** Flamant seul (extrait du logo officiel, fond transparent). */
 export function LogoMark({ size = 44, className }: { size?: number; className?: string }) {
-  const h = Math.round((size * 688) / 550);
+  const h = Math.round((size * 552) / 537);
   return (
     <Image
       src="/images/logo-mark.png"
       alt=""
-      width={550}
-      height={688}
+      width={537}
+      height={552}
       aria-hidden
       className={cx('shrink-0', className)}
       style={{ width: size, height: h }}
@@ -34,14 +34,14 @@ export function Logo({
   stacked?: boolean;
   className?: string;
 }) {
-  const w = Math.round((size * 2119) / 704);
+  const w = Math.round((size * 1919) / 552);
   return (
     <span className={cx('inline-flex items-center', className)}>
       <Image
         src="/images/logo-flamingo.png"
         alt={`${brand} ${city} — carrosserie, peinture, polissage`}
-        width={2119}
-        height={704}
+        width={1919}
+        height={552}
         style={{ width: w, height: size }}
         className="shrink-0"
       />
